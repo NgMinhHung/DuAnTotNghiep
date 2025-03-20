@@ -2,7 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package ThongKe_ui;
+package com.outfitme.outfitme;
+
+import com.outfitme.dao.ThongKeDAO;
+import com.outfitme.utils.Auth;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,11 +34,10 @@ public class ThongKeJDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabsThongKe = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         lblNam = new javax.swing.JLabel();
-        cbnNam = new javax.swing.JComboBox<>();
-        btnload = new javax.swing.JButton();
+        cboNam = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDoanhThu = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -50,8 +56,6 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblNam.setText("Năm:");
-
-        btnload.setText("Load");
 
         tblDoanhThu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -79,9 +83,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                         .addGap(49, 49, 49)
                         .addComponent(lblNam, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(cbnNam, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnload)))
+                        .addComponent(cboNam, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(24, 24, 24))
         );
         jPanel1Layout.setVerticalGroup(
@@ -90,14 +92,13 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNam)
-                    .addComponent(cbnNam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnload))
-                .addGap(49, 49, 49)
+                    .addComponent(cboNam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Doanh Thu", jPanel1);
+        tabsThongKe.addTab("Doanh Thu", jPanel1);
 
         lblMaSP.setText("Mã sản phẩm:");
 
@@ -147,7 +148,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Số lượng sản phẩm", jPanel2);
+        tabsThongKe.addTab("Số lượng sản phẩm", jPanel2);
 
         tblDHNV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -197,7 +198,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Đơn hàng của nhân viên", jPanel3);
+        tabsThongKe.addTab("Đơn hàng của nhân viên", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -205,14 +206,14 @@ public class ThongKeJDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabsThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabsThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -265,22 +266,82 @@ public class ThongKeJDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFindSL;
     private javax.swing.JButton btnLoad_DHNV;
-    private javax.swing.JButton btnload;
-    private javax.swing.JComboBox<String> cbnNam;
+    private javax.swing.JComboBox<String> cboNam;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblMaNV;
     private javax.swing.JLabel lblMaSP;
     private javax.swing.JLabel lblNam;
+    private javax.swing.JTabbedPane tabsThongKe;
     private javax.swing.JTable tblDHNV;
     private javax.swing.JTable tblDoanhThu;
     private javax.swing.JTable tblSLSP;
     private javax.swing.JTextField txtMaNV;
     private javax.swing.JTextField txtMaSP;
     // End of variables declaration//GEN-END:variables
+     ThongKeDAO dao = new ThongKeDAO();
+    public void selectTab(int index){
+        tabsThongKe.setSelectedIndex(index);
+    }
+    
+    void init() {
+        setLocationRelativeTo(null);
+        fillComboBoxNam();
+        fillTableDoanhThu();
+        fillTableDHNV();
+        fillTableSLSP();
+        
+        this.selectTab(0);
+        if(!Auth.isManager()){
+            JOptionPane.showMessageDialog(this, "bạn không có quyền truy cập");
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "Chào mừng");
+        }
+    }
+    
+    void fillComboBoxNam(){
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cboNam.getModel();
+        
+        model.removeAllElements();
+        List<Integer> list = dao.selectYears();
+        for(Integer year : list){
+            model.addElement(year);
+        }
+        this.fillTableDoanhThu();
+    }
+    
+    void fillTableDoanhThu(){
+        DefaultTableModel model = (DefaultTableModel) tblDoanhThu.getModel();
+        model.setRowCount(0);
+        int nam = (Integer)cboNam.getSelectedItem();
+        List<Object[]> list = dao.getDoanhThu(nam);
+        for(Object[] row : list){
+            model.addRow(row);
+        }
+    }
+    
+    public void fillTableSLSP() {
+        DefaultTableModel model = (DefaultTableModel) tblSLSP.getModel();
+        model.setRowCount(0);
+        String maSP = txtMaSP.getText().trim();
+        List<Object[]> list = dao.getSLSP(maSP);
+        for (Object[] row : list) {
+            model.addRow(row);
+        }
+    }
+    
+    public void fillTableDHNV() {
+        DefaultTableModel model = (DefaultTableModel) tblDHNV.getModel();
+        model.setRowCount(0);
+        String maNV = txtMaNV.getText().trim();
+        List<Object[]> list = dao.getDHNV(maNV);
+        for (Object[] row : list) {
+            model.addRow(row);
+        }
+    }
 }
