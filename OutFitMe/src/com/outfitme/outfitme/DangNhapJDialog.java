@@ -221,7 +221,8 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         }
         else{
             Auth.user = nhanVien;
-            this.dispose();
+            this.dispose();//đóng cs đăng nhập
+            
         }
     }
     
