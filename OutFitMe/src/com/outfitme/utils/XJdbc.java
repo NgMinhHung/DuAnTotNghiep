@@ -18,19 +18,18 @@ public class XJdbc {
     private static String driver="com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=OutFitMe;trustServerCertificate=true;";
     private static String username="sa";
-    private static String password="minhhung282007";
+    private static String password="0974231765";
     
     /*
      * Nạp driver
      */
-    static{
-        try {            
-            Class.forName(driver);
-        } 
-        catch (ClassNotFoundException ex) {
-            throw new RuntimeException(ex);
+    static {
+            try {
+                Class.forName(driver);
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException("Lỗi nạp driver: " + ex.getMessage(), ex);
+            }
         }
-    }
     /**
      * Xây dựng PreparedStatement
      * @param sql là câu lệnh SQL chứa có thể chứa tham số. Nó có thể là một lời gọi thủ tục lưu
@@ -40,7 +39,7 @@ public class XJdbc {
      */
     public static PreparedStatement getStmt(String sql, Object...args) throws SQLException{
         Connection connection = DriverManager.getConnection(dburl, username, password);
-        PreparedStatement pstmt = null;
+        PreparedStatement pstmt ;
         if(sql.trim().startsWith("{")){
             pstmt = connection.prepareCall(sql);
         }

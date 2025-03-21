@@ -102,8 +102,9 @@ public class NhanVien {
     }
 
     public boolean isChucVu() {
-        return chucVu;
-    }
+    return this.chucVu;
+}
+
 
     public void setChucVu(boolean chucVu) {
         this.chucVu = chucVu;

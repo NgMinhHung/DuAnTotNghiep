@@ -57,9 +57,9 @@ public class NhanVienDAO extends OutFitMeDAO<NhanVien, String> {
     }
 
     @Override
-    public NhanVien selectById(String maNV) {
-        String sql = "SELECT * FROM NhanVien WHERE MaNhanVien = ?";
-        List<NhanVien> list = this.selectBySql(sql, maNV);
+    public NhanVien selectById(String TenDangNhap) {
+        String sql = "SELECT * FROM NhanVien WHERE TenDangNhap = ?";
+        List<NhanVien> list = this.selectBySql(sql,TenDangNhap );
         return list.size() > 0 ? list.get(0) : null;
     }
 
@@ -70,32 +70,38 @@ public class NhanVienDAO extends OutFitMeDAO<NhanVien, String> {
     }
 
     @Override
-    protected List<NhanVien> selectBySql(String sql, Object... args) {
-        List<NhanVien> list = new ArrayList<>();
+protected List<NhanVien> selectBySql(String sql, Object... args) {
+    List<NhanVien> list = new ArrayList<>();
+    ResultSet rs = null; // Đảm bảo rs được khởi tạo ở ngoài try
+    try {
+        rs = XJdbc.query(sql, args);
+        while (rs != null && rs.next()) { // Kiểm tra rs != null trước khi duyệt
+            NhanVien entity = new NhanVien();
+            entity.setMaNV(rs.getString("MaNhanVien")); // Sửa lại từ "MaNV" thành "MaNhanVien"
+            entity.setTenNV(rs.getString("TenNhanVien"));
+            entity.setGioiTinh(rs.getBoolean("GioiTinh"));
+            entity.setNgaySinh(rs.getDate("NgaySinh"));
+            entity.setDiaChi(rs.getString("DiaChi"));
+            entity.setSoDienThoai(rs.getString("SoDienThoai"));
+            entity.setTenDangNhap(rs.getString("TenDangNhap"));
+            entity.setMatKhau(rs.getString("MatKhau"));
+            entity.setChucVu(rs.getBoolean("ChucVu"));
+            list.add(entity);
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        throw new RuntimeException("Lỗi truy vấn dữ liệu", ex);
+    } finally {
+        // Đảm bảo luôn đóng kết nối nếu rs không null
         try {
-            ResultSet rs = null;
-            try {
-                rs = XJdbc.query(sql, args);
-                while (rs.next()) {
-                    NhanVien entity = new NhanVien();
-                    entity.setMaNV(rs.getString("MaNV"));
-                    entity.setTenNV(rs.getString("TenNhanVien"));
-                    entity.setGioiTinh(rs.getBoolean("GioiTinh"));
-                    entity.setNgaySinh(rs.getDate("NgaySinh"));
-                    entity.setDiaChi(rs.getString("DiaChi"));
-                    entity.setSoDienThoai(rs.getString("SoDienThoai"));
-                    entity.setTenDangNhap(rs.getString("TenDangNhap"));
-                    entity.setMatKhau(rs.getString("MatKhau"));
-                    entity.setChucVu(rs.getBoolean("ChucVu"));
-                    list.add(entity);
-                }
-            } finally {
+            if (rs != null) {
                 rs.getStatement().getConnection().close();
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            throw new RuntimeException(ex);
         }
-        return list;
     }
+    return list;
+}
+
 }
