@@ -4,9 +4,13 @@
  */
 package com.outfitme.outfitme;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
+import javax.swing.JProgressBar;
 import javax.swing.Timer;
+import javax.swing.UIManager;
 
 /**
  *
@@ -102,20 +106,33 @@ public class ChaoJDialog extends javax.swing.JDialog {
     private javax.swing.JProgressBar progressBar1;
     // End of variables declaration//GEN-END:variables
 
-    void init() {
-        setLocationRelativeTo(null);
-        new Timer(20, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int value = progressBar1.getValue();
-                if(value < 100){
-                    progressBar1.setValue(value + 1);
-                }
-                else{
-                    ChaoJDialog.this.dispose();
-                }
+  private void init() {
+    setLocationRelativeTo(null);
+    
+    // Tùy chỉnh giao diện
+    UIManager.put("ProgressBar.foreground", new Color(85, 150, 255));
+    UIManager.put("ProgressBar.background", new Color(230, 230, 230));
+    UIManager.put("ProgressBar.selectionForeground", Color.WHITE);
+    UIManager.put("ProgressBar.selectionBackground", Color.DARK_GRAY);
+
+    progressBar1.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100), 2));
+    
+    // Hiệu ứng mượt hơn với Timer  
+    new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int value = progressBar1.getValue();
+            if (value < 100) {
+                progressBar1.setValue(value + 1);
+            } else {
+                ((Timer) e.getSource()).stop(); // Dừng Timer khi hoàn tất
+                ChaoJDialog.this.dispose();
             }
-        }).start();
-    }
+        }
+    }).start();
+}
+
+
+
 }
 
