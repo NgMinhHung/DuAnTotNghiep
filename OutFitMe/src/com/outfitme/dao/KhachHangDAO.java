@@ -4,7 +4,6 @@
  */
 package com.outfitme.dao;
 
-import com.outfitme.dao.OutFitMeDAO;
 import com.outfitme.entity.KhachHang;
 import com.outfitme.utils.XJdbc;
 import java.util.ArrayList;

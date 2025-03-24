@@ -4,6 +4,12 @@
  */
 package com.outfitme.outfitme;
 
+import com.outfitme.dao.KhachHangDAO;
+import com.outfitme.entity.KhachHang;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author DELL
@@ -16,6 +22,7 @@ public class KhachHangJDailog extends javax.swing.JDialog {
     public KhachHangJDailog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        init();
     }
 
     /**
@@ -63,15 +70,35 @@ public class KhachHangJDailog extends javax.swing.JDialog {
 
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Add.png"))); // NOI18N
         btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
 
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Refresh.png"))); // NOI18N
         btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
 
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Delete.png"))); // NOI18N
         btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         btnMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/new.png"))); // NOI18N
         btnMoi.setText("Mới");
+        btnMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoiActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(rdoNam);
         rdoNam.setText("Nam");
@@ -126,11 +153,16 @@ public class KhachHangJDailog extends javax.swing.JDialog {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblKhachHangMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(tblKhachHang);
@@ -250,6 +282,32 @@ public class KhachHangJDailog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMaKHActionPerformed
 
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        insert();
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        update();
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        delete();
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
+        clearForm();
+        JOptionPane.showMessageDialog(this, "Đã làm mới form!");
+    }//GEN-LAST:event_btnMoiActionPerformed
+
+    private void tblKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhachHangMouseClicked
+        if (evt.getClickCount() == 2) {  // Chỉ xử lý khi click đúp
+            this.row = tblKhachHang.getSelectedRow();
+            if (this.row >= 0) {
+                fillFormFromTable();
+            }
+        }
+    }//GEN-LAST:event_tblKhachHangMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -322,4 +380,146 @@ public class KhachHangJDailog extends javax.swing.JDialog {
     private javax.swing.JTextField txtTenKH;
     private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
+KhachHangDAO dao = new KhachHangDAO();
+    int row = 0;
+
+    void init() {
+        setLocationRelativeTo(null);
+        this.loadTable();
+        this.row = -1;
+    }
+
+    private void timKiem() {
+        this.loadTable();
+        this.clearForm();
+        fillFormFromTable();
+        this.row = -1;
+    }
+
+    private void clearForm() {
+        txtMaKH.setText("");
+        txtTenKH.setText("");
+        txtSDT.setText("");
+        txtDiaChi.setText("");
+        buttonGroup1.clearSelection();
+        txtTimKiem.setText("");
+    }
+
+    private void loadTable() {
+        DefaultTableModel model = (DefaultTableModel) tblKhachHang.getModel();
+        model.setRowCount(0);
+        try {
+            List<KhachHang> list = dao.selectAll();
+            for (KhachHang kh : list) {
+                Object[] row = {kh.getMaKH(), kh.getTenKH(), kh.getSoDienThoai(), kh.isGioiTinh() ? "Nam" : "Nữ", kh.getDiaChi()};
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi tải dữ liệu khách hàng!");
+        }
+    }
+
+    public void insert() {
+        KhachHang kh = getForm();
+        try {
+            dao.insert(kh);
+            JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công!");
+            loadTable();
+            fillFormFromTable();
+            clearForm();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Thêm khách hàng thất bại!");
+        }
+    }
+
+    private void update() {
+        if (this.row < 0) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng cần cập nhật!");
+            return;
+        }
+
+        // Lấy thông tin khách hàng từ form
+        KhachHang kh = getForm();
+        if (kh.getMaKH().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mã khách hàng không được để trống!");
+            return;
+        }
+
+        // Xác nhận trước khi cập nhật
+        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn cập nhật khách hàng này?",
+                "Xác nhận", JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        try {
+            dao.update(kh);
+            JOptionPane.showMessageDialog(this, "Cập nhật khách hàng thành công!");
+            loadTable(); // Tải lại bảng sau khi cập nhật
+            clearForm(); // Xóa form để tránh cập nhật nhầm
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Cập nhật khách hàng thất bại! Lỗi: " + e.getMessage());
+        }
+    }
+
+    private void delete() {
+        String maKH = txtMaKH.getText();
+        try {
+            dao.delete(maKH);
+            JOptionPane.showMessageDialog(this, "Xóa khách hàng thành công!");
+            loadTable();
+            fillFormFromTable();
+            clearForm();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Xóa khách hàng thất bại!");
+        }
+    }
+
+    private KhachHang getForm() {
+        KhachHang kh = new KhachHang();
+        kh.setMaKH(txtMaKH.getText());
+        kh.setTenKH(txtTenKH.getText());
+        kh.setSoDienThoai(txtSDT.getText());
+        kh.setDiaChi(txtDiaChi.getText());
+        return kh;
+    }
+
+    private void fillFormFromTable() {
+        String maKH = (String) tblKhachHang.getValueAt(this.row, 0);
+        String tenKH = (String) tblKhachHang.getValueAt(this.row, 1);
+        String sdt = (String) tblKhachHang.getValueAt(this.row, 2);
+        String gioiTinh = (String) tblKhachHang.getValueAt(this.row, 3);
+        String diaChi = (String) tblKhachHang.getValueAt(this.row, 4);
+
+        txtMaKH.setText(maKH);
+        txtTenKH.setText(tenKH);
+        txtSDT.setText(sdt);
+        txtDiaChi.setText(diaChi);
+
+        // Kiểm tra giới tính và chọn radio button phù hợp
+        if ("Nam".equals(gioiTinh)) {
+            rdoNam.setSelected(true);
+        } else {
+            rdoNu.setSelected(true);
+        }
+    }
+
+    void edit() {
+        if (this.row < 0) {
+            return;
+        }
+        String manh = (String) tblKhachHang.getValueAt(this.row, 0);
+        KhachHang nh = dao.selectById(manh);
+        this.setForm(nh);
+    }
+
+    void setForm(KhachHang nh) {
+        if (nh == null) {
+            return; // Nếu dữ liệu trống thì không làm gì cả.
+        }
+        txtMaKH.setText(nh.getMaKH());
+        txtTenKH.setText(nh.getTenKH());
+        txtSDT.setText(nh.getSoDienThoai());
+        txtDiaChi.setText(nh.getDiaChi());
+    }
 }
