@@ -46,9 +46,16 @@ public class KhachHangDAO extends OutFitMeDAO<KhachHang, String> {
     }
 
     @Override
-    public void delete(String maKH) {
-        String sql = "DELETE FROM KhachHang WHERE MaKhachHang = ?";
-        XJdbc.update(sql, maKH);
+//    public void delete(String maKH) {
+//        String sql = "DELETE FROM KhachHang WHERE MaKhachHang = ?";
+//        XJdbc.update(sql, maKH);
+//    }
+    public void delete(String makh) {
+        String sqlUpdateHoaDon = "UPDATE HoaDon SET MaKhachHang = NULL WHERE MaKhachHang = ?";
+        XJdbc.update(sqlUpdateHoaDon, makh); // Gỡ liên kết trước
+
+        String sqlDeleteKhachHang = "DELETE FROM KhachHang WHERE MaKhachHang = ?";
+        XJdbc.update(sqlDeleteKhachHang, makh); // Xóa khách hàng
     }
 
     @Override

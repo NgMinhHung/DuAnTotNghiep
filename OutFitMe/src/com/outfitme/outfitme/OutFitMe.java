@@ -24,6 +24,7 @@ public class OutFitMe extends javax.swing.JFrame {
     public OutFitMe() {
         initComponents();
         init();
+        setLocationRelativeTo(null);
     }
 
     /**
