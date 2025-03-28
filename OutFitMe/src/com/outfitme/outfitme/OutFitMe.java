@@ -301,6 +301,7 @@ public class OutFitMe extends javax.swing.JFrame {
 
     private void btnSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSanPhamActionPerformed
         // TODO add your handling code here:
+        this.OpenSanPham();
     }//GEN-LAST:event_btnSanPhamActionPerformed
 
     private void btnHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoaDonActionPerformed
@@ -444,6 +445,14 @@ public class OutFitMe extends javax.swing.JFrame {
           void OpenThongKe() {
         if(Auth.isLogin()){
             new ThongKeJDialog(this, true).setVisible(true);
+        }
+        else{
+            MsgBox.alert(this, "Vui lòng đăng nhập!");
+        }
+    }
+            void OpenSanPham() {
+        if(Auth.isLogin()){
+            new SanPhamJDialog(this, true).setVisible(true);
         }
         else{
             MsgBox.alert(this, "Vui lòng đăng nhập!");
