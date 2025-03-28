@@ -127,6 +127,10 @@ public class SanPhamDAO extends OutFitMeDAO<SanPham, String> {
     }
     return list;
 }
+    public List<SanPham> selectByLoaiSP(String loaiSP) {
+        String sql = "SELECT * FROM SanPham WHERE LoaiSanPham = ?";
+        return selectBySql(sql, loaiSP);
+    }
 }
 
     
