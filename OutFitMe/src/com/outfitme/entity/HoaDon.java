@@ -11,21 +11,23 @@ import java.util.Date;
  * @author MINH HUNG
  */
 public class HoaDon {
-
     private String soHD;
     private Date ngayLap;
     private String maNV;
     private String maKH;
+    private String maSP;
+    private String tenSP; // Thêm thuộc tính tên sản phẩm
 
-    public HoaDon() {
-    }
-
-    public HoaDon(String soHD, Date ngayLap, String maNV, String maKH) {
+    public HoaDon(String soHD, Date ngayLap, String maNV, String maKH, String maSP, String tenSP) {
         this.soHD = soHD;
         this.ngayLap = ngayLap;
         this.maNV = maNV;
         this.maKH = maKH;
+        this.maSP = maSP;
+        this.tenSP = tenSP;
     }
+
+    public HoaDon() {}
 
     public String getSoHD() {
         return soHD;
@@ -59,4 +61,20 @@ public class HoaDon {
         this.maKH = maKH;
     }
 
+    public String getMaSP() {
+        return maSP;
+    }
+
+    public void setMaSP(String maSP) {
+        this.maSP = maSP;
+    }
+
+    public String getTenSP() {
+        return tenSP;
+    }
+
+    public void setTenSP(String tenSP) {
+        this.tenSP = tenSP;
+    }
 }
+
