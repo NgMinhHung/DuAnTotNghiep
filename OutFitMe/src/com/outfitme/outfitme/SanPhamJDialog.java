@@ -3,11 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package com.outfitme.outfitme;
+
 import com.outfitme.dao.SanPhamDAO;
 import com.outfitme.entity.SanPham;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author DELL
@@ -333,7 +335,7 @@ public class SanPhamJDialog extends javax.swing.JDialog {
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         // TODO add your handling code here:
         clearForm();
-        JOptionPane.showMessageDialog(this,"Đã làm mới form");
+        JOptionPane.showMessageDialog(this, "Đã làm mới form");
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -461,7 +463,7 @@ public class SanPhamJDialog extends javax.swing.JDialog {
     private void loadTable() {
         if (cboLoai.getSelectedItem() == null) {
             System.out.println("⚠ Lỗi: JComboBox chưa có giá trị!");
-            return;  
+            return;
         }
         String loaiSP = cboLoai.getSelectedItem().toString().trim();
         System.out.println("📌 Loại sản phẩm đã chọn: " + loaiSP);
@@ -507,14 +509,18 @@ public class SanPhamJDialog extends javax.swing.JDialog {
     }
 
     private void fillFormFromTable() {
-        if (this.row < 0) return;
+        if (this.row < 0) {
+            return;
+        }
         String maSP = (String) tblSP.getValueAt(this.row, 0);
         SanPham sp = dao.selectById(maSP);
         setForm(sp);
     }
 
     private void setForm(SanPham sp) {
-        if (sp == null) return;
+        if (sp == null) {
+            return;
+        }
         txtMa.setText(sp.getMaSP());
         txtName.setText(sp.getTenSP());
         cboLoai.setSelectedItem(sp.getLoaiSP());
@@ -525,15 +531,17 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         txtSL.setText(String.valueOf(sp.getSoLuongTonKho()));
         if ("Nam".equals(sp.getPhanLoai())) {
             rdNam.setSelected(true);
-        } else {
+        } else if ("Nu".equals(sp.getPhanLoai())) {
             rdNu.setSelected(true);
+        } else {
+            buttonGroup1.clearSelection(); 
         }
     }
 
     public void insert() {
-        if (txtMa.getText().trim().isEmpty() || txtName.getText().trim().isEmpty() || txtNhap.getText().trim().isEmpty() ||
-            txtBan.getText().trim().isEmpty() || txtSize.getText().trim().isEmpty() || txtSL.getText().trim().isEmpty() ||
-            (!rdNam.isSelected() && !rdNu.isSelected())) {
+        if (txtMa.getText().trim().isEmpty() || txtName.getText().trim().isEmpty() || txtNhap.getText().trim().isEmpty()
+                || txtBan.getText().trim().isEmpty() || txtSize.getText().trim().isEmpty() || txtSL.getText().trim().isEmpty()
+                || (!rdNam.isSelected() && !rdNu.isSelected())) {
             JOptionPane.showMessageDialog(this, "⚠ Vui lòng nhập đầy đủ thông tin!");
             return;
         }
@@ -557,7 +565,9 @@ public class SanPhamJDialog extends javax.swing.JDialog {
 
         SanPham sp = getForm();
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn cập nhật sản phẩm này?", "Xác nhận", JOptionPane.YES_NO_OPTION);
-        if (confirm != JOptionPane.YES_OPTION) return;
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
 
         try {
             dao.update(sp);
@@ -577,7 +587,9 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         }
 
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa sản phẩm này?", "Xác nhận", JOptionPane.YES_NO_OPTION);
-        if (confirm != JOptionPane.YES_OPTION) return;
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
 
         try {
             dao.delete(maSP);
@@ -599,7 +611,15 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         sp.setGiaBan(Double.parseDouble(txtBan.getText()));
         sp.setSize(txtSize.getText());
         sp.setSoLuongTonKho(Integer.parseInt(txtSL.getText()));
-        sp.setPhanLoai(rdNam.isSelected() ? "Nam" : "Nữ");
+        if (rdNam.isSelected()) {
+            sp.setPhanLoai("Nam");
+        } else if (rdNu.isSelected()) {
+            sp.setPhanLoai("Nu");
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn phân loại Nam hoặc Nữ!");
+            return null; 
+        }
+
         return sp;
     }
 
@@ -614,7 +634,7 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         txtSL.setText("");
         buttonGroup1.clearSelection();
     }
-  
+
     private void searchByMaSP() {
         String maSP = txtSearch.getText().trim();  // Lấy mã sản phẩm từ ô nhập
 
@@ -639,4 +659,3 @@ public class SanPhamJDialog extends javax.swing.JDialog {
     }
 
 }
-

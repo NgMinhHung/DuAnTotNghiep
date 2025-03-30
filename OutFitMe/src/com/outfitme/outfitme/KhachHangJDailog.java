@@ -102,6 +102,11 @@ public class KhachHangJDailog extends javax.swing.JDialog {
 
         buttonGroup1.add(rdoNam);
         rdoNam.setText("Nam");
+        rdoNam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoNamActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(rdoNu);
         rdoNu.setText("Nữ");
@@ -308,6 +313,10 @@ public class KhachHangJDailog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tblKhachHangMouseClicked
 
+    private void rdoNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoNamActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdoNamActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -425,7 +434,6 @@ KhachHangDAO dao = new KhachHangDAO();
             dao.insert(kh);
             JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công!");
             loadTable();
-            fillFormFromTable();
             clearForm();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Thêm khách hàng thất bại!");
@@ -468,21 +476,25 @@ KhachHangDAO dao = new KhachHangDAO();
             dao.delete(maKH);
             JOptionPane.showMessageDialog(this, "Xóa khách hàng thành công!");
             loadTable();
-            fillFormFromTable();
             clearForm();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Xóa khách hàng thất bại!");
         }
     }
 
-    private KhachHang getForm() {
-        KhachHang kh = new KhachHang();
-        kh.setMaKH(txtMaKH.getText());
-        kh.setTenKH(txtTenKH.getText());
-        kh.setSoDienThoai(txtSDT.getText());
-        kh.setDiaChi(txtDiaChi.getText());
-        return kh;
-    }
+   private KhachHang getForm() {
+    KhachHang kh = new KhachHang();
+    kh.setMaKH(txtMaKH.getText());
+    kh.setTenKH(txtTenKH.getText());
+    kh.setSoDienThoai(txtSDT.getText());
+    kh.setDiaChi(txtDiaChi.getText());
+
+    boolean gioiTinh = rdoNam.isSelected(); 
+    kh.setGioiTinh(gioiTinh);
+
+    return kh;
+}
+
 
     private void fillFormFromTable() {
         String maKH = (String) tblKhachHang.getValueAt(this.row, 0);
@@ -513,13 +525,20 @@ KhachHangDAO dao = new KhachHangDAO();
         this.setForm(nh);
     }
 
-    void setForm(KhachHang nh) {
-        if (nh == null) {
-            return; // Nếu dữ liệu trống thì không làm gì cả.
-        }
-        txtMaKH.setText(nh.getMaKH());
-        txtTenKH.setText(nh.getTenKH());
-        txtSDT.setText(nh.getSoDienThoai());
-        txtDiaChi.setText(nh.getDiaChi());
+   void setForm(KhachHang nh) {
+    if (nh == null) {
+        return;
     }
+    txtMaKH.setText(nh.getMaKH());
+    txtTenKH.setText(nh.getTenKH());
+    txtSDT.setText(nh.getSoDienThoai());
+    txtDiaChi.setText(nh.getDiaChi());
+    
+    if (nh.isGioiTinh()) { 
+        rdoNam.setSelected(true);
+    } else {
+        rdoNu.setSelected(true);
+    }
+}
+
 }
