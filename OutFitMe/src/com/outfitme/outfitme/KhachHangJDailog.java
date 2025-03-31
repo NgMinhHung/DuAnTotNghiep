@@ -59,6 +59,7 @@ public class KhachHangJDailog extends javax.swing.JDialog {
         tblKhachHang = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         lblHinhAnh = new javax.swing.JLabel();
+        btnTimKiem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -187,6 +188,13 @@ public class KhachHangJDailog extends javax.swing.JDialog {
             .addComponent(lblHinhAnh, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
         );
 
+        btnTimKiem.setText("Tim Kiếm");
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -198,7 +206,9 @@ public class KhachHangJDailog extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnTimKiem))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -244,7 +254,9 @@ public class KhachHangJDailog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTimKiem)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -317,6 +329,10 @@ public class KhachHangJDailog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_rdoNamActionPerformed
 
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        this.timKiem();
+    }//GEN-LAST:event_btnTimKiemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -366,6 +382,7 @@ public class KhachHangJDailog extends javax.swing.JDialog {
     private javax.swing.JButton btnMoi;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoa;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
@@ -399,10 +416,17 @@ KhachHangDAO dao = new KhachHangDAO();
     }
 
     private void timKiem() {
-        this.loadTable();
-        this.clearForm();
-        fillFormFromTable();
-        this.row = -1;
+        String maKH = txtTimKiem.getText().trim(); // Lấy mã khách hàng từ ô nhập liệu
+        List<KhachHang> list = dao.selectByMaKH(maKH);  // Tìm kiếm trong DB
+
+        DefaultTableModel model = (DefaultTableModel) tblKhachHang.getModel();
+        model.setRowCount(0); // Xóa dữ liệu cũ
+
+        for (KhachHang kh : list) {
+            model.addRow(new Object[]{
+                kh.getMaKH(), kh.getTenKH(), kh.getSoDienThoai(), kh.getDiaChi(), kh.isGioiTinh() ? "Nam" : "Nữ"
+            });
+        }
     }
 
     private void clearForm() {
@@ -482,19 +506,18 @@ KhachHangDAO dao = new KhachHangDAO();
         }
     }
 
-   private KhachHang getForm() {
-    KhachHang kh = new KhachHang();
-    kh.setMaKH(txtMaKH.getText());
-    kh.setTenKH(txtTenKH.getText());
-    kh.setSoDienThoai(txtSDT.getText());
-    kh.setDiaChi(txtDiaChi.getText());
+    private KhachHang getForm() {
+        KhachHang kh = new KhachHang();
+        kh.setMaKH(txtMaKH.getText());
+        kh.setTenKH(txtTenKH.getText());
+        kh.setSoDienThoai(txtSDT.getText());
+        kh.setDiaChi(txtDiaChi.getText());
 
-    boolean gioiTinh = rdoNam.isSelected(); 
-    kh.setGioiTinh(gioiTinh);
+        boolean gioiTinh = rdoNam.isSelected();
+        kh.setGioiTinh(gioiTinh);
 
-    return kh;
-}
-
+        return kh;
+    }
 
     private void fillFormFromTable() {
         String maKH = (String) tblKhachHang.getValueAt(this.row, 0);
@@ -525,20 +548,20 @@ KhachHangDAO dao = new KhachHangDAO();
         this.setForm(nh);
     }
 
-   void setForm(KhachHang nh) {
-    if (nh == null) {
-        return;
+    void setForm(KhachHang nh) {
+        if (nh == null) {
+            return;
+        }
+        txtMaKH.setText(nh.getMaKH());
+        txtTenKH.setText(nh.getTenKH());
+        txtSDT.setText(nh.getSoDienThoai());
+        txtDiaChi.setText(nh.getDiaChi());
+
+        if (nh.isGioiTinh()) {
+            rdoNam.setSelected(true);
+        } else {
+            rdoNu.setSelected(true);
+        }
     }
-    txtMaKH.setText(nh.getMaKH());
-    txtTenKH.setText(nh.getTenKH());
-    txtSDT.setText(nh.getSoDienThoai());
-    txtDiaChi.setText(nh.getDiaChi());
-    
-    if (nh.isGioiTinh()) { 
-        rdoNam.setSelected(true);
-    } else {
-        rdoNu.setSelected(true);
-    }
-}
 
 }

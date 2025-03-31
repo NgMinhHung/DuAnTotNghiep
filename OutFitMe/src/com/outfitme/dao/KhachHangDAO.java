@@ -15,7 +15,7 @@ import java.sql.SQLException;
  *
  * @author DELL
  */
-public class KhachHangDAO extends OutFitMeDAO<KhachHang, String> {
+public class KhachHangDAO extends OutFitMeDAO< KhachHang, String> {
 
     @Override
     public void insert(KhachHang model) {
@@ -40,29 +40,31 @@ public class KhachHangDAO extends OutFitMeDAO<KhachHang, String> {
                 model.isGioiTinh(),
                 model.getDiaChi(),
                 model.getMaKH());
-        
 
-    
     }
 
     @Override
-//    public void delete(String maKH) {
-//        String sql = "DELETE FROM KhachHang WHERE MaKhachHang = ?";
-//        XJdbc.update(sql, maKH);
-//    }
-    public void delete(String makh) {
+    public void delete(String maKH) {
         String sqlUpdateHoaDon = "UPDATE HoaDon SET MaKhachHang = NULL WHERE MaKhachHang = ?";
-        XJdbc.update(sqlUpdateHoaDon, makh); // Gỡ liên kết trước
+        XJdbc.update(sqlUpdateHoaDon, maKH); // Gỡ liên kết trước
 
         String sqlDeleteKhachHang = "DELETE FROM KhachHang WHERE MaKhachHang = ?";
-        XJdbc.update(sqlDeleteKhachHang, makh); // Xóa khách hàng
+        XJdbc.update(sqlDeleteKhachHang, maKH); // Xóa khách hàng
     }
 
-    @Override
-    public KhachHang selectById(String maKH) {
+    public KhachHang selectById(String manh) {
         String sql = "SELECT * FROM KhachHang WHERE MaKhachHang = ?";
-        List<KhachHang> list = this.selectBySql(sql, maKH);
-        return list.size() > 0 ? list.get(0) : null;
+        return selectOne(sql, manh);
+    }
+
+    public List<KhachHang> selectByMaKH(String maKH) {
+        String sql = "SELECT * FROM KhachHang WHERE MaKhachHang LIKE ?";
+        return this.selectBySql(sql, maKH + "%"); // Chỉ thêm '%' phía sau để tối ưu
+    }
+
+    private KhachHang selectOne(String sql, Object... args) {
+        List<KhachHang> list = selectBySql(sql, args);
+        return list.isEmpty() ? null : list.get(0);
     }
 
     @Override
