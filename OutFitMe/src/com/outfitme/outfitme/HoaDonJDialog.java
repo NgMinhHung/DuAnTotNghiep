@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -57,7 +58,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         lblNgayLapHD = new javax.swing.JLabel();
         txtNgayLapHD = new javax.swing.JTextField();
         lblMaNV = new javax.swing.JLabel();
-        btnThem = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
         btnMoi = new javax.swing.JButton();
         lblMaKH = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -75,6 +76,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         txtSearch = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnChiTietHoaDon = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("OutFitMe - Hóa Đơn");
@@ -99,10 +101,10 @@ public class HoaDonJDialog extends javax.swing.JDialog {
 
         lblMaNV.setText("Mã nhân viên");
 
-        btnThem.setText("Thêm");
-        btnThem.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setText("Add vào cthd");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
@@ -151,7 +153,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnThem)
+                                .addComponent(btnAdd)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnMoi))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -192,7 +194,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnMoi)
-                            .addComponent(btnThem))
+                            .addComponent(btnAdd))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -202,7 +204,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder()), "Danh sách hóa đơn"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder()), "Bảng hóa đơn\n"));
 
         tblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -265,6 +267,8 @@ public class HoaDonJDialog extends javax.swing.JDialog {
             }
         });
 
+        btnThem.setText("Thêm");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -284,19 +288,22 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(281, 281, 281)
                                         .addComponent(lblHoaDon)))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 6, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(98, 98, 98)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnSearch)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnChiTietHoaDon)
-                                .addGap(32, 32, 32))
-                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnThem)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -312,9 +319,10 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                         .addGap(68, 68, 68)
                         .addComponent(btnSetDate)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch)
-                    .addComponent(btnChiTietHoaDon))
+                    .addComponent(btnChiTietHoaDon)
+                    .addComponent(btnThem))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -341,10 +349,10 @@ public class HoaDonJDialog extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_btnThemActionPerformed
+    }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
         // TODO add your handling code here:
@@ -352,9 +360,9 @@ public class HoaDonJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnMoiActionPerformed
 
     private void btnChiTietHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietHoaDonActionPerformed
-       ChiTietHoaDonJDialog chiTietDialog = new ChiTietHoaDonJDialog(new javax.swing.JFrame(), true);
-    chiTietDialog.setLocationRelativeTo(this); 
-    chiTietDialog.setVisible(true);
+        ChiTietHoaDonJDialog chiTietDialog = new ChiTietHoaDonJDialog(new javax.swing.JFrame(), true);
+        chiTietDialog.setLocationRelativeTo(this);
+        chiTietDialog.setVisible(true);
     }//GEN-LAST:event_btnChiTietHoaDonActionPerformed
 
     /**
@@ -431,6 +439,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnChiTietHoaDon;
     private javax.swing.JButton btnMoi;
     private javax.swing.JButton btnSearch;
@@ -478,16 +487,18 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         fillComboBoxMaNV();
         fillComboBoxMaKH();
 
+        // Tải dữ liệu từ cơ sở dữ liệu lên bảng tblHoaDon
+        fillTable();
+
         // Thêm sự kiện cho nút Set Date
         btnSetDate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setCurrentDate();
-                updateTable();
             }
         });
 
-        // Thêm sự kiện cho các JComboBox để cập nhật bảng khi chọn
+        // Thêm sự kiện cho cboMaSP để hiển thị tên sản phẩm
         cboMaSP.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -505,21 +516,20 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                 } else {
                     txtTenSanPham.setText(""); // Nếu không chọn mã sản phẩm, để trống
                 }
-                updateTable(); // Cập nhật bảng
             }
         });
 
         cboMaNV.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updateTable();
+                // Bỏ updateTable()
             }
         });
 
         cboMaKH.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updateTable();
+                // Bỏ updateTable()
             }
         });
 
@@ -527,20 +537,34 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         txtSoLuong.addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                updateTable();
+                // Bỏ updateTable()
             }
         });
 
-// Thêm sự kiện cho nút Thêm
+        // Thêm sự kiện cho nút Thêm
         btnThem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (validateForm()) {
+                    // Thêm dữ liệu vào bảng tblHoaDon
+                    DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
+                    String soHD = txtSoHD.getText();
+                    String ngayLap = txtNgayLapHD.getText();
+                    String maSP = cboMaSP.getSelectedItem().toString();
+                    String tenSP = txtTenSanPham.getText();
+                    String maNV = cboMaNV.getSelectedItem().toString();
+                    String maKH = cboMaKH.getSelectedItem().toString();
+                    int soLuong = Integer.parseInt(txtSoLuong.getText());
+
+                    // Thêm một dòng mới vào CUỐI bảng
+                    model.addRow(new Object[]{soHD, ngayLap, maSP, tenSP, maNV, maKH, soLuong});
+
                     // Thêm hóa đơn vào cơ sở dữ liệu
                     insertHoaDon();
-                    MsgBox.alert(HoaDonJDialog.this, "Thêm mới thành công!");
 
-                    // Làm trắng form và cập nhật số hóa đơn mới
+                    MsgBox.alert(HoaDonJDialog.this, "Thêm vào bảng thành công!");
+
+                    // Làm mới form và cập nhật số hóa đơn mới
                     clearForm();
                     setNewSoHD();
                 } else {
@@ -554,6 +578,8 @@ public class HoaDonJDialog extends javax.swing.JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 clearForm();
+                setNewSoHD(); // Cập nhật số hóa đơn mới
+                fillTable(); // Tải lại toàn bộ dữ liệu vào bảng
             }
         });
 
@@ -564,9 +590,38 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                 searchHoaDon();
             }
         });
+
+        // Thêm sự kiện click đúp cho bảng tblHoaDon
+        tblHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (evt.getClickCount() == 2) { // Kiểm tra click đúp
+                    int selectedRow = tblHoaDon.getSelectedRow();
+                    if (selectedRow >= 0) {
+                        // Lấy dữ liệu từ dòng được chọn
+                        String soHD = tblHoaDon.getValueAt(selectedRow, 0).toString();
+                        String ngayLap = tblHoaDon.getValueAt(selectedRow, 1).toString();
+                        String maSP = tblHoaDon.getValueAt(selectedRow, 2).toString();
+                        String tenSP = tblHoaDon.getValueAt(selectedRow, 3).toString();
+                        String maNV = tblHoaDon.getValueAt(selectedRow, 4).toString();
+                        String maKH = tblHoaDon.getValueAt(selectedRow, 5).toString();
+                        String soLuong = tblHoaDon.getValueAt(selectedRow, 6).toString();
+
+                        // Hiển thị dữ liệu lên form
+                        txtSoHD.setText(soHD);
+                        txtNgayLapHD.setText(ngayLap);
+                        cboMaSP.setSelectedItem(maSP);
+                        txtTenSanPham.setText(tenSP);
+                        cboMaNV.setSelectedItem(maNV);
+                        cboMaKH.setSelectedItem(maKH);
+                        txtSoLuong.setText(soLuong);
+                    }
+                }
+            }
+        });
     }
 
-    // Lấy số hóa đơn mới nhất từ cơ sở dữ liệu
+// Lấy số hóa đơn mới nhất từ cơ sở dữ liệu
     private void setNewSoHD() {
         List<HoaDon> list = hddao.selectAll();
         if (!list.isEmpty()) {
@@ -577,14 +632,14 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         }
     }
 
-    // Đặt ngày hiện tại vào txtNgayLapHD
+// Đặt ngày hiện tại vào txtNgayLapHD
     private void setCurrentDate() {
         Date today = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         txtNgayLapHD.setText(sdf.format(today));
     }
 
-    // Điền dữ liệu vào cboMaSP từ bảng SanPham
+// Điền dữ liệu vào cboMaSP từ bảng SanPham
     private void fillComboBoxMaSP() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboMaSP.getModel();
         model.removeAllElements();
@@ -598,7 +653,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         }
     }
 
-    // Điền dữ liệu vào cboMaNV từ bảng NhanVien
+// Điền dữ liệu vào cboMaNV từ bảng NhanVien
     private void fillComboBoxMaNV() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboMaNV.getModel();
         model.removeAllElements();
@@ -612,7 +667,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         }
     }
 
-    // Điền dữ liệu vào cboMaKH từ bảng KhachHang
+// Điền dữ liệu vào cboMaKH từ bảng KhachHang
     private void fillComboBoxMaKH() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboMaKH.getModel();
         model.removeAllElements();
@@ -626,7 +681,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         }
     }
 
-    // Cập nhật dữ liệu vào bảng tblHoaDon
+// Cập nhật dữ liệu vào bảng tblHoaDon
     private void updateTable() {
         DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
         model.setRowCount(0); // Xóa dữ liệu cũ trong bảng
@@ -649,7 +704,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         }
     }
 
-    // Hàm validate để kiểm tra dữ liệu
+// Hàm validate để kiểm tra dữ liệu
     private boolean validateForm() {
         if (txtNgayLapHD.getText().isEmpty()) {
             return false;
@@ -677,7 +732,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         return true;
     }
 
-    // Hàm thêm hóa đơn vào cơ sở dữ liệu
+// Hàm thêm hóa đơn vào cơ sở dữ liệu
     private void insertHoaDon() {
         HoaDon hd = new HoaDon();
         hd.setNgayLap(java.sql.Date.valueOf(txtNgayLapHD.getText()));
@@ -686,22 +741,24 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         hd.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
         hd.setMaSP(cboMaSP.getSelectedItem().toString());
         hddao.insert(hd);
+
+        // Sau khi thêm, lấy số hóa đơn mới nhất từ cơ sở dữ liệu
+        setNewSoHD();
     }
 
-    // Hàm làm trắng form (nút Mới)
+// Hàm làm trắng form (nút Mới)
     private void clearForm() {
         cboMaSP.setSelectedIndex(-1);
         cboMaNV.setSelectedIndex(-1);
         cboMaKH.setSelectedIndex(-1);
         txtNgayLapHD.setText("");
         txtSoLuong.setText("");
-        txtTenSanPham.setText(""); // Thêm dòng này để làm trống txtTenSanPham
+        txtTenSanPham.setText("");
         txtSearch.setText("");
-        DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
-        model.setRowCount(0);
+        // Không xóa dữ liệu trong bảng tblHoaDon
     }
 
-    // Hàm tìm hóa đơn theo SoHD (nút Tìm) - Đã chỉnh sửa
+// Hàm tìm hóa đơn theo SoHD (nút Tìm)
     private void searchHoaDon() {
         String soHD = txtSearch.getText().trim();
         if (soHD.isEmpty()) {
@@ -744,7 +801,41 @@ public class HoaDonJDialog extends javax.swing.JDialog {
             MsgBox.alert(this, "Số hóa đơn phải là một số hợp lệ!");
             DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
             model.setRowCount(0);
+        }
+    }
 
+// Tải dữ liệu từ cơ sở dữ liệu lên bảng tblHoaDon
+    private void fillTable() {
+        DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
+        model.setRowCount(0); // Xóa dữ liệu cũ trong bảng
+
+        try {
+            List<HoaDon> list = hddao.selectAll();
+            // Sắp xếp danh sách theo SoHD tăng dần
+            Collections.sort(list, (HoaDon hd1, HoaDon hd2) -> Integer.compare(hd1.getSoHD(), hd2.getSoHD()));
+
+            for (HoaDon hd : list) {
+                // Lấy tên sản phẩm từ SanPhamDAO
+                String tenSP = "";
+                SanPham sp = spdao.selectById(hd.getMaSP());
+                if (sp != null) {
+                    tenSP = sp.getTenSP();
+                }
+
+                // Thêm vào cuối bảng
+                model.addRow(new Object[]{
+                    hd.getSoHD(),
+                    hd.getNgayLap(),
+                    hd.getMaSP(),
+                    tenSP,
+                    hd.getMaNV(),
+                    hd.getMaKH(),
+                    hd.getSoLuong()
+                });
+            }
+        } catch (Exception e) {
+            MsgBox.alert(this, "Lỗi khi tải dữ liệu hóa đơn!");
+            e.printStackTrace();
         }
     }
 }
