@@ -4,7 +4,6 @@
  */
 package com.outfitme.entity;
 
-
 /**
  *
  * @author MINH HUNG
@@ -15,16 +14,18 @@ public class KhachHang {
     private String diaChi;
     private boolean gioiTinh;
     private String soDienThoai;
+    private int diem; // Thêm thuộc tính diem để lưu số điểm
 
     public KhachHang() {
     }
 
-    public KhachHang(String maKH, String tenKH, String diaChi, boolean gioiTinh, String soDienThoai) {
+    public KhachHang(String maKH, String tenKH, String diaChi, boolean gioiTinh, String soDienThoai, int diem) {
         this.maKH = maKH;
         this.tenKH = tenKH;
         this.diaChi = diaChi;
         this.gioiTinh = gioiTinh;
         this.soDienThoai = soDienThoai;
+        this.diem = diem;
     }
 
     public String getMaKH() {
@@ -66,5 +67,17 @@ public class KhachHang {
     public void setSoDienThoai(String soDienThoai) {
         this.soDienThoai = soDienThoai;
     }
-    
+
+    public int getDiem() {
+        return diem;
+    }
+
+    public void setDiem(int diem) {
+        this.diem = diem;
+    }
+
+    @Override
+    public String toString() {
+        return tenKH; // Hiển thị tên khách hàng trong JComboBox
+    }
 }

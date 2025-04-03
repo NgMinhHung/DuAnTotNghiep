@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.outfitme.dao;
 
 import com.outfitme.entity.KhachHang;
@@ -11,61 +7,53 @@ import java.util.List;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- *
- * @author DELL
- */
-public class KhachHangDAO extends OutFitMeDAO< KhachHang, String> {
+public class KhachHangDAO extends OutFitMeDAO<KhachHang, String> {
 
     @Override
     public void insert(KhachHang model) {
-        String sql = "INSERT INTO KhachHang "
-                + "(MaKhachHang, TenKhachHang, SoDienThoai, GioiTinh, DiaChi) "
-                + "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO KhachHang (MaKhachHang, TenKhachHang, SoDienThoai, GioiTinh, DiaChi, Diem) VALUES (?, ?, ?, ?, ?, ?)";
         XJdbc.update(sql,
                 model.getMaKH(),
                 model.getTenKH(),
                 model.getSoDienThoai(),
                 model.isGioiTinh(),
-                model.getDiaChi());
-
+                model.getDiaChi(),
+                model.getDiem()); // Bỏ kiểm tra null
     }
 
     @Override
     public void update(KhachHang model) {
-        String sql = "UPDATE KhachHang SET TenKhachHang = ?, GioiTinh = ?, DiaChi = ?, SoDienThoai = ? WHERE MaKhachHang = ?";
+        String sql = "UPDATE KhachHang SET TenKhachHang = ?, GioiTinh = ?, DiaChi = ?, SoDienThoai = ?, Diem = ? WHERE MaKhachHang = ?";
         XJdbc.update(sql,
                 model.getTenKH(),
                 model.isGioiTinh(),
                 model.getDiaChi(),
                 model.getSoDienThoai(),
-                model.getMaKH());  // Chỉ thay đổi các trường này
-                
+                model.getDiem(), // Bỏ kiểm tra null
+                model.getMaKH());
     }
 
     @Override
     public void delete(String soDienThoai) {
         String sqlUpdateHoaDon = "UPDATE HoaDon SET MaKhachHang = NULL WHERE MaKhachHang = (SELECT MaKhachHang FROM KhachHang WHERE SoDienThoai = ?)";
-        XJdbc.update(sqlUpdateHoaDon, soDienThoai); // Gỡ liên kết khách hàng theo số điện thoại
-
-        // Xóa khách hàng theo số điện thoại
+        XJdbc.update(sqlUpdateHoaDon, soDienThoai);
         String sqlDeleteKhachHang = "DELETE FROM KhachHang WHERE SoDienThoai = ?";
-        XJdbc.update(sqlDeleteKhachHang, soDienThoai); // Xóa khách hàng
+        XJdbc.update(sqlDeleteKhachHang, soDienThoai);
     }
 
-    public KhachHang selectById(String manh) {
-        String sql = "SELECT * FROM KhachHang WHERE SoDienThoai = ?";
-        return selectOne(sql, manh);
+    public KhachHang selectById(String maKH) {
+        String sql = "SELECT * FROM KhachHang WHERE MaKhachHang = ?";
+        return selectOne(sql, maKH);
     }
 
     public List<KhachHang> selectByMaKH(String maKH) {
-        String sql = "SELECT * FROM KhachHang WHERE SoDienThoai LIKE ?";
-        return this.selectBySql(sql, maKH + "%"); // Chỉ thêm '%' phía sau để tối ưu
+        String sql = "SELECT * FROM KhachHang WHERE MaKhachHang LIKE ?";
+        return this.selectBySql(sql, maKH + "%");
     }
-    
+
     public List<KhachHang> selectByKeyword(String keyWord) {
         String sql = "SELECT * FROM KhachHang WHERE SoDienThoai LIKE ?";
-        return selectBySql(sql,"%" +  keyWord + "%");
+        return selectBySql(sql, "%" + keyWord + "%");
     }
 
     private KhachHang selectOne(String sql, Object... args) {
@@ -93,6 +81,7 @@ public class KhachHangDAO extends OutFitMeDAO< KhachHang, String> {
                     entity.setSoDienThoai(rs.getString("SoDienThoai"));
                     entity.setGioiTinh(rs.getBoolean("GioiTinh"));
                     entity.setDiaChi(rs.getString("DiaChi"));
+                    entity.setDiem(rs.getInt("Diem"));
                     list.add(entity);
                 }
             } finally {
@@ -102,7 +91,7 @@ public class KhachHangDAO extends OutFitMeDAO< KhachHang, String> {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            throw new RuntimeException(ex);
+            throw new RuntimeException("Lỗi khi truy vấn cơ sở dữ liệu: " + ex.getMessage());
         }
         return list;
     }

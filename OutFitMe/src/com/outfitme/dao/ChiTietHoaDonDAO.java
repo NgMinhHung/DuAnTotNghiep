@@ -99,4 +99,9 @@ protected List<ChiTietHoaDon> selectBySql(String sql, Object... args) {
     }
     return list;
 }
+
+public void deleteAll() {
+    String sql = "DELETE FROM HoaDon";
+    XJdbc.update(sql);
+}
 }
