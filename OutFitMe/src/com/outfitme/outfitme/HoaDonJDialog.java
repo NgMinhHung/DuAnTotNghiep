@@ -391,8 +391,6 @@ public class HoaDonJDialog extends javax.swing.JDialog {
             java.util.logging.Logger.getLogger(HoaDonJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-      
-  
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -530,9 +528,6 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                     // Thêm một dòng mới vào CUỐI bảng
                     model.addRow(new Object[]{soHD, ngayLap, maSP, tenSP, maNV, maKH, soLuong});
 
-                    // Thêm hóa đơn vào cơ sở dữ liệu
-                    insertHoaDon();
-
                     MsgBox.alert(HoaDonJDialog.this, "Thêm vào bảng thành công!");
 
                     // Làm mới form và cập nhật số hóa đơn mới
@@ -540,6 +535,51 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                     setNewSoHD();
                 } else {
                     MsgBox.alert(HoaDonJDialog.this, "Thiếu dữ liệu, vui lòng kiểm tra lại!");
+                }
+            }
+        });
+
+        // Thêm sự kiện cho nút Add vào cthd
+        btnAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
+                int rowCount = model.getRowCount();
+
+                if (rowCount == 0) {
+                    MsgBox.alert(HoaDonJDialog.this, "Bảng hóa đơn trống, không có dữ liệu để lưu!");
+                    return;
+                }
+
+                try {
+                    // Duyệt qua từng dòng trong bảng tblHoaDon
+                    for (int i = 0; i < rowCount; i++) {
+                        String ngayLap = model.getValueAt(i, 1).toString();
+                        String maSP = model.getValueAt(i, 2).toString();
+                        String maNV = model.getValueAt(i, 4).toString();
+                        String maKH = model.getValueAt(i, 5).toString();
+                        int soLuong = Integer.parseInt(model.getValueAt(i, 6).toString());
+
+                        // Tạo đối tượng HoaDon và lưu vào cơ sở dữ liệu
+                        HoaDon hd = new HoaDon();
+                        hd.setNgayLap(java.sql.Date.valueOf(ngayLap));
+                        hd.setMaNV(maNV);
+                        hd.setMaKH(maKH);
+                        hd.setSoLuong(soLuong);
+                        hd.setMaSP(maSP);
+                        hddao.insert(hd);
+                    }
+
+                    MsgBox.alert(HoaDonJDialog.this, "Lưu hóa đơn vào cơ sở dữ liệu thành công!");
+
+                    // Xóa dữ liệu tạm trong bảng tblHoaDon
+                    model.setRowCount(0);
+
+                    // Cập nhật số hóa đơn mới
+                    setNewSoHD();
+                } catch (Exception ex) {
+                    MsgBox.alert(HoaDonJDialog.this, "Lỗi khi lưu hóa đơn vào cơ sở dữ liệu!");
+                    ex.printStackTrace();
                 }
             }
         });
@@ -701,20 +741,6 @@ public class HoaDonJDialog extends javax.swing.JDialog {
             return false;
         }
         return true;
-    }
-
-// Hàm thêm hóa đơn vào cơ sở dữ liệu
-    private void insertHoaDon() {
-        HoaDon hd = new HoaDon();
-        hd.setNgayLap(java.sql.Date.valueOf(txtNgayLapHD.getText()));
-        hd.setMaNV(cboMaNV.getSelectedItem().toString());
-        hd.setMaKH(cboMaKH.getSelectedItem().toString());
-        hd.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
-        hd.setMaSP(cboMaSP.getSelectedItem().toString());
-        hddao.insert(hd);
-
-        // Sau khi thêm, lấy số hóa đơn mới nhất từ cơ sở dữ liệu
-        setNewSoHD();
     }
 
 // Hàm làm trắng form (nút Mới)

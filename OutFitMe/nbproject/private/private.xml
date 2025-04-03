@@ -3,8 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/ChiTietHoaDonJDialog.java</file>
-            <file>file:/D:/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/HoaDonJDialog.java</file>
+            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/HoaDonJDialog.java</file>
+            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/ChiTietHoaDonJDialog.java</file>
+            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/dao/HoaDonDAO.java</file>
+            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/utils/XJdbc.java</file>
+            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/OutFitMe.java</file>
+            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/ChaoJDialog.java</file>
+            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/dao/ChiTietHoaDonDAO.java</file>
+            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/KhachHangJDailog.java</file>
         </group>
     </open-files>
 </project-private>

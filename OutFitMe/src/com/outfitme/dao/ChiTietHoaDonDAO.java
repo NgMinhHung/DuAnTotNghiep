@@ -23,7 +23,7 @@ public class ChiTietHoaDonDAO extends OutFitMeDAO<ChiTietHoaDon, String> {
                 entity.getNgayLap(),
                 entity.getMaNV(),
                 entity.getMaKH(),
-                entity.getSoLuong(), 
+                entity.getSoLuong(),
                 entity.getMaSP()
         );
     }
@@ -36,7 +36,7 @@ public class ChiTietHoaDonDAO extends OutFitMeDAO<ChiTietHoaDon, String> {
                 entity.getMaNV(),
                 entity.getMaKH(),
                 entity.getSoLuong(),
-                entity.getMaSP(), 
+                entity.getMaSP(),
                 entity.getSoHD()
         );
     }
@@ -47,9 +47,9 @@ public class ChiTietHoaDonDAO extends OutFitMeDAO<ChiTietHoaDon, String> {
         XJdbc.update(sql, soHD);
     }
 
-   @Override
-public ChiTietHoaDon selectById(String soHD) {
-    String sql = """
+    @Override
+    public ChiTietHoaDon selectById(String soHD) {
+        String sql = """
         SELECT hd.SoHD, hd.NgayLap, nv.MaNhanVien, nv.TenNhanVien, 
                sp.MaSanPham, sp.TenSanPham, hd.SoLuong, sp.GiaBan, hd.MaKhachHang
         FROM HoaDon hd
@@ -57,51 +57,51 @@ public ChiTietHoaDon selectById(String soHD) {
         JOIN SanPham sp ON hd.MaSanPham = sp.MaSanPham
         WHERE hd.SoHD = ?
     """;
-    List<ChiTietHoaDon> list = this.selectBySql(sql, soHD);
-    return list.isEmpty() ? null : list.get(0);
-}
+        List<ChiTietHoaDon> list = this.selectBySql(sql, soHD);
+        return list.isEmpty() ? null : list.get(0);
+    }
 
-@Override
-public List<ChiTietHoaDon> selectAll() {
-    String sql = """
+    @Override
+    public List<ChiTietHoaDon> selectAll() {
+        String sql = """
         SELECT hd.SoHD, hd.NgayLap, nv.MaNhanVien, nv.TenNhanVien, 
                sp.MaSanPham, sp.TenSanPham, hd.SoLuong, sp.GiaBan, hd.MaKhachHang
         FROM HoaDon hd
         JOIN NhanVien nv ON hd.MaNhanVien = nv.MaNhanVien
         JOIN SanPham sp ON hd.MaSanPham = sp.MaSanPham
     """;
-    return this.selectBySql(sql);
-}
-
-   @Override
-protected List<ChiTietHoaDon> selectBySql(String sql, Object... args) {
-    List<ChiTietHoaDon> list = new ArrayList<>();
-    try (ResultSet rs = XJdbc.query(sql, args)) {
-        while (rs.next()) {
-            ChiTietHoaDon cthd = new ChiTietHoaDon(
-                rs.getInt("SoHD"),           // Số hóa đơn
-                rs.getDate("NgayLap"),       // Ngày lập hóa đơn
-                rs.getString("MaNhanVien"),  // Mã nhân viên
-                rs.getString("TenNhanVien"), // Tên nhân viên
-                rs.getString("MaSanPham"),   // Mã sản phẩm
-                rs.getString("TenSanPham"),  // Tên sản phẩm
-                rs.getInt("SoLuong"),        // Số lượng
-                rs.getDouble("GiaBan"),      // Giá bán
-                rs.getString("MaKhachHang")  // Mã khách hàng
-            );
-            list.add(cthd);
-        }
-        System.out.println("Số dòng dữ liệu lấy được: " + list.size()); // Debug
-    } catch (SQLException ex) {
-        System.err.println("Lỗi khi truy vấn dữ liệu: " + ex.getMessage());
-        ex.printStackTrace();
-        throw new RuntimeException("Không thể lấy dữ liệu từ cơ sở dữ liệu", ex);
+        return this.selectBySql(sql);
     }
-    return list;
-}
 
-public void deleteAll() {
-    String sql = "DELETE FROM HoaDon";
-    XJdbc.update(sql);
-}
+    @Override
+    protected List<ChiTietHoaDon> selectBySql(String sql, Object... args) {
+        List<ChiTietHoaDon> list = new ArrayList<>();
+        try (ResultSet rs = XJdbc.query(sql, args)) {
+            while (rs.next()) {
+                ChiTietHoaDon cthd = new ChiTietHoaDon(
+                        rs.getInt("SoHD"), // Số hóa đơn
+                        rs.getDate("NgayLap"), // Ngày lập hóa đơn
+                        rs.getString("MaNhanVien"), // Mã nhân viên
+                        rs.getString("TenNhanVien"), // Tên nhân viên
+                        rs.getString("MaSanPham"), // Mã sản phẩm
+                        rs.getString("TenSanPham"), // Tên sản phẩm
+                        rs.getInt("SoLuong"), // Số lượng
+                        rs.getDouble("GiaBan"), // Giá bán
+                        rs.getString("MaKhachHang") // Mã khách hàng
+                );
+                list.add(cthd);
+            }
+            System.out.println("Số dòng dữ liệu lấy được: " + list.size()); // Debug
+        } catch (SQLException ex) {
+            System.err.println("Lỗi khi truy vấn dữ liệu: " + ex.getMessage());
+            ex.printStackTrace();
+            throw new RuntimeException("Không thể lấy dữ liệu từ cơ sở dữ liệu", ex);
+        }
+        return list;
+    }
+
+    public void deleteAll() {
+        String sql = "DELETE FROM HoaDon";
+        XJdbc.update(sql);
+    }
 }
