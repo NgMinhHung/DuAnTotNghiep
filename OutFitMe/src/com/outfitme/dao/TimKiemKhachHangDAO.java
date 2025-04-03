@@ -6,16 +6,16 @@ package com.outfitme.dao;
 
 import com.outfitme.entity.KhachHang;
 import com.outfitme.utils.XJdbc;
-import java.util.ArrayList;
-import java.util.List;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author DELL
  */
-public class KhachHangDAO extends OutFitMeDAO< KhachHang, String> {
+public class TimKiemKhachHangDAO extends OutFitMeDAO< KhachHang, String> {
 
     @Override
     public void insert(KhachHang model) {
@@ -33,14 +33,12 @@ public class KhachHangDAO extends OutFitMeDAO< KhachHang, String> {
 
     @Override
     public void update(KhachHang model) {
-        String sql = "UPDATE KhachHang SET TenKhachHang = ?, GioiTinh = ?, DiaChi = ?, SoDienThoai = ? WHERE MaKhachHang = ?";
+        String sql = "UPDATE KhachHang SET TenKhachHang = ?, GioiTinh = ?, DiaChi = ? WHERE SoDienThoai = ?";
         XJdbc.update(sql,
                 model.getTenKH(),
                 model.isGioiTinh(),
                 model.getDiaChi(),
-                model.getSoDienThoai(),
-                model.getMaKH());  // Chỉ thay đổi các trường này
-                
+                model.getSoDienThoai());  // Chỉ thay đổi các trường này
     }
 
     @Override
@@ -61,11 +59,6 @@ public class KhachHangDAO extends OutFitMeDAO< KhachHang, String> {
     public List<KhachHang> selectByMaKH(String maKH) {
         String sql = "SELECT * FROM KhachHang WHERE SoDienThoai LIKE ?";
         return this.selectBySql(sql, maKH + "%"); // Chỉ thêm '%' phía sau để tối ưu
-    }
-    
-    public List<KhachHang> selectByKeyword(String keyWord) {
-        String sql = "SELECT * FROM KhachHang WHERE SoDienThoai LIKE ?";
-        return selectBySql(sql,"%" +  keyWord + "%");
     }
 
     private KhachHang selectOne(String sql, Object... args) {

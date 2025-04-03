@@ -23,6 +23,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
     public ThongKeJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        init();
     }
 
     /**
