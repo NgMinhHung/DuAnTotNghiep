@@ -20,8 +20,8 @@ public class NhanVienDAO extends OutFitMeDAO<NhanVien, String> {
     @Override
     public void insert(NhanVien model) {
         String sql = "INSERT INTO NhanVien "
-                + "(MaNhanVien, TenNhanVien, GioiTinh, NgaySinh, DiaChi, SoDienThoai, TenDangNhap, MatKhau, ChucVu) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "(MaNhanVien, TenNhanVien, GioiTinh, NgaySinh, DiaChi, SoDienThoai, TenDangNhap, MatKhau, HinhAnh, ChucVu) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         XJdbc.update(sql,
                 model.getMaNV(),
                 model.getTenNV(),
@@ -31,13 +31,14 @@ public class NhanVienDAO extends OutFitMeDAO<NhanVien, String> {
                 model.getSoDienThoai(),
                 model.getTenDangNhap(),
                 model.getMatKhau(),
+                model.getHinhAnh(),
                 model.isChucVu());
     }
 
     @Override
     public void update(NhanVien model) {
         String sql = "UPDATE NhanVien SET TenNhanVien = ?, GioiTinh = ?, NgaySinh = ?, DiaChi = ?, SoDienThoai = ?, "
-                + "TenDangNhap = ?, MatKhau = ?, ChucVu = ? WHERE MaNhanVien = ?";
+                + "TenDangNhap = ?, MatKhau = ?, HinhAnh = ?, ChucVu = ? WHERE MaNhanVien = ?";
         XJdbc.update(sql,
                 model.getTenNV(),
                 model.isGioiTinh(),
@@ -46,6 +47,7 @@ public class NhanVienDAO extends OutFitMeDAO<NhanVien, String> {
                 model.getSoDienThoai(),
                 model.getTenDangNhap(),
                 model.getMatKhau(),
+                model.getHinhAnh(),
                 model.isChucVu(),
                 model.getMaNV());
     }
@@ -92,6 +94,7 @@ public class NhanVienDAO extends OutFitMeDAO<NhanVien, String> {
                     entity.setSoDienThoai(rs.getString("SoDienThoai"));
                     entity.setTenDangNhap(rs.getString("TenDangNhap"));
                     entity.setMatKhau(rs.getString("MatKhau"));
+                    entity.setHinhAnh(rs.getString("HinhAnh"));
                     entity.setChucVu(rs.getBoolean("ChucVu"));
                     list.add(entity);
                 }

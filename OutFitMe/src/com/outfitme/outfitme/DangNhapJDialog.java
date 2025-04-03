@@ -148,7 +148,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-       this.ketThuc();
+        this.ketThuc();
     }//GEN-LAST:event_btnExitActionPerformed
 
     /**
@@ -203,32 +203,30 @@ public class DangNhapJDialog extends javax.swing.JDialog {
     private javax.swing.JPasswordField txtMatKhau;
     private javax.swing.JTextField txtTenDN;
     // End of variables declaration//GEN-END:variables
- void init(){
+ void init() {
         setLocationRelativeTo(null);
     }
- 
-  NhanVienDAO dao = new NhanVienDAO();
+
+    NhanVienDAO dao = new NhanVienDAO();
 
     void dangNhap() {
         String tenDangNhap = txtTenDN.getText();
         String matKhau = new String(txtMatKhau.getPassword());
         NhanVien nhanVien = dao.selectById(tenDangNhap);
-        if(nhanVien == null){
+        if (nhanVien == null) {
             MsgBox.alert(this, "Sai tên đăng nhập!");
-        }
-        else if(!matKhau.equals(nhanVien.getMatKhau())){
+        } else if (!matKhau.equals(nhanVien.getMatKhau())) {
             MsgBox.alert(this, "Sai mật khẩu!");
-        }
-        else{
+        } else {
             Auth.user = nhanVien;
             this.dispose();//đóng cs đăng nhập
-            
+
         }
     }
-    
-     void ketThuc(){
-        if(MsgBox.confirm(this, "Bạn muốn kết thúc ứng dụng?")){
+
+    void ketThuc() {
+        if (MsgBox.confirm(this, "Bạn muốn kết thúc ứng dụng?")) {
             System.exit(0);
         }
-     }
+    }
 }

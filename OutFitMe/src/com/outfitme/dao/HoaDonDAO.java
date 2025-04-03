@@ -17,119 +17,75 @@ import java.sql.SQLException;
  */
 public class HoaDonDAO extends OutFitMeDAO<HoaDon, String> {
 
+    @Override
     public void insert(HoaDon model) {
-        String sql = "INSERT INTO HoaDon (SoHoaDon, NgayLap, MaNhanVien, MaKhachHang, MaSanPham) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO HoaDon (NgayLap, MaNhanVien, MaKhachHang, SoLuong, MaSanPham) VALUES (?, ?, ?, ?, ?)";
         XJdbc.update(sql,
-                model.getSoHD(),
                 model.getNgayLap(),
                 model.getMaNV(),
                 model.getMaKH(),
-                model.getMaSP());
+                model.getSoLuong(),
+                model.getMaSP()
+        );
     }
 
+    @Override
     public void update(HoaDon model) {
-        String sql = "UPDATE HoaDon SET NgayLap=?, MaNhanVien=?, MaKhachHang=?, MaSanPham=? WHERE SoHoaDon=?";
-        try {
-            XJdbc.update(sql,
-                    model.getNgayLap(),
-                    model.getMaNV(),
-                    model.getMaKH(),
-                    model.getMaSP(),
-                    model.getSoHD());
-        } catch (Exception e) {
-            e.printStackTrace(); // Ghi log lỗi
-            throw new RuntimeException("Lỗi cập nhật hóa đơn: " + e.getMessage());
-        }
+        String sql = "UPDATE HoaDon SET NgayLap = ?, MaNhanVien = ?, MaKhachHang = ?, SoLuong = ?, MaSanPham = ? "
+                + "WHERE SoHD = ?";
+        XJdbc.update(sql,
+                model.getNgayLap(),
+                model.getMaNV(),
+                model.getMaKH(),
+                model.getSoLuong(),
+                model.getMaSP(), // Thêm MaSanPham vào câu lệnh UPDATE
+                model.getSoHD()
+        );
     }
 
-    public void delete(String soHoaDon) {
-        String sql = "DELETE FROM HoaDon WHERE SoHoaDon=?";
-        XJdbc.update(sql, soHoaDon);
+    @Override
+    public void delete(String soHD) {
+        String sql = "DELETE FROM HoaDon WHERE SoHD = ?";
+        XJdbc.update(sql, soHD);
     }
 
-    public List<HoaDon> selectAll() {
-        String sql = "SELECT hd.SoHoaDon, hd.NgayLap, hd.MaNhanVien, hd.MaKhachHang, hd.MaSanPham, sp.TenSanPham, sp.Size "
-                + "FROM HoaDon hd "
-                + "LEFT JOIN SanPham sp ON hd.MaSanPham = sp.MaSanPham";
-        return this.selectBySql(sql);
-    }
-
-    public HoaDon selectById(String soHoaDon) {
-        String sql = "SELECT hd.SoHoaDon, hd.NgayLap, hd.MaNhanVien, hd.MaKhachHang, hd.MaSanPham, sp.TenSanPham, sp.Size "
-                + "FROM HoaDon hd "
-                + "LEFT JOIN SanPham sp ON hd.MaSanPham = sp.MaSanPham "
-                + "WHERE hd.SoHoaDon=?";
-        List<HoaDon> list = this.selectBySql(sql, soHoaDon);
+    @Override
+    public HoaDon selectById(String soHD) {
+        String sql = "SELECT * FROM HoaDon WHERE SoHD = ?";
+        List<HoaDon> list = this.selectBySql(sql, soHD);
         return list.size() > 0 ? list.get(0) : null;
     }
 
+    @Override
+    public List<HoaDon> selectAll() {
+        String sql = "SELECT * FROM HoaDon";
+        return this.selectBySql(sql);
+    }
+
+    @Override
     protected List<HoaDon> selectBySql(String sql, Object... args) {
         List<HoaDon> list = new ArrayList<>();
         try {
-            ResultSet rs = XJdbc.query(sql, args);
-            while (rs.next()) {
-                HoaDon entity = new HoaDon();
-                entity.setSoHD(rs.getString("SoHoaDon"));
-                entity.setNgayLap(rs.getDate("NgayLap"));
-                entity.setMaNV(rs.getString("MaNhanVien"));
-                entity.setMaKH(rs.getString("MaKhachHang"));
-                entity.setMaSP(rs.getString("MaSanPham"));
-                entity.setTenSP(rs.getString("TenSanPham"));
-                entity.setSize(rs.getString("Size"));
-                list.add(entity);
+            ResultSet rs = null;
+            try {
+                rs = XJdbc.query(sql, args);
+                while (rs.next()) {
+                    HoaDon entity = new HoaDon();
+                    entity.setSoHD(rs.getInt("SoHD"));
+                    entity.setNgayLap(rs.getDate("NgayLap"));
+                    entity.setMaNV(rs.getString("MaNhanVien"));
+                    entity.setMaKH(rs.getString("MaKhachHang"));
+                    entity.setSoLuong(rs.getInt("SoLuong"));
+                    entity.setMaSP(rs.getString("MaSanPham")); // Thêm MaSanPham vào entity
+                    list.add(entity);
+                }
+            } finally {
+                rs.getStatement().getConnection().close();
             }
-            rs.getStatement().getConnection().close();
         } catch (SQLException ex) {
+            ex.printStackTrace();
             throw new RuntimeException(ex);
         }
         return list;
-    }
-    public String layTenSanPham(String maSP) {
-        String tenSP = "";
-        try {
-            String sql = "SELECT TenSanPham FROM SanPham WHERE MaSanPham = ?";
-            ResultSet rs = XJdbc.query(sql, maSP);
-            if (rs.next()) {
-                tenSP = rs.getString("TenSanPham");
-            }
-            rs.getStatement().getConnection().close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return tenSP;
-    }
-    public List<HoaDon> selectByMultipleConditions(String soHD, String maSP, String ngayLapHD, String maNV, String maKH) {
-        String sql = "SELECT hd.SoHoaDon, hd.NgayLap, hd.MaNhanVien, hd.MaKhachHang, hd.MaSanPham, sp.TenSanPham "
-                + "FROM HoaDon hd "
-                + "LEFT JOIN SanPham sp ON hd.MaSanPham = sp.MaSanPham "
-                + "WHERE (? IS NULL OR hd.SoHoaDon LIKE ?) "
-                + "AND (? IS NULL OR hd.MaNhanVien LIKE ?) "
-                + "AND (? IS NULL OR hd.NgayLap = ?) "
-                + "AND (? IS NULL OR hd.MaSanPham LIKE ?) "
-                + "AND (? IS NULL OR hd.MaKhachHang LIKE ?)";
-        return this.selectBySql(sql,
-                soHD.isEmpty() ? null : "%" + soHD + "%", soHD.isEmpty() ? null : "%" + soHD + "%",
-                maNV.isEmpty() ? null : "%" + maNV + "%", maNV.isEmpty() ? null : "%" + maNV + "%",
-                ngayLapHD.isEmpty() ? null : ngayLapHD, ngayLapHD.isEmpty() ? null : ngayLapHD,
-                maSP.isEmpty() ? null : "%" + maSP + "%", maSP.isEmpty() ? null : "%" + maSP + "%",
-                maKH.isEmpty() ? null : "%" + maKH + "%", maKH.isEmpty() ? null : "%" + maKH + "%");
-    }
-    public HoaDon findBySoHD(String soHD) {
-        String sql = "SELECT SoHoaDon, NgayLap, MaNhanVien, MaSanPham, MaKhachHang FROM HoaDon WHERE SoHoaDon = ?";
-        try {
-            ResultSet rs = XJdbc.query(sql, soHD);
-            if (rs.next()) {
-                HoaDon hd = new HoaDon();
-                hd.setSoHD(rs.getString("SoHoaDon"));
-                hd.setNgayLap(rs.getDate("NgayLap"));
-                hd.setMaNV(rs.getString("MaNhanVien")); // ✅ Đổi từ MaNV -> MaNhanVien
-                hd.setMaSP(rs.getString("MaSanPham"));  // ✅ Đổi từ MaSP -> MaSanPham
-                hd.setMaKH(rs.getString("MaKhachHang"));// ✅ Đổi từ MaKH -> MaKhachHang
-                return hd;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return null;
     }
 }

@@ -19,13 +19,14 @@ public class NhanVien {
     private String diaChi;
     private String soDienThoai;
     private String tenDangNhap;
+    private String hinhAnh;
     private String matKhau;
     private boolean chucVu;
 
     public NhanVien() {
     }
 
-    public NhanVien(String maNV, String tenNV, boolean gioiTinh, Date ngaySinh, String diaChi, String soDienThoai, String tenDangNhap, String matKhau, boolean chucVu) {
+    public NhanVien(String maNV, String tenNV, boolean gioiTinh, Date ngaySinh, String diaChi, String soDienThoai, String tenDangNhap, String hinhAnh, String matKhau, boolean chucVu) {
         this.maNV = maNV;
         this.tenNV = tenNV;
         this.gioiTinh = gioiTinh;
@@ -33,6 +34,7 @@ public class NhanVien {
         this.diaChi = diaChi;
         this.soDienThoai = soDienThoai;
         this.tenDangNhap = tenDangNhap;
+        this.hinhAnh = hinhAnh;
         this.matKhau = matKhau;
         this.chucVu = chucVu;
     }
@@ -93,6 +95,14 @@ public class NhanVien {
         this.tenDangNhap = tenDangNhap;
     }
 
+    public String getHinhAnh() {
+        return hinhAnh;
+    }
+
+    public void setHinhAnh(String hinhAnh) {
+        this.hinhAnh = hinhAnh;
+    }
+
     public String getMatKhau() {
         return matKhau;
     }
@@ -102,11 +112,12 @@ public class NhanVien {
     }
 
     public boolean isChucVu() {
-        return this.chucVu;
+        return chucVu;
     }
 
     public void setChucVu(boolean chucVu) {
         this.chucVu = chucVu;
     }
 
+    
 }

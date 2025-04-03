@@ -105,6 +105,7 @@ public class OutFitMe extends javax.swing.JFrame {
         lblTrangThai.setForeground(new java.awt.Color(255, 0, 0));
         lblTrangThai.setText("OutFitMe");
 
+        lblDongHo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Alarm.png"))); // NOI18N
         lblDongHo.setText("13:57");
 
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -214,25 +215,25 @@ public class OutFitMe extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
                         .addComponent(btnNhanVien)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnKhachHang)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnSanPham)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnHoaDon)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCTHD)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnThongKe))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                        .addComponent(lblDongHo, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCTHD)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblDongHo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -245,7 +246,7 @@ public class OutFitMe extends javax.swing.JFrame {
                     .addComponent(btnCTHD)
                     .addComponent(btnThongKe)
                     .addComponent(btnNhanVien))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 272, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTrangThai)
                     .addComponent(lblDongHo))
@@ -256,15 +257,15 @@ public class OutFitMe extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mniDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDangNhapActionPerformed
-       this.OpenDangNhap();
+        this.OpenDangNhap();
     }//GEN-LAST:event_mniDangNhapActionPerformed
 
     private void mniKetThucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniKetThucActionPerformed
-       this.ketThuc();
+        this.ketThuc();
     }//GEN-LAST:event_mniKetThucActionPerformed
 
     private void mniSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSanPhamActionPerformed
-      
+
     }//GEN-LAST:event_mniSanPhamActionPerformed
 
     private void mniHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHoaDonActionPerformed
@@ -272,7 +273,7 @@ public class OutFitMe extends javax.swing.JFrame {
     }//GEN-LAST:event_mniHoaDonActionPerformed
 
     private void mniDoiMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDoiMatKhauActionPerformed
-    this.OpenDoiMatKhau();
+        this.OpenDoiMatKhau();
     }//GEN-LAST:event_mniDoiMatKhauActionPerformed
 
     private void mniDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDangXuatActionPerformed
@@ -280,7 +281,7 @@ public class OutFitMe extends javax.swing.JFrame {
     }//GEN-LAST:event_mniDangXuatActionPerformed
 
     private void mniNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniNhanVienActionPerformed
-        this.OpenNhanVien();    
+        this.OpenNhanVien();
     }//GEN-LAST:event_mniNhanVienActionPerformed
 
     private void mniKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniKhachHangActionPerformed
@@ -374,87 +375,90 @@ public class OutFitMe extends javax.swing.JFrame {
     private javax.swing.JMenu mnuQuanli;
     // End of variables declaration//GEN-END:variables
  void init() {
-       
+        setIconImage(XImage.getAppIcon());
         new ChaoJDialog(this, true).setVisible(true);
         new DangNhapJDialog(this, true).setVisible(true);
         this.startDongHo();
     }
-    void startDongHo(){
+
+    void startDongHo() {
         SimpleDateFormat formater = new SimpleDateFormat("hh:mm:ss a");
         new Timer(1000, (ActionEvent e) -> {
             lblDongHo.setText(formater.format(new Date()));
         }).start();
     }
-     void OpenDoiMatKhau() {
-        if(Auth.isLogin()){
+
+    void OpenDoiMatKhau() {
+        if (Auth.isLogin()) {
             new DoiMatKhauJDialog(this, true).setVisible(true);
-        }
-        else{
+        } else {
             MsgBox.alert(this, "Vui lòng đăng nhập!");
         }
     }
-    void dangXuat(){
+
+    void dangXuat() {
         Auth.clear();
         new DangNhapJDialog(this, true).setVisible(true);
     }
-    void ketThuc(){
-        if(MsgBox.confirm(this, "Bạn muốn kết thúc làm việc?")){
+
+    void ketThuc() {
+        if (MsgBox.confirm(this, "Bạn muốn kết thúc làm việc?")) {
             System.exit(0);
         }
     }
-     void OpenDangNhap() {
-        if(Auth.isLogin()){
+
+    void OpenDangNhap() {
+        if (Auth.isLogin()) {
             new DangNhapJDialog(this, true).setVisible(true);
-        }
-        else{
+        } else {
             MsgBox.alert(this, "Vui lòng đăng nhập!");
         }
     }
-      void OpenChiTietHoaDon() {
-        if(Auth.isLogin()){
+
+    void OpenChiTietHoaDon() {
+        if (Auth.isLogin()) {
             new ChiTietHoaDonJDialog(this, true).setVisible(true);
-        }
-        else{
+        } else {
             MsgBox.alert(this, "Vui lòng đăng nhập!");
         }
     }
-       void OpenHoaDon() {
-        if(Auth.isLogin()){
+
+    void OpenHoaDon() {
+        if (Auth.isLogin()) {
             new HoaDonJDialog(this, true).setVisible(true);
-        }
-        else{
+        } else {
             MsgBox.alert(this, "Vui lòng đăng nhập!");
         }
     }
-        void OpenKhachHang() {
-        if(Auth.isLogin()){
+
+    void OpenKhachHang() {
+        if (Auth.isLogin()) {
             new KhachHangJDailog(this, true).setVisible(true);
-        }
-        else{
+        } else {
             MsgBox.alert(this, "Vui lòng đăng nhập!");
         }
     }
-         void OpenNhanVien() {
-        if(Auth.isLogin()){
+
+    void OpenNhanVien() {
+        if (Auth.isLogin()) {
             new NhanVienJDialog(this, true).setVisible(true);
-        }
-        else{
+        } else {
             MsgBox.alert(this, "Vui lòng đăng nhập!");
         }
     }
-          void OpenThongKe() {
-        if(Auth.isLogin()){
+
+    void OpenThongKe() {
+        if (Auth.isLogin()) {
             new ThongKeJDialog(this, true).setVisible(true);
-        }
-        else{
+        } else {
             MsgBox.alert(this, "Vui lòng đăng nhập!");
         }
     }
-            void OpenSanPham() {
-        if(Auth.isLogin()){
+
+    void OpenSanPham() {
+        if (Auth.isLogin()) {
             new SanPhamJDialog(this, true).setVisible(true);
-        }
-        else{
+        } else {
             MsgBox.alert(this, "Vui lòng đăng nhập!");
         }
     }

@@ -11,33 +11,30 @@ import java.util.Date;
  * @author MINH HUNG
  */
 public class HoaDon {
-
-    private String soHD;
+    private int soHD;
     private Date ngayLap;
     private String maNV;
     private String maKH;
+    private int soLuong;
     private String maSP;
-    private String tenSP; // Thêm thuộc tính tên sản phẩm
-    private String size;
-
-    public HoaDon(String soHD, Date ngayLap, String maNV, String maKH, String maSP, String tenSP, String size) {
-        this.soHD = soHD;
-        this.ngayLap = ngayLap;
-        this.maNV = maNV;
-        this.maKH = maKH;
-        this.maSP = maSP;
-        this.tenSP = tenSP;
-        this.size = size;
-    }
 
     public HoaDon() {
     }
 
-    public String getSoHD() {
+    public HoaDon(int soHD, Date ngayLap, String maNV, String maKH, int soLuong, String maSP) {
+        this.soHD = soHD;
+        this.ngayLap = ngayLap;
+        this.maNV = maNV;
+        this.maKH = maKH;
+        this.soLuong = soLuong;
+        this.maSP = maSP;
+    }
+
+    public int getSoHD() {
         return soHD;
     }
 
-    public void setSoHD(String soHD) {
+    public void setSoHD(int soHD) {
         this.soHD = soHD;
     }
 
@@ -65,6 +62,14 @@ public class HoaDon {
         this.maKH = maKH;
     }
 
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
     public String getMaSP() {
         return maSP;
     }
@@ -73,19 +78,6 @@ public class HoaDon {
         this.maSP = maSP;
     }
 
-    public String getTenSP() {
-        return tenSP;
-    }
 
-    public void setTenSP(String tenSP) {
-        this.tenSP = tenSP;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
+    
 }

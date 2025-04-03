@@ -1,39 +1,81 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.outfitme.entity;
 
-/**
- *
- * @author MINH HUNG
- */
+import java.util.Date;
+
 public class ChiTietHoaDon {
-    private String soHD;
+
+    private int soHD;
+    private Date ngayLap;
+    private String maNV;
+    private String tenNV;
     private String maSP;
-    private double donGia;
     private String tenSP;
     private int soLuong;
-    private String size;
+    private double giaTien;
+    private double tongTien;
+    private String maKH;
 
     public ChiTietHoaDon() {
     }
 
-    public ChiTietHoaDon(String soHD, String maSP, double donGia, String tenSP, int soLuong, String size) {
+    // Constructor 8 tham số (tự tính tongTien)
+    public ChiTietHoaDon(int soHD, Date ngayLap, String maNV, String tenNV, String maSP, String tenSP, int soLuong, double giaTien) {
         this.soHD = soHD;
+        this.ngayLap = ngayLap;
+        this.maNV = maNV;
+        this.tenNV = tenNV;
         this.maSP = maSP;
-        this.donGia = donGia;
         this.tenSP = tenSP;
         this.soLuong = soLuong;
-        this.size = size;
+        this.giaTien = giaTien;
+        this.tongTien = soLuong * giaTien;
     }
 
-    public String getSoHD() {
+    // Constructor 9 tham số (bao gồm maKH)
+    public ChiTietHoaDon(int soHD, Date ngayLap, String maNV, String tenNV, String maSP, String tenSP, int soLuong, double giaTien, String maKH) {
+        this.soHD = soHD;
+        this.ngayLap = ngayLap;
+        this.maNV = maNV;
+        this.tenNV = tenNV;
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.soLuong = soLuong;
+        this.giaTien = giaTien;
+        this.tongTien = soLuong * giaTien;
+        this.maKH = maKH;
+    }
+
+    // Getters và Setters
+    public int getSoHD() {
         return soHD;
     }
 
-    public void setSoHD(String soHD) {
+    public void setSoHD(int soHD) {
         this.soHD = soHD;
+    }
+
+    public Date getNgayLap() {
+        return ngayLap;
+    }
+
+    public void setNgayLap(Date ngayLap) {
+        this.ngayLap = ngayLap;
+    }
+
+    public String getMaNV() {
+        return maNV;
+    }
+
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
+    }
+
+    public String getTenNV() {
+        return tenNV;
+    }
+
+    public void setTenNV(String tenNV) {
+        this.tenNV = tenNV;
     }
 
     public String getMaSP() {
@@ -42,14 +84,6 @@ public class ChiTietHoaDon {
 
     public void setMaSP(String maSP) {
         this.maSP = maSP;
-    }
-
-    public double getDonGia() {
-        return donGia;
-    }
-
-    public void setDonGia(double donGia) {
-        this.donGia = donGia;
     }
 
     public String getTenSP() {
@@ -68,11 +102,27 @@ public class ChiTietHoaDon {
         this.soLuong = soLuong;
     }
 
-    public String getSize() {
-        return size;
+    public double getGiaTien() {
+        return giaTien;
     }
 
-    public void setSize(String size) {
-        this.size = size;
+    public void setGiaTien(double giaTien) {
+        this.giaTien = giaTien;
+    }
+
+    public double getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(double tongTien) {
+        this.tongTien = tongTien;
+    }
+
+    public String getMaKH() {
+        return maKH;
+    }
+
+    public void setMaKH(String maKH) {
+        this.maKH = maKH;
     }
 }
