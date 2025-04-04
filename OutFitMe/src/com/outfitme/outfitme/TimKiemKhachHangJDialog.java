@@ -4,8 +4,8 @@
  */
 package com.outfitme.outfitme;
 
-import com.outfitme.dao.KhachHangDAO;
-import com.outfitme.entity.KhachHang;
+import com.outfitme.dao.TimKiemKhachHangDAO;
+import com.outfitme.entity.TimKiemKhachHang;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TimKiemKhachHangJDialog extends javax.swing.JDialog {
 
-    private static  String soDienThoai;
+    private static String soDienThoai;
     JTextField txtTimKiem = new JTextField();
 
     /**
@@ -27,11 +27,12 @@ public class TimKiemKhachHangJDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
-        
+
         txtTimKiem.setText(timKiem);
         soDienThoai = timKiem;
         init();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,17 +49,17 @@ public class TimKiemKhachHangJDialog extends javax.swing.JDialog {
 
         tblTimKiem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã KH", "Tên KH", "SĐT", "Giới Tính", "Địa chỉ"
+                "Số Hóa Đơn", "Ngày Lập", "Mã Nhân Viên", "Mã Khách Hàng", "Mã Sản Phẩm", "Tên Sản Phẩm", "Size"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -95,13 +96,13 @@ public class TimKiemKhachHangJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTimKiemMouseClicked
-//        if (evt.getClickCount() == 2) {  // Chỉ xử lý khi click đúp
-//            this.row = tblTimKiem.getSelectedRow();
-//            if (this.row >= 0) {
-//                fillTable();
-//                loadTable();
-//            }
-//        }
+        //        if (evt.getClickCount() == 2) {  // Chỉ xử lý khi click đúp
+        //            this.row = tblTimKiem.getSelectedRow();
+        //            if (this.row >= 0) {
+        //                fillTable();
+        //                loadTable();
+        //            }
+        //        }
     }//GEN-LAST:event_tblTimKiemMouseClicked
 
     /**
@@ -152,7 +153,7 @@ public class TimKiemKhachHangJDialog extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblTimKiem;
     // End of variables declaration//GEN-END:variables
-KhachHangDAO dao = new KhachHangDAO();
+    TimKiemKhachHangDAO dao = new TimKiemKhachHangDAO();
     int row = 0;
 
     void init() {
@@ -164,16 +165,24 @@ KhachHangDAO dao = new KhachHangDAO();
     private void loadTable() {
         DefaultTableModel model = (DefaultTableModel) tblTimKiem.getModel();
         model.setRowCount(0);
-        String timKiem = txtTimKiem.getText().trim();
-        System.out.println("gia tri tkiem:  " + timKiem);
+
         try {
-            List<KhachHang> list = dao.selectByKeyword(timKiem);
-            for (KhachHang kh : list) {
-                Object[] row = {kh.getMaKH(), kh.getTenKH(), kh.getSoDienThoai(), kh.getDiaChi(), kh.isGioiTinh() ? "Nam" : "Nữ"};
+            List<TimKiemKhachHang> list = dao.selectByKeyword(soDienThoai);
+            for (TimKiemKhachHang kh : list) {
+                Object[] row = {
+                    kh.getSoHD(),
+                    kh.getNgayLap(),
+                    kh.getMaNV(),
+                    kh.getMaKH(),
+                    kh.getMaSP(),
+                    kh.getTenSP(),
+                    kh.getSize()
+                };
                 model.addRow(row);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi khi tải dữ liệu khách hàng!");
+            JOptionPane.showMessageDialog(this, "Lỗi khi tải dữ liệu hóa đơn của khách hàng!");
+            e.printStackTrace();
         }
     }
 }

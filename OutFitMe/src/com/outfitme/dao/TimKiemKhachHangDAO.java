@@ -5,6 +5,7 @@
 package com.outfitme.dao;
 
 import com.outfitme.entity.KhachHang;
+import com.outfitme.entity.TimKiemKhachHang;
 import com.outfitme.utils.XJdbc;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,77 +16,82 @@ import java.util.List;
  *
  * @author DELL
  */
-public class TimKiemKhachHangDAO extends OutFitMeDAO< KhachHang, String> {
+public class TimKiemKhachHangDAO extends OutFitMeDAO<TimKiemKhachHang, String> {
 
     @Override
-    public void insert(KhachHang model) {
-        String sql = "INSERT INTO KhachHang "
-                + "(MaKhachHang, TenKhachHang, SoDienThoai, GioiTinh, DiaChi) "
-                + "VALUES (?, ?, ?, ?, ?)";
+    public void insert(TimKiemKhachHang model) {
+        String sql = "INSERT INTO HoaDon (SoHoaDon, NgayLap, MaNV, MaKH, MaSP, TenSP, Size) VALUES (?, ?, ?, ?, ?, ?, ?)";
         XJdbc.update(sql,
+                model.getSoHD(),
+                model.getNgayLap(),
+                model.getMaNV(),
                 model.getMaKH(),
-                model.getTenKH(),
-                model.getSoDienThoai(),
-                model.isGioiTinh(),
-                model.getDiaChi());
-
+                model.getMaSP(),
+                model.getTenSP(),
+                model.getSize()
+        );
     }
 
     @Override
-    public void update(KhachHang model) {
-        String sql = "UPDATE KhachHang SET TenKhachHang = ?, GioiTinh = ?, DiaChi = ? WHERE SoDienThoai = ?";
+    public void update(TimKiemKhachHang model) {
+        String sql = "UPDATE HoaDon SET NgayLap = ?, MaNV = ?, MaKH = ?, MaSP = ?, TenSP = ?, Size = ? WHERE SoHoaDon = ?";
         XJdbc.update(sql,
-                model.getTenKH(),
-                model.isGioiTinh(),
-                model.getDiaChi(),
-                model.getSoDienThoai());  // Chỉ thay đổi các trường này
+                model.getNgayLap(),
+                model.getMaNV(),
+                model.getMaKH(),
+                model.getMaSP(),
+                model.getTenSP(),
+                model.getSize(),
+                model.getSoHD()
+        );
     }
 
     @Override
-    public void delete(String soDienThoai) {
-        String sqlUpdateHoaDon = "UPDATE HoaDon SET MaKhachHang = NULL WHERE MaKhachHang = (SELECT MaKhachHang FROM KhachHang WHERE SoDienThoai = ?)";
-        XJdbc.update(sqlUpdateHoaDon, soDienThoai); // Gỡ liên kết khách hàng theo số điện thoại
-
-        // Xóa khách hàng theo số điện thoại
-        String sqlDeleteKhachHang = "DELETE FROM KhachHang WHERE SoDienThoai = ?";
-        XJdbc.update(sqlDeleteKhachHang, soDienThoai); // Xóa khách hàng
+    public void delete(String soHD) {
+        String sql = "DELETE FROM HoaDon WHERE SoHoaDon = ?";
+        XJdbc.update(sql, soHD);
     }
 
-    public KhachHang selectById(String manh) {
-        String sql = "SELECT * FROM KhachHang WHERE SoDienThoai = ?";
-        return selectOne(sql, manh);
+    public TimKiemKhachHang selectById(String soHD) {
+        String sql = "SELECT * FROM HoaDon WHERE SoHoaDon = ?";
+        return selectOne(sql, soHD);
     }
 
-    public List<KhachHang> selectByMaKH(String maKH) {
-        String sql = "SELECT * FROM KhachHang WHERE SoDienThoai LIKE ?";
-        return this.selectBySql(sql, maKH + "%"); // Chỉ thêm '%' phía sau để tối ưu
+    @Override
+    public List<TimKiemKhachHang> selectAll() {
+        String sql = "SELECT * FROM HoaDon";
+        return this.selectBySql(sql);
     }
 
-    private KhachHang selectOne(String sql, Object... args) {
-        List<KhachHang> list = selectBySql(sql, args);
+    private TimKiemKhachHang selectOne(String sql, Object... args) {
+        List<TimKiemKhachHang> list = selectBySql(sql, args);
         return list.isEmpty() ? null : list.get(0);
     }
 
     @Override
-    public List<KhachHang> selectAll() {
-        String sql = "SELECT * FROM KhachHang";
-        return this.selectBySql(sql);
-    }
-
-    @Override
-    protected List<KhachHang> selectBySql(String sql, Object... args) {
-        List<KhachHang> list = new ArrayList<>();
+    protected List<TimKiemKhachHang> selectBySql(String sql, Object... args) {
+        List<TimKiemKhachHang> list = new ArrayList<>();
         try {
             ResultSet rs = null;
             try {
                 rs = XJdbc.query(sql, args);
                 while (rs.next()) {
-                    KhachHang entity = new KhachHang();
-                    entity.setMaKH(rs.getString("MaKhachHang"));
-                    entity.setTenKH(rs.getString("TenKhachHang"));
-                    entity.setSoDienThoai(rs.getString("SoDienThoai"));
-                    entity.setGioiTinh(rs.getBoolean("GioiTinh"));
-                    entity.setDiaChi(rs.getString("DiaChi"));
+                    TimKiemKhachHang entity = new TimKiemKhachHang();
+                    entity.setSoHD(rs.getString("SoHoaDon"));
+                    entity.setNgayLap(rs.getDate("NgayLap"));
+                    entity.setMaNV(rs.getString("MaNV"));
+
+                    // Kiểm tra nếu cột MaKH tồn tại
+                    try {
+                        entity.setMaKH(rs.getString("MaKH"));
+                    } catch (SQLException e) {
+                        System.out.println("Cột 'MaKH' không tồn tại trong cơ sở dữ liệu.");
+                        entity.setMaKH(""); // Gán giá trị rỗng nếu cột không tồn tại
+                    }
+
+                    entity.setMaSP(rs.getString("MaSP"));
+                    entity.setTenSP(rs.getString("TenSP"));
+                    entity.setSize(rs.getString("Size"));
                     list.add(entity);
                 }
             } finally {
@@ -98,5 +104,11 @@ public class TimKiemKhachHangDAO extends OutFitMeDAO< KhachHang, String> {
             throw new RuntimeException(ex);
         }
         return list;
+    }
+
+    // Tìm kiếm hóa đơn theo số điện thoại khách hàng
+    public List<TimKiemKhachHang> selectByKeyword(String soDienThoai) {
+        String sql = "SELECT * FROM KhachHang WHERE SDT = ?";
+        return selectBySql(sql, soDienThoai);
     }
 }
