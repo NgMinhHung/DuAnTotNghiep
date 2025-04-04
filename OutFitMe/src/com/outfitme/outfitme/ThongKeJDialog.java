@@ -402,93 +402,125 @@ public class ThongKeJDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txtMaNV2;
     private javax.swing.JTextField txtMaSP;
     // End of variables declaration//GEN-END:variables
-     ThongKeDAO dao = new ThongKeDAO();
-    public void selectTab(int index){
+   ThongKeDAO dao = new ThongKeDAO();
+
+    public void selectTab(int index) {
         tabsThongKe.setSelectedIndex(index);
     }
-    
+
     void init() {
         setLocationRelativeTo(null);
+
         fillComboBoxNam();
         fillComboBoxNamDH();
         fillComboBoxNamSLSP();
+
         fillTableDoanhThu();
         fillTableDHNV2();
         fillTableSLSP();
+
         this.selectTab(0);
     }
-    
-    void fillComboBoxNam(){
+
+    void fillComboBoxNam() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboNam.getModel();
-        
         model.removeAllElements();
+
         List<Integer> list = dao.selectYears();
-        for(Integer year : list){
+        for (Integer year : list) {
             model.addElement(year);
         }
-        this.fillTableDoanhThu();
+
+        if (model.getSize() > 0) {
+            cboNam.setSelectedIndex(0);
+        }
     }
-    
-    void fillComboBoxNamDH(){
+
+    void fillComboBoxNamDH() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboDH.getModel();
-        
         model.removeAllElements();
+
         List<Integer> list = dao.selectYears();
-        for(Integer year : list){
+        for (Integer year : list) {
             model.addElement(year);
         }
-        this.fillTableDoanhThu();
+
+        if (model.getSize() > 0) {
+            cboDH.setSelectedIndex(0);
+        }
     }
-    
-    void fillComboBoxNamSLSP(){
+
+    void fillComboBoxNamSLSP() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboSLSP.getModel();
-        
         model.removeAllElements();
+
         List<Integer> list = dao.selectYears();
-        for(Integer year : list){
+        for (Integer year : list) {
             model.addElement(year);
         }
-        this.fillTableDoanhThu();
+
+        if (model.getSize() > 0) {
+            cboSLSP.setSelectedIndex(0);
+        }
     }
-    
-    void fillTableDoanhThu(){
-        String ttNam = String.valueOf(cboNam.getSelectedItem());
-        lblNamDT.setText(ttNam);
-        
+
+    void fillTableDoanhThu() {
+        Object selected = cboNam.getSelectedItem();
+        if (selected == null) {
+            return;
+        }
+
+        int nam = (Integer) selected;
+        lblNamDT.setText(String.valueOf(nam));
+
         DefaultTableModel model = (DefaultTableModel) tblDoanhThu.getModel();
         model.setRowCount(0);
-        int nam = (Integer)cboNam.getSelectedItem();
+
         List<Object[]> list = dao.getDoanhThu(nam);
-        for(Object[] row : list){
+        for (Object[] row : list) {
             model.addRow(row);
         }
-        
-        if (tblDoanhThu.getRowCount() != -1) {
+
+        if (tblDoanhThu.getRowCount() > 0) {
             double togDt = Double.parseDouble(tblDoanhThu.getValueAt(0, 1).toString());
-            lblTogDT.setText(String.valueOf((int) togDt) + " " + "VND");
+            lblTogDT.setText((int) togDt + " VND");
         }
     }
-    
+
     public void fillTableSLSP() {
+        Object selected = cboSLSP.getSelectedItem();
+        if (selected == null) {
+            return;
+        }
+
         DefaultTableModel model = (DefaultTableModel) tblSLSP.getModel();
         model.setRowCount(0);
+
         String maSP = txtMaSP.getText().trim();
-        int year = (Integer)cboSLSP.getSelectedItem();
+        int year = (Integer) selected;
+
         List<Object[]> list = dao.getSLSP(maSP, year);
         for (Object[] row : list) {
             model.addRow(row);
         }
     }
-    
+
     public void fillTableDHNV2() {
+        Object selected = cboDH.getSelectedItem();
+        if (selected == null) {
+            return;
+        }
+
         DefaultTableModel model = (DefaultTableModel) tblDHNV2.getModel();
         model.setRowCount(0);
+
         String maNV = txtMaNV2.getText().trim();
-        int nam = (Integer)cboDH.getSelectedItem();
-//        int nam = Integer.parseInt(cboDH.getSelectedItem().toString());
-        List<Object[]> list = dao.getDHNV(maNV,nam);
+        int nam = (Integer) selected;
+
+        List<Object[]> list = dao.getDHNV(maNV, nam);
         for (Object[] row : list) {
             model.addRow(row);
         }
     }
+
 }
