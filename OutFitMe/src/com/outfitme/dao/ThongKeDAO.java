@@ -21,16 +21,22 @@ public class ThongKeDAO {
     }
 
     
-    public List<Object[]> getSLSP(String maSP){
-        String sql = "{CALL sp_SLSP1 (?)}";
+    public List<Object[]> getSLSP(String maSP, int year){
+        String sql = "{CALL sp_SLSP2 (?, ?)}";
         String[] cols = {"MaSanPham", "TenSanPham", "SoLuongTonKho",  "SLDaBan"};
-        return this.getListOfArray(sql, cols, maSP);
+        return this.getListOfArray(sql, cols, maSP, year);
     }
     
-    public List<Object[]> getDHNV(String maNV){
-        String sql = "{CALL sp_HDNV1 (?)}";
+//    public List<Object[]> getDHNV(String maNV){
+//        String sql = "{CALL sp_HDNV1 (?)}";
+//        String[] cols = {"MaNhanVien", "TenNhanVien", "TongSohoaDon"};
+//        return this.getListOfArray(sql, cols, maNV);
+//    }
+    
+    public List<Object[]> getDHNV(String maNV, int nam){
+        String sql = "{CALL sp_HDNV2(?, ?)}";
         String[] cols = {"MaNhanVien", "TenNhanVien", "TongSohoaDon"};
-        return this.getListOfArray(sql, cols, maNV);
+        return this.getListOfArray(sql, cols, maNV, nam);
     }
     
     public List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
