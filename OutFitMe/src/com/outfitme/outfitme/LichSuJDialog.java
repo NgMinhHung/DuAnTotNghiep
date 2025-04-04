@@ -74,8 +74,6 @@ public class LichSuJDialog extends javax.swing.JDialog {
         txtTien = new javax.swing.JTextField();
         btnClose = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        btnTimKiem = new javax.swing.JButton();
-        txtSearch = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtTime = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -130,13 +128,6 @@ public class LichSuJDialog extends javax.swing.JDialog {
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
-            }
-        });
-
-        btnTimKiem.setText("Tìm");
-        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimKiemActionPerformed(evt);
             }
         });
 
@@ -196,21 +187,13 @@ public class LichSuJDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnTimKiem)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnTimKiem)
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -271,25 +254,6 @@ public class LichSuJDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        String keyword = txtSearch.getText().trim();
-        if (keyword.isEmpty()) {
-            loadFromDatabase();
-        } else {
-            List<LichSuMuaHang> historyList = lsmhDao.search(keyword);
-            tableModel.setRowCount(0);
-            for (LichSuMuaHang history : historyList) {
-                tableModel.addRow(new Object[]{
-                    history.getMaGiaoDich(),
-                    history.getMaKhachHang(),
-                    dateFormat.format(history.getThoiGian()),
-                    history.getSanPham(),
-                    String.format("%,.0f", history.getTongTien())
-                });
-            }
-        }
-    }//GEN-LAST:event_btnTimKiemActionPerformed
-
     private void tblLichSuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLichSuMouseClicked
         int selectedRow = tblLichSu.getSelectedRow();
         if (selectedRow >= 0) {
@@ -349,7 +313,6 @@ public class LichSuJDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnTimKiem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -362,7 +325,6 @@ public class LichSuJDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txtMaGD;
     private javax.swing.JTextField txtMaSP;
     private javax.swing.JTextField txtSanPham;
-    private javax.swing.JTextField txtSearch;
     private javax.swing.JTextField txtTenKhachHang;
     private javax.swing.JTextField txtTien;
     private javax.swing.JTextField txtTime;
