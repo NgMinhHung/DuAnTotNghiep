@@ -456,8 +456,9 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         fillComboBoxMaNV();
         fillComboBoxMaKH();
 
-        // Tải dữ liệu từ cơ sở dữ liệu lên bảng tblHoaDon
-        fillTable();
+// Làm trống bảng tblHoaDon khi khởi tạo giao diện
+        DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
+        model.setRowCount(0); // Đặt số hàng về 0 để bảng trống
 
         // Thêm sự kiện cho nút Set Date
         btnSetDate.addActionListener(new ActionListener() {
@@ -529,9 +530,8 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                     model.addRow(new Object[]{soHD, ngayLap, maSP, tenSP, maNV, maKH, soLuong});
 
                     MsgBox.alert(HoaDonJDialog.this, "Thêm vào bảng thành công!");
-
-                    // Làm mới form và cập nhật số hóa đơn mới
-                    clearForm();
+                    
+                    clearFormKoClearTblHoaDon();
                     setNewSoHD();
                 } else {
                     MsgBox.alert(HoaDonJDialog.this, "Thiếu dữ liệu, vui lòng kiểm tra lại!");
@@ -588,9 +588,9 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         btnMoi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                clearForm();
+                clearForm(); // Làm trắng form và xóa dữ liệu trong bảng
                 setNewSoHD(); // Cập nhật số hóa đơn mới
-                fillTable(); // Tải lại toàn bộ dữ liệu vào bảng
+                // fillTable(); // Bỏ dòng này nếu không muốn tải lại dữ liệu từ cơ sở dữ liệu
             }
         });
 
@@ -743,7 +743,6 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         return true;
     }
 
-// Hàm làm trắng form (nút Mới)
     private void clearForm() {
         cboMaSP.setSelectedIndex(-1);
         cboMaNV.setSelectedIndex(-1);
@@ -752,7 +751,10 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         txtSoLuong.setText("");
         txtTenSanPham.setText("");
         txtSearch.setText("");
-        // Không xóa dữ liệu trong bảng tblHoaDon
+
+        // Xóa dữ liệu trong bảng tblHoaDon
+        DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
+        model.setRowCount(0); // Đặt số hàng về 0 để làm trống bảng
     }
 
 // Hàm tìm hóa đơn theo SoHD (nút Tìm)
@@ -834,5 +836,17 @@ public class HoaDonJDialog extends javax.swing.JDialog {
             MsgBox.alert(this, "Lỗi khi tải dữ liệu hóa đơn!");
             e.printStackTrace();
         }
+    }
+
+    // Hàm làm trắng form (nút Mới)
+    private void clearFormKoClearTblHoaDon() {
+        cboMaSP.setSelectedIndex(-1);
+        cboMaNV.setSelectedIndex(-1);
+        cboMaKH.setSelectedIndex(-1);
+        txtNgayLapHD.setText("");
+        txtSoLuong.setText("");
+        txtTenSanPham.setText("");
+        txtSearch.setText("");
+        // Không xóa dữ liệu trong bảng tblHoaDon
     }
 }
