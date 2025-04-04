@@ -16,9 +16,9 @@ import java.sql.SQLException;
  */
 public class XJdbc {
     private static String driver="com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=OutFitMe2;trustServerCertificate=true;";
+    private static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=OutFitMe;trustServerCertificate=true;";
     private static String username="sa";
-    private static String password="123456";
+    private static String password="282007";
     
     /*
      * Nạp driver
