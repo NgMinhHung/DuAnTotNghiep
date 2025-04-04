@@ -6,8 +6,11 @@ package com.outfitme.outfitme;
 
 import com.outfitme.dao.ChiTietHoaDonDAO;
 import com.outfitme.dao.KhachHangDAO;
+import com.outfitme.dao.LichSuMuaHangDAO;
 import com.outfitme.entity.ChiTietHoaDon;
 import com.outfitme.entity.KhachHang;
+import com.outfitme.entity.LichSuMuaHang;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
@@ -20,6 +23,7 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
 
     private ChiTietHoaDonDAO cthdDao = new ChiTietHoaDonDAO();
     private KhachHangDAO khDao = new KhachHangDAO();
+    private LichSuMuaHangDAO lsmhDao = new LichSuMuaHangDAO();
 
     /**
      * Creates new form ChiTietHoaDon1JDialog
@@ -332,38 +336,75 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
                 String selectedCustomer = (String) cboDSKhachHang.getSelectedItem();
                 String maKH = selectedCustomer.split(" - ")[0];
                 KhachHang kh = khDao.selectById(maKH);
+
                 if (kh != null) {
-                    // Tính điểm mới và cập nhật
+                    //Cập nhật điểm thưởng khách hàng
                     int newPoints = calculatePoints(totalPrice);
-                    int currentPoints = kh.getDiem();
-                    kh.setDiem(currentPoints + newPoints);
+                    kh.setDiem(kh.getDiem() + newPoints);
                     khDao.update(kh);
+
+                    //Lưu lịch sử mua hàng trước khi xóa giỏ hàng
+                    savePurchaseHistory(maKH);
                 } else {
                     javax.swing.JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng với mã: " + maKH);
-                    return; // Thoát nếu không tìm thấy khách hàng
+                    return;
                 }
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một khách hàng trước khi thanh toán!");
-                return; // Thoát nếu không chọn khách hàng
+                return;
             }
 
-            // Hiển thị thông báo thanh toán thành công
-            javax.swing.JOptionPane.showMessageDialog(this, "Thanh toán thành công!", "Thông báo", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-
-            // Xóa tất cả bản ghi trong cơ sở dữ liệu
+            //Xóa tất cả bản ghi trong cơ sở dữ liệu sau khi đã lưu lịch sử
             cthdDao.deleteAll();
 
-            // Xóa tất cả dòng trong bảng giao diện
+            //Xóa dữ liệu trong bảng giao diện
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
 
-            // Cập nhật lại tổng tiền (về 0 vì bảng đã trống)
+            //Cập nhật tổng tiền (về 0 vì bảng đã trống)
             totalPrice = 0.0;
             updateTotalPriceWithDiscount();
+
+            //Hiển thị thông báo thanh toán thành công
+            javax.swing.JOptionPane.showMessageDialog(this, "Thanh toán thành công!", "Thông báo", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+         
+        }
+    }//GEN-LAST:event_btnThanhToanActionPerformed
+
+    private void savePurchaseHistory(String maKH) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        if (model.getRowCount() == 0) {
+            System.out.println("Không có sản phẩm để lưu vào lịch sử mua hàng!");
+            return;
         }
 
+        StringBuilder sanPham = new StringBuilder();
+        double tongTien = totalPrice * (1 - discountPercentage / 100);
 
-    }//GEN-LAST:event_btnThanhToanActionPerformed
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String tenSP = (String) model.getValueAt(i, 3);
+            int soLuong = (int) model.getValueAt(i, 4);
+            sanPham.append(tenSP).append(" (").append(soLuong).append("), ");
+        }
+        if (sanPham.length() > 0) {
+            sanPham.setLength(sanPham.length() - 2);
+        }
+
+        LichSuMuaHang history = new LichSuMuaHang();
+        history.setMaKhachHang(maKH);
+        history.setThoiGian(new Date());
+        history.setSanPham(sanPham.toString());
+        history.setTongTien(tongTien);
+
+        try {
+            lsmhDao.insert(history);
+            System.out.println("Đã lưu lịch sử mua hàng: MaKhachHang=" + history.getMaKhachHang() + ", SanPham=" + history.getSanPham());
+        } catch (Exception e) {
+            System.err.println("Lỗi khi lưu lịch sử mua hàng: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     private void rdo10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdo10ActionPerformed
         if (rdo10.isSelected()) {
@@ -430,10 +471,6 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -450,10 +487,6 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ChiTietHoaDonJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {

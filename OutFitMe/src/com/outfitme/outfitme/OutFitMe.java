@@ -44,6 +44,7 @@ public class OutFitMe extends javax.swing.JFrame {
         btnNhanVien = new javax.swing.JButton();
         lblTrangThai = new javax.swing.JLabel();
         lblDongHo = new javax.swing.JLabel();
+        btnLichSu = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuHeThong = new javax.swing.JMenu();
         mniDangNhap = new javax.swing.JMenuItem();
@@ -107,6 +108,13 @@ public class OutFitMe extends javax.swing.JFrame {
 
         lblDongHo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Alarm.png"))); // NOI18N
         lblDongHo.setText("13:57");
+
+        btnLichSu.setText("Lịch sử");
+        btnLichSu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLichSuActionPerformed(evt);
+            }
+        });
 
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
@@ -233,7 +241,9 @@ public class OutFitMe extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCTHD)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                        .addComponent(btnThongKe)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnLichSu)
+                            .addComponent(btnThongKe))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -246,7 +256,9 @@ public class OutFitMe extends javax.swing.JFrame {
                     .addComponent(btnCTHD)
                     .addComponent(btnThongKe)
                     .addComponent(btnNhanVien))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
+                .addComponent(btnLichSu)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTrangThai)
                     .addComponent(lblDongHo))
@@ -317,6 +329,10 @@ public class OutFitMe extends javax.swing.JFrame {
         this.OpenThongKe();
     }//GEN-LAST:event_btnThongKeActionPerformed
 
+    private void btnLichSuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLichSuActionPerformed
+        this.OpenLichSu();
+    }//GEN-LAST:event_btnLichSuActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -356,6 +372,7 @@ public class OutFitMe extends javax.swing.JFrame {
     private javax.swing.JButton btnCTHD;
     private javax.swing.JButton btnHoaDon;
     private javax.swing.JButton btnKhachHang;
+    private javax.swing.JButton btnLichSu;
     private javax.swing.JButton btnNhanVien;
     private javax.swing.JButton btnSanPham;
     private javax.swing.JButton btnThongKe;
@@ -458,6 +475,14 @@ public class OutFitMe extends javax.swing.JFrame {
     void OpenSanPham() {
         if (Auth.isLogin()) {
             new SanPhamJDialog(this, true).setVisible(true);
+        } else {
+            MsgBox.alert(this, "Vui lòng đăng nhập!");
+        }
+    }
+    
+    void OpenLichSu() {
+        if (Auth.isLogin()) {
+            new LichSuJDialog(this, true).setVisible(true); // 'this' là MainFrame
         } else {
             MsgBox.alert(this, "Vui lòng đăng nhập!");
         }
