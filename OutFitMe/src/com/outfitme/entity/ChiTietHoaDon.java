@@ -15,6 +15,7 @@ public class ChiTietHoaDon {
     private double tongTien;
     private String maKH;
 
+    // Constructor mặc định
     public ChiTietHoaDon() {
     }
 
@@ -31,7 +32,7 @@ public class ChiTietHoaDon {
         this.tongTien = soLuong * giaTien;
     }
 
-    // Constructor 9 tham số (bao gồm maKH)
+    // Constructor 9 tham số (bao gồm maKH, tự tính tongTien)
     public ChiTietHoaDon(int soHD, Date ngayLap, String maNV, String tenNV, String maSP, String tenSP, int soLuong, double giaTien, String maKH) {
         this.soHD = soHD;
         this.ngayLap = ngayLap;
@@ -42,6 +43,20 @@ public class ChiTietHoaDon {
         this.soLuong = soLuong;
         this.giaTien = giaTien;
         this.tongTien = soLuong * giaTien;
+        this.maKH = maKH;
+    }
+
+    // Constructor 10 tham số (bao gồm tongTien, không tự tính)
+    public ChiTietHoaDon(int soHD, Date ngayLap, String maNV, String tenNV, String maSP, String tenSP, int soLuong, double giaTien, double tongTien, String maKH) {
+        this.soHD = soHD;
+        this.ngayLap = ngayLap;
+        this.maNV = maNV;
+        this.tenNV = tenNV;
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.soLuong = soLuong;
+        this.giaTien = giaTien;
+        this.tongTien = tongTien; // Sử dụng giá trị tongTien được truyền vào
         this.maKH = maKH;
     }
 

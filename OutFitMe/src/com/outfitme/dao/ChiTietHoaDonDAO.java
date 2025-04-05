@@ -1,18 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.outfitme.dao;
 
 import com.outfitme.entity.ChiTietHoaDon;
 import com.outfitme.utils.XJdbc;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @autshor MINH HUNG
+ * @author MINH HUNG
  */
 public class ChiTietHoaDonDAO extends OutFitMeDAO<ChiTietHoaDon, String> {
 
@@ -47,16 +44,23 @@ public class ChiTietHoaDonDAO extends OutFitMeDAO<ChiTietHoaDon, String> {
         XJdbc.update(sql, soHD);
     }
 
+    // Thêm phương thức xóa theo MaKH
+    public void deleteByMaKH(String maKH) {
+        String sql = "DELETE FROM HoaDon WHERE MaKhachHang = ?";
+        XJdbc.update(sql, maKH);
+    }
+
     @Override
     public ChiTietHoaDon selectById(String soHD) {
         String sql = """
-        SELECT hd.SoHD, hd.NgayLap, nv.MaNhanVien, nv.TenNhanVien, 
-               sp.MaSanPham, sp.TenSanPham, hd.SoLuong, sp.GiaBan, hd.MaKhachHang
-        FROM HoaDon hd
-        JOIN NhanVien nv ON hd.MaNhanVien = nv.MaNhanVien
-        JOIN SanPham sp ON hd.MaSanPham = sp.MaSanPham
-        WHERE hd.SoHD = ?
-    """;
+            SELECT hd.SoHD, hd.NgayLap, nv.MaNhanVien, nv.TenNhanVien, 
+                   sp.MaSanPham, sp.TenSanPham, hd.SoLuong, sp.GiaBan, 
+                   (sp.GiaBan * hd.SoLuong) AS TongTien, hd.MaKhachHang
+            FROM HoaDon hd
+            JOIN NhanVien nv ON hd.MaNhanVien = nv.MaNhanVien
+            JOIN SanPham sp ON hd.MaSanPham = sp.MaSanPham
+            WHERE hd.SoHD = ?
+        """;
         List<ChiTietHoaDon> list = this.selectBySql(sql, soHD);
         return list.isEmpty() ? null : list.get(0);
     }
@@ -64,12 +68,13 @@ public class ChiTietHoaDonDAO extends OutFitMeDAO<ChiTietHoaDon, String> {
     @Override
     public List<ChiTietHoaDon> selectAll() {
         String sql = """
-        SELECT hd.SoHD, hd.NgayLap, nv.MaNhanVien, nv.TenNhanVien, 
-               sp.MaSanPham, sp.TenSanPham, hd.SoLuong, sp.GiaBan, hd.MaKhachHang
-        FROM HoaDon hd
-        JOIN NhanVien nv ON hd.MaNhanVien = nv.MaNhanVien
-        JOIN SanPham sp ON hd.MaSanPham = sp.MaSanPham
-    """;
+            SELECT hd.SoHD, hd.NgayLap, nv.MaNhanVien, nv.TenNhanVien, 
+                   sp.MaSanPham, sp.TenSanPham, hd.SoLuong, sp.GiaBan, 
+                   (sp.GiaBan * hd.SoLuong) AS TongTien, hd.MaKhachHang
+            FROM HoaDon hd
+            JOIN NhanVien nv ON hd.MaNhanVien = nv.MaNhanVien
+            JOIN SanPham sp ON hd.MaSanPham = sp.MaSanPham
+        """;
         return this.selectBySql(sql);
     }
 
@@ -86,7 +91,8 @@ public class ChiTietHoaDonDAO extends OutFitMeDAO<ChiTietHoaDon, String> {
                         rs.getString("MaSanPham"), // Mã sản phẩm
                         rs.getString("TenSanPham"), // Tên sản phẩm
                         rs.getInt("SoLuong"), // Số lượng
-                        rs.getDouble("GiaBan"), // Giá bán
+                        rs.getDouble("GiaBan"), // Giá bán (GiaTien)
+                        rs.getDouble("TongTien"), // Tổng tiền (tính từ GiaBan * SoLuong)
                         rs.getString("MaKhachHang") // Mã khách hàng
                 );
                 list.add(cthd);

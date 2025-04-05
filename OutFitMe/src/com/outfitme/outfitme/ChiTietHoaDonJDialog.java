@@ -10,6 +10,7 @@ import com.outfitme.dao.LichSuMuaHangDAO;
 import com.outfitme.entity.ChiTietHoaDon;
 import com.outfitme.entity.KhachHang;
 import com.outfitme.entity.LichSuMuaHang;
+import com.outfitme.utils.XJdbc;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -34,6 +35,16 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
         fillTable();
         fillCustomerComboBox();
         calculateTotalPrice();
+
+        cboDSKhachHang.addItemListener(new java.awt.event.ItemListener() {
+            @Override
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+                    filterTableByMaKH(); // Lọc bảng theo MaKH
+                    calculateTotalPrice(); // Tính lại tổng tiền sau khi lọc
+                }
+            }
+        });
     }
 
     private void fillCustomerComboBox() {
@@ -324,13 +335,18 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
+        // Kiểm tra xem đã chọn phương thức thanh toán chưa
+        if (!jRadioButton1.isSelected() && !jRadioButton2.isSelected()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn hình thức thanh toán!");
+            return; // Dừng thực hiện nếu không chọn phương thức thanh toán
+        }
+
         int confirm = javax.swing.JOptionPane.showConfirmDialog(this,
-                "Bạn có chắc chắn muốn thanh toán và xóa toàn bộ sản phẩm?",
+                "Bạn có chắc chắn muốn thanh toán và xóa toàn bộ sản phẩm của khách hàng này?",
                 "Xác nhận thanh toán",
                 javax.swing.JOptionPane.YES_NO_OPTION);
 
         if (confirm == javax.swing.JOptionPane.YES_OPTION) {
-            // Kiểm tra xem đã chọn khách hàng chưa
             int selectedIndex = cboDSKhachHang.getSelectedIndex();
             if (selectedIndex >= 0) {
                 String selectedCustomer = (String) cboDSKhachHang.getSelectedItem();
@@ -338,37 +354,54 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
                 KhachHang kh = khDao.selectById(maKH);
 
                 if (kh != null) {
-                    //Cập nhật điểm thưởng khách hàng
+                    // Tính điểm tích lũy từ hóa đơn
                     int newPoints = calculatePoints(totalPrice);
-                    kh.setDiem(kh.getDiem() + newPoints);
+                    int currentPoints = kh.getDiem();
+
+                    // Trừ điểm nếu có áp dụng giảm giá
+                    int pointsToDeduct = 0;
+                    if (discountPercentage == 5.0) {
+                        pointsToDeduct = 50;
+                    } else if (discountPercentage == 10.0) {
+                        pointsToDeduct = 100;
+                    } else if (discountPercentage == 15.0) {
+                        pointsToDeduct = 200;
+                    }
+
+                    // Cập nhật điểm khách hàng: cộng điểm mới, trừ điểm đã dùng để giảm giá
+                    int updatedPoints = currentPoints + newPoints - pointsToDeduct;
+                    if (updatedPoints < 0) {
+                        updatedPoints = 0; // Đảm bảo điểm không âm
+                    }
+                    kh.setDiem(updatedPoints);
                     khDao.update(kh);
 
-                    //Lưu lịch sử mua hàng trước khi xóa giỏ hàng
+                    // Lưu lịch sử mua hàng
                     savePurchaseHistory(maKH);
+
+                    // Xóa các bản ghi của khách hàng
+                    cthdDao.deleteByMaKH(maKH);
+                    filterTableByMaKH();
+
+                    // Đặt lại tổng tiền và giảm giá
+                    totalPrice = 0.0;
+                    discountPercentage = 0.0; // Đặt lại giảm giá về 0
+                    rdo5.setSelected(false); // Bỏ chọn các radio button
+                    rdo10.setSelected(false);
+                    rdo15.setSelected(false);
+                    updateTotalPriceWithDiscount();
+
+                    // Bỏ chọn phương thức thanh toán
+                    jRadioButton1.setSelected(false);
+                    jRadioButton2.setSelected(false);
+
+                    javax.swing.JOptionPane.showMessageDialog(this, "Thanh toán thành công!", "Thông báo", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     javax.swing.JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng với mã: " + maKH);
-                    return;
                 }
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một khách hàng trước khi thanh toán!");
-                return;
             }
-
-            //Xóa tất cả bản ghi trong cơ sở dữ liệu sau khi đã lưu lịch sử
-            cthdDao.deleteAll();
-
-            //Xóa dữ liệu trong bảng giao diện
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            model.setRowCount(0);
-
-            //Cập nhật tổng tiền (về 0 vì bảng đã trống)
-            totalPrice = 0.0;
-            updateTotalPriceWithDiscount();
-
-            //Hiển thị thông báo thanh toán thành công
-            javax.swing.JOptionPane.showMessageDialog(this, "Thanh toán thành công!", "Thông báo", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-
-         
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
@@ -407,40 +440,88 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
     }
 
     private void rdo10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdo10ActionPerformed
-        if (rdo10.isSelected()) {
-            discountPercentage = 10.0;
-        } else {
-            // Nếu không có nút nào được chọn, đặt discountPercentage về 0
-            if (!rdo5.isSelected() && !rdo15.isSelected()) {
-                discountPercentage = 0.0;
+        int selectedIndex = cboDSKhachHang.getSelectedIndex();
+        if (selectedIndex >= 0) {
+            String selectedCustomer = (String) cboDSKhachHang.getSelectedItem();
+            String maKH = selectedCustomer.split(" - ")[0];
+            KhachHang kh = khDao.selectById(maKH);
+
+            if (kh != null) {
+                int currentPoints = kh.getDiem();
+                if (currentPoints >= 100) {
+                    discountPercentage = 10.0;
+                    updateTotalPriceWithDiscount();
+                } else {
+                    rdo10.setSelected(false); // Bỏ chọn radio button
+                    discountPercentage = 0.0; // Đặt lại giảm giá về 0
+                    updateTotalPriceWithDiscount();
+                    javax.swing.JOptionPane.showMessageDialog(this, "Bạn chưa đủ điểm! Cần ít nhất 100 điểm để giảm 10%.");
+                }
+            } else {
+                rdo10.setSelected(false);
+                javax.swing.JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng với mã: " + maKH);
             }
+        } else {
+            rdo10.setSelected(false);
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một khách hàng trước!");
         }
-        updateTotalPriceWithDiscount();
 
     }//GEN-LAST:event_rdo10ActionPerformed
 
     private void rdo5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdo5ActionPerformed
-        if (rdo5.isSelected()) {
-            discountPercentage = 5.0;
-        } else {
-            // Nếu không có nút nào được chọn, đặt discountPercentage về 0
-            if (!rdo10.isSelected() && !rdo15.isSelected()) {
-                discountPercentage = 0.0;
+        int selectedIndex = cboDSKhachHang.getSelectedIndex();
+        if (selectedIndex >= 0) {
+            String selectedCustomer = (String) cboDSKhachHang.getSelectedItem();
+            String maKH = selectedCustomer.split(" - ")[0];
+            KhachHang kh = khDao.selectById(maKH);
+
+            if (kh != null) {
+                int currentPoints = kh.getDiem();
+                if (currentPoints >= 50) {
+                    discountPercentage = 5.0;
+                    updateTotalPriceWithDiscount();
+                } else {
+                    rdo5.setSelected(false); // Bỏ chọn radio button
+                    discountPercentage = 0.0; // Đặt lại giảm giá về 0
+                    updateTotalPriceWithDiscount();
+                    javax.swing.JOptionPane.showMessageDialog(this, "Bạn chưa đủ điểm! Cần ít nhất 50 điểm để giảm 5%.");
+                }
+            } else {
+                rdo5.setSelected(false);
+                javax.swing.JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng với mã: " + maKH);
             }
+        } else {
+            rdo5.setSelected(false);
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một khách hàng trước!");
         }
-        updateTotalPriceWithDiscount();
     }//GEN-LAST:event_rdo5ActionPerformed
 
     private void rdo15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdo15ActionPerformed
-        if (rdo15.isSelected()) {
-            discountPercentage = 15.0;
-        } else {
-            // Nếu không có nút nào được chọn, đặt discountPercentage về 0
-            if (!rdo5.isSelected() && !rdo10.isSelected()) {
-                discountPercentage = 0.0;
+        int selectedIndex = cboDSKhachHang.getSelectedIndex();
+        if (selectedIndex >= 0) {
+            String selectedCustomer = (String) cboDSKhachHang.getSelectedItem();
+            String maKH = selectedCustomer.split(" - ")[0];
+            KhachHang kh = khDao.selectById(maKH);
+
+            if (kh != null) {
+                int currentPoints = kh.getDiem();
+                if (currentPoints >= 200) {
+                    discountPercentage = 15.0;
+                    updateTotalPriceWithDiscount();
+                } else {
+                    rdo15.setSelected(false); // Bỏ chọn radio button
+                    discountPercentage = 0.0; // Đặt lại giảm giá về 0
+                    updateTotalPriceWithDiscount();
+                    javax.swing.JOptionPane.showMessageDialog(this, "Bạn chưa đủ điểm! Cần ít nhất 200 điểm để giảm 15%.");
+                }
+            } else {
+                rdo15.setSelected(false);
+                javax.swing.JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng với mã: " + maKH);
             }
+        } else {
+            rdo15.setSelected(false);
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một khách hàng trước!");
         }
-        updateTotalPriceWithDiscount();
     }//GEN-LAST:event_rdo15ActionPerformed
 
     private void btnKiemTraDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKiemTraDiemActionPerformed
@@ -546,6 +627,7 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
             int soHD = (int) jTable1.getValueAt(selectedRow, 0);
             cthdDao.delete(String.valueOf(soHD));
             fillTable(); // Cập nhật lại bảng sau khi xóa
+            calculateTotalPrice(); // Tính lại tổng tiền sau khi xóa
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để xóa!");
         }
@@ -624,5 +706,40 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
 
     private int calculatePoints(double total) {
         return (int) (total / 100000) * 10;
+    }
+
+    private void filterTableByMaKH() {
+        String selectedCustomer = (String) cboDSKhachHang.getSelectedItem();
+        if (selectedCustomer == null || selectedCustomer.isEmpty()) {
+            fillTable();
+            return;
+        }
+
+        String maKH = selectedCustomer.split(" - ")[0];
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+
+        List<ChiTietHoaDon> list = cthdDao.selectAll();
+        for (ChiTietHoaDon cthd : list) {
+            if (cthd.getMaKH().equals(maKH)) {
+                Object[] row = {
+                    cthd.getSoHD(),
+                    cthd.getNgayLap(),
+                    cthd.getMaSP(),
+                    cthd.getTenSP(),
+                    cthd.getSoLuong(),
+                    cthd.getGiaTien(),
+                    cthd.getTongTien(),
+                    cthd.getTenNV(),
+                    cthd.getMaKH()
+                };
+                model.addRow(row);
+            }
+        }
+    }
+
+    public void deleteByMaKH(String maKH) {
+        String sql = "DELETE FROM HoaDon WHERE MaKhachHang = ?";
+        XJdbc.update(sql, maKH);
     }
 }
