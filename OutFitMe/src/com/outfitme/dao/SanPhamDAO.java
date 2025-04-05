@@ -18,7 +18,8 @@ public class SanPhamDAO extends OutFitMeDAO<SanPham, String> {
 
     @Override
     public void insert(SanPham model) {
-        String sql = "INSERT INTO SanPham (MaSanPham, TenSanPham, LoaiSanPham, MoTa, GiaNhap, GiaBan, Size, SoLuongTonKho, PhanLoai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO SanPham (MaSanPham, TenSanPham, LoaiSanPham, MoTa, GiaNhap, GiaBan, Size, SoLuongTonKho, PhanLoai, HinhAnh) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         XJdbc.update(sql,
                 model.getMaSP(),
                 model.getTenSP(),
@@ -28,12 +29,14 @@ public class SanPhamDAO extends OutFitMeDAO<SanPham, String> {
                 model.getGiaBan(),
                 model.getSize(),
                 model.getSoLuongTonKho(),
-                model.getPhanLoai());
+                model.getPhanLoai(),
+                model.getHinhAnh()); // Thêm ảnh
     }
 
     @Override
     public void update(SanPham model) {
-        String sql = "UPDATE SanPham SET TenSanPham = ?, LoaiSanPham = ?, MoTa = ?, GiaNhap = ?, GiaBan = ?, Size = ?, SoLuongTonKho = ?, PhanLoai = ? WHERE MaSanPham = ?";
+        String sql = "UPDATE SanPham SET TenSanPham = ?, LoaiSanPham = ?, MoTa = ?, GiaNhap = ?, GiaBan = ?, Size = ?, SoLuongTonKho = ?, PhanLoai = ?, HinhAnh = ? " +
+                     "WHERE MaSanPham = ?";
         XJdbc.update(sql,
                 model.getTenSP(),
                 model.getLoaiSP(),
@@ -43,6 +46,7 @@ public class SanPhamDAO extends OutFitMeDAO<SanPham, String> {
                 model.getSize(),
                 model.getSoLuongTonKho(),
                 model.getPhanLoai(),
+                model.getHinhAnh(), // Thêm ảnh
                 model.getMaSP());
     }
 
@@ -61,9 +65,14 @@ public class SanPhamDAO extends OutFitMeDAO<SanPham, String> {
 
     @Override
     public List<SanPham> selectAll() {
-        List<SanPham> list = new ArrayList<>();
         String sql = "SELECT * FROM SanPham";
-        try (ResultSet rs = XJdbc.query(sql)) {
+        return selectBySql(sql);
+    }
+
+    @Override
+    protected List<SanPham> selectBySql(String sql, Object... args) {
+        List<SanPham> list = new ArrayList<>();
+        try (ResultSet rs = XJdbc.query(sql, args)) {
             while (rs.next()) {
                 SanPham sp = new SanPham();
                 sp.setMaSP(rs.getString("MaSanPham"));
@@ -75,7 +84,22 @@ public class SanPhamDAO extends OutFitMeDAO<SanPham, String> {
                 sp.setSize(rs.getString("Size"));
                 sp.setSoLuongTonKho(rs.getInt("SoLuongTonKho"));
                 sp.setPhanLoai(rs.getString("PhanLoai"));
+                sp.setHinhAnh(rs.getString("HinhAnh")); // Lấy ảnh
                 list.add(sp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
+    public List<String> getAllLoaiSanPham() {
+        List<String> list = new ArrayList<>();
+        String sql = "SELECT DISTINCT LoaiSanPham FROM SanPham";
+        try (ResultSet rs = XJdbc.query(sql)) {
+            while (rs.next()) {
+                list.add(rs.getString("LoaiSanPham"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,55 +107,12 @@ public class SanPhamDAO extends OutFitMeDAO<SanPham, String> {
         return list;
     }
 
-    @Override
-    protected List<SanPham> selectBySql(String sql, Object... args) {
-        List<SanPham> list = new ArrayList<>();
-        try {
-            ResultSet rs = null;
-            try {
-                rs = XJdbc.query(sql, args);
-                while (rs.next()) {
-                    SanPham entity = new SanPham();
-                    entity.setMaSP(rs.getString("MaSanPham"));
-                    entity.setTenSP(rs.getString("TenSanPham"));
-                    entity.setLoaiSP(rs.getString("LoaiSanPham"));
-                    entity.setMoTa(rs.getString("MoTa"));
-                    entity.setGiaNhap(rs.getDouble("GiaNhap"));
-                    entity.setGiaBan(rs.getDouble("GiaBan"));
-                    entity.setSize(rs.getString("Size"));
-                    entity.setSoLuongTonKho(rs.getInt("SoLuongTonKho"));
-                    entity.setPhanLoai(rs.getString("PhanLoai"));
-                    list.add(entity);
-                }
-            } finally {
-                if (rs != null) {
-                    rs.getStatement().getConnection().close();
-                }
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            throw new RuntimeException(ex);
-        }
-        return list;
-    }
-    
-    public List<String> getAllLoaiSanPham() {
-    List<String> list = new ArrayList<>();
-    String sql = "SELECT DISTINCT LoaiSanPham FROM SanPham";
-    try (ResultSet rs = XJdbc.query(sql)) {
-        while (rs.next()) {
-            list.add(rs.getString("LoaiSanPham"));
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return list;
-}
     public List<SanPham> selectByLoaiSP(String loaiSP) {
         String sql = "SELECT * FROM SanPham WHERE LoaiSanPham = ?";
         return selectBySql(sql, loaiSP);
     }
 }
+
 
     
 

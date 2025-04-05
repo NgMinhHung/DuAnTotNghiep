@@ -15,17 +15,19 @@ public class KhachHang {
     private boolean gioiTinh;
     private String soDienThoai;
     private int diem; // Thêm thuộc tính diem để lưu số điểm
+    private String hinhAnh; // Thêm thuộc tính hinhAnh để lưu tên file hình ảnh
 
     public KhachHang() {
     }
 
-    public KhachHang(String maKH, String tenKH, String diaChi, boolean gioiTinh, String soDienThoai, int diem) {
+    public KhachHang(String maKH, String tenKH, String diaChi, boolean gioiTinh, String soDienThoai, int diem, String hinhAnh) {
         this.maKH = maKH;
         this.tenKH = tenKH;
         this.diaChi = diaChi;
         this.gioiTinh = gioiTinh;
         this.soDienThoai = soDienThoai;
         this.diem = diem;
+        this.hinhAnh = hinhAnh; // Khởi tạo giá trị cho hinhAnh
     }
 
     public String getMaKH() {
@@ -74,6 +76,14 @@ public class KhachHang {
 
     public void setDiem(int diem) {
         this.diem = diem;
+    }
+
+    public String getHinhAnh() {
+        return hinhAnh;
+    }
+
+    public void setHinhAnh(String hinhAnh) {
+        this.hinhAnh = hinhAnh;
     }
 
     @Override

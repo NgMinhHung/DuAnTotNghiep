@@ -20,11 +20,16 @@ public class SanPham {
     private String size;
     private int soLuongTonKho;
     private String phanLoai;
+    private String hinhAnh; // ➕ Thuộc tính ảnh
 
+    // Constructor mặc định
     public SanPham() {
     }
 
-    public SanPham(String maSP, String tenSP, String loaiSP, String moTa, double giaNhap, double giaBan, String size, int soLuongTonKho, String phanLoai) {
+    // Constructor đầy đủ
+    public SanPham(String maSP, String tenSP, String loaiSP, String moTa,
+                   double giaNhap, double giaBan, String size, int soLuongTonKho,
+                   String phanLoai, String hinhAnh) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.loaiSP = loaiSP;
@@ -34,8 +39,10 @@ public class SanPham {
         this.size = size;
         this.soLuongTonKho = soLuongTonKho;
         this.phanLoai = phanLoai;
+        this.hinhAnh = hinhAnh;
     }
 
+    // Getter & Setter
     public String getMaSP() {
         return maSP;
     }
@@ -107,5 +114,13 @@ public class SanPham {
     public void setPhanLoai(String phanLoai) {
         this.phanLoai = phanLoai;
     }
-    
+
+    public String getHinhAnh() {
+        return hinhAnh;
+    }
+
+    public void setHinhAnh(String hinhAnh) {
+        this.hinhAnh = hinhAnh;
+    }
 }
+

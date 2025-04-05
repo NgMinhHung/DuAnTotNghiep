@@ -6,7 +6,13 @@ package com.outfitme.outfitme;
 
 import com.outfitme.dao.SanPhamDAO;
 import com.outfitme.entity.SanPham;
+import com.outfitme.utils.XImage;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.io.File;
 import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,6 +42,7 @@ public class SanPhamJDialog extends javax.swing.JDialog {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
+        jFileChooser1 = new javax.swing.JFileChooser();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -59,7 +66,7 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
+        lblHinhanh = new javax.swing.JLabel();
         btnNew = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
@@ -115,22 +122,23 @@ public class SanPhamJDialog extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel11.setText("hinhAnh");
+        lblHinhanh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHinhanh.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblHinhanh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblHinhanhMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel11)
-                .addGap(0, 123, Short.MAX_VALUE))
+            .addComponent(lblHinhanh, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(jLabel11)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(lblHinhanh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         btnNew.setText("New");
@@ -163,17 +171,17 @@ public class SanPhamJDialog extends javax.swing.JDialog {
 
         tblSP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Sản Phẩm", "Tên Sản Phẩm", "Loại Sản Phẩm", "Giá Nhập", "Giá Bán", "Số Lương", "Phân Loại", "Size", "Mô Tả"
+                "Mã Sản Phẩm", "Tên Sản Phẩm", "Loại Sản Phẩm", "Giá Nhập", "Giá Bán", "Số Lương", "Phân Loại", "Size", "Mô Tả", "Hình ảnh"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -363,6 +371,11 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         loadTable();
     }//GEN-LAST:event_cboLoaiActionPerformed
 
+    private void lblHinhanhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHinhanhMouseClicked
+        // TODO add your handling code here:
+        chonAnh();
+    }//GEN-LAST:event_lblHinhanhMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -414,9 +427,9 @@ public class SanPhamJDialog extends javax.swing.JDialog {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cboLoai;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -428,6 +441,7 @@ public class SanPhamJDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblHinhanh;
     private javax.swing.JRadioButton rdNam;
     private javax.swing.JRadioButton rdNu;
     private javax.swing.JTable tblSP;
@@ -448,6 +462,9 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         loadLoaiSanPham();  // Load loại sản phẩm trước
         loadTable();  // Sau đó mới load bảng
         this.row = -1;
+        
+        lblHinhanh.setPreferredSize(new Dimension(100, 100)); // Đặt kích thước cố định cho JLabel
+
 
         // Sự kiện chọn ComboBox sẽ cập nhật bảng
         cboLoai.addActionListener(e -> loadTable());
@@ -458,32 +475,6 @@ public class SanPhamJDialog extends javax.swing.JDialog {
                 tableMouseClicked(evt);
             }
         });
-    }
-
-    private void loadTable() {
-        if (cboLoai.getSelectedItem() == null) {
-            System.out.println("⚠ Lỗi: JComboBox chưa có giá trị!");
-            return;
-        }
-        String loaiSP = cboLoai.getSelectedItem().toString().trim();
-        System.out.println("📌 Loại sản phẩm đã chọn: " + loaiSP);
-
-        DefaultTableModel model = (DefaultTableModel) tblSP.getModel();
-        model.setRowCount(0);  // Xóa dữ liệu cũ trước khi thêm mới
-
-        try {
-            List<SanPham> list = dao.selectByLoaiSP(loaiSP);
-            for (SanPham sp : list) {
-                model.addRow(new Object[]{
-                    sp.getMaSP(), sp.getTenSP(), sp.getLoaiSP(),
-                    sp.getMoTa(), sp.getGiaNhap(), sp.getGiaBan(),
-                    sp.getSize(), sp.getSoLuongTonKho(), sp.getPhanLoai()
-                });
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "⚠ Lỗi khi tải dữ liệu sản phẩm!\n" + e.getMessage());
-            e.printStackTrace();
-        }
     }
 
     private void loadLoaiSanPham() {
@@ -498,6 +489,28 @@ public class SanPhamJDialog extends javax.swing.JDialog {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "⚠ Lỗi khi tải loại sản phẩm: " + e.getMessage());
+        }
+    }
+
+    private void loadTable() {
+        String loaiSP = cboLoai.getSelectedItem().toString().trim();
+
+        DefaultTableModel model = (DefaultTableModel) tblSP.getModel();
+        model.setRowCount(0);  // Xóa dữ liệu cũ trước khi thêm mới
+
+        try {
+            List<SanPham> list = dao.selectByLoaiSP(loaiSP);
+            for (SanPham sp : list) {
+                model.addRow(new Object[]{
+                    sp.getMaSP(), sp.getTenSP(), sp.getLoaiSP(),
+                    sp.getMoTa(), sp.getGiaNhap(), sp.getGiaBan(),
+                    sp.getSize(), sp.getSoLuongTonKho(), sp.getPhanLoai(),
+                    sp.getHinhAnh()
+                });
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "⚠ Lỗi khi tải dữ liệu sản phẩm!\n" + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -516,11 +529,12 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         SanPham sp = dao.selectById(maSP);
         setForm(sp);
     }
-
     private void setForm(SanPham sp) {
         if (sp == null) {
             return;
         }
+
+        // Cập nhật các trường thông tin khác
         txtMa.setText(sp.getMaSP());
         txtName.setText(sp.getTenSP());
         cboLoai.setSelectedItem(sp.getLoaiSP());
@@ -534,15 +548,38 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         } else if ("Nu".equals(sp.getPhanLoai())) {
             rdNu.setSelected(true);
         } else {
-            buttonGroup1.clearSelection(); 
+            buttonGroup1.clearSelection();
+        }
+
+        // Kiểm tra nếu có ảnh
+        if (sp.getHinhAnh() != null && !sp.getHinhAnh().isEmpty()) {
+            // Đọc ảnh từ cơ sở dữ liệu (ví dụ hình ảnh lưu dưới dạng đường dẫn)
+            ImageIcon icon = XImage.read(sp.getHinhAnh());
+            Image img = icon.getImage();
+
+            // Điều chỉnh kích thước hình ảnh sao cho phù hợp với JLabel
+            Image scaledImage = img.getScaledInstance(167, 225, Image.SCALE_SMOOTH);
+
+            // Đặt icon cho JLabel mà không làm thay đổi kích thước của JLabel
+            lblHinhanh.setIcon(new ImageIcon(scaledImage));
+            lblHinhanh.setToolTipText(sp.getHinhAnh());
+        } else {
+            lblHinhanh.setIcon(null);
+            lblHinhanh.setToolTipText("");
         }
     }
+
+        
 
     public void insert() {
         if (txtMa.getText().trim().isEmpty() || txtName.getText().trim().isEmpty() || txtNhap.getText().trim().isEmpty()
                 || txtBan.getText().trim().isEmpty() || txtSize.getText().trim().isEmpty() || txtSL.getText().trim().isEmpty()
                 || (!rdNam.isSelected() && !rdNu.isSelected())) {
             JOptionPane.showMessageDialog(this, "⚠ Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
+        if (lblHinhanh.getIcon() == null) {
+            JOptionPane.showMessageDialog(this, "⚠ Vui lòng chọn hình ảnh cho sản phẩm!");
             return;
         }
 
@@ -588,6 +625,7 @@ public class SanPhamJDialog extends javax.swing.JDialog {
 
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa sản phẩm này?", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if (confirm != JOptionPane.YES_OPTION) {
+            clearForm();
             return;
         }
 
@@ -617,8 +655,9 @@ public class SanPhamJDialog extends javax.swing.JDialog {
             sp.setPhanLoai("Nu");
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn phân loại Nam hoặc Nữ!");
-            return null; 
+            return null;
         }
+        sp.setHinhAnh(lblHinhanh.getToolTipText());
 
         return sp;
     }
@@ -633,6 +672,8 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         txtSize.setText("");
         txtSL.setText("");
         buttonGroup1.clearSelection();
+        lblHinhanh.setToolTipText(null);
+         lblHinhanh.setIcon(null);
     }
 
     private void searchByMaSP() {
@@ -657,5 +698,26 @@ public class SanPhamJDialog extends javax.swing.JDialog {
             e.printStackTrace();
         }
     }
+
+    
+    void chonAnh() {
+    JFileChooser fileChooser = new JFileChooser();
+    if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+        File file = fileChooser.getSelectedFile();
+        String fileName = file.getName();
+        XImage.save(file); // Lưu ảnh vào thư mục cố định
+
+        // Đọc ảnh từ file và điều chỉnh kích thước
+        ImageIcon icon = XImage.read(fileName);
+        Image img = icon.getImage();
+
+        Image scaledImage = img.getScaledInstance(167,225, Image.SCALE_SMOOTH);
+
+        // Đặt icon cho JLabel mà không làm thay đổi kích thước của JLabel
+        lblHinhanh.setIcon(new ImageIcon(scaledImage));
+        lblHinhanh.setToolTipText(fileName); // Lưu tên file vào tooltip của label
+    }
+}
+
 
 }

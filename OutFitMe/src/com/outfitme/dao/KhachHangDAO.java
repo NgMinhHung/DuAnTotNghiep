@@ -11,25 +11,29 @@ public class KhachHangDAO extends OutFitMeDAO<KhachHang, String> {
 
     @Override
     public void insert(KhachHang model) {
-        String sql = "INSERT INTO KhachHang (MaKhachHang, TenKhachHang, SoDienThoai, GioiTinh, DiaChi, Diem) VALUES (?, ?, ?, ?, ?, ?)";
+        // Câu lệnh SQL INSERT đã thêm cột HinhAnh và Diem
+        String sql = "INSERT INTO KhachHang (MaKhachHang, TenKhachHang, SoDienThoai, GioiTinh, DiaChi, HinhAnh, Diem) VALUES (?, ?, ?, ?, ?, ?, ?)";
         XJdbc.update(sql,
                 model.getMaKH(),
                 model.getTenKH(),
                 model.getSoDienThoai(),
                 model.isGioiTinh(),
                 model.getDiaChi(),
-                model.getDiem()); // Bỏ kiểm tra null
+                model.getHinhAnh(),  // Thêm cột HinhAnh
+                model.getDiem());    // Thêm cột Diem
     }
 
     @Override
     public void update(KhachHang model) {
-        String sql = "UPDATE KhachHang SET TenKhachHang = ?, GioiTinh = ?, DiaChi = ?, SoDienThoai = ?, Diem = ? WHERE MaKhachHang = ?";
+        // Cập nhật câu lệnh SQL cho cả HinhAnh và Diem
+        String sql = "UPDATE KhachHang SET TenKhachHang = ?, GioiTinh = ?, DiaChi = ?, SoDienThoai = ?, HinhAnh = ?, Diem = ? WHERE MaKhachHang = ?";
         XJdbc.update(sql,
                 model.getTenKH(),
                 model.isGioiTinh(),
                 model.getDiaChi(),
                 model.getSoDienThoai(),
-                model.getDiem(), // Bỏ kiểm tra null
+                model.getHinhAnh(),  // Thêm cột HinhAnh
+                model.getDiem(),     // Thêm cột Diem
                 model.getMaKH());
     }
 
@@ -81,7 +85,8 @@ public class KhachHangDAO extends OutFitMeDAO<KhachHang, String> {
                     entity.setSoDienThoai(rs.getString("SoDienThoai"));
                     entity.setGioiTinh(rs.getBoolean("GioiTinh"));
                     entity.setDiaChi(rs.getString("DiaChi"));
-                    entity.setDiem(rs.getInt("Diem"));
+                    entity.setHinhAnh(rs.getString("HinhAnh")); // Lấy HinhAnh từ cơ sở dữ liệu
+                    entity.setDiem(rs.getInt("Diem"));         // Lấy Diem từ cơ sở dữ liệu
                     list.add(entity);
                 }
             } finally {

@@ -8,6 +8,7 @@ import com.outfitme.dao.KhachHangDAO;
 import com.outfitme.entity.KhachHang;
 import com.outfitme.utils.MsgBox;
 import com.outfitme.utils.XImage;
+import java.awt.Image;
 import java.io.File;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -69,7 +70,6 @@ public class KhachHangJDailog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        btnThem.setIcon(new javax.swing.ImageIcon("C:\\Users\\DELL\\Downloads\\icon\\icon\\Add.png")); // NOI18N
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,7 +77,6 @@ public class KhachHangJDailog extends javax.swing.JDialog {
             }
         });
 
-        btnSua.setIcon(new javax.swing.ImageIcon("C:\\Users\\DELL\\Downloads\\icon\\icon\\Edit.png")); // NOI18N
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,7 +84,6 @@ public class KhachHangJDailog extends javax.swing.JDialog {
             }
         });
 
-        btnXoa.setIcon(new javax.swing.ImageIcon("C:\\Users\\DELL\\Downloads\\icon\\icon\\Delete.png")); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,7 +91,6 @@ public class KhachHangJDailog extends javax.swing.JDialog {
             }
         });
 
-        btnMoi.setIcon(new javax.swing.ImageIcon("C:\\Users\\DELL\\Downloads\\icon\\icon\\Add.png")); // NOI18N
         btnMoi.setText("Mới");
         btnMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,17 +139,17 @@ public class KhachHangJDailog extends javax.swing.JDialog {
 
         tblKhachHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã KH", "Tên KH", "SĐT", "Giới Tính", "Địa chỉ"
+                "Mã KH", "Tên KH", "SĐT", "Giới Tính", "Địa chỉ", "Hình ảnh"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -426,6 +423,8 @@ KhachHangDAO dao = new KhachHangDAO();
         txtTimKiem.setText("");
         rdoNam.setSelected(false);
         rdoNu.setSelected(false);
+        lblHinh.setIcon(null);
+        lblHinh.setToolTipText(null);
     }
 
     private void loadTable() {
@@ -434,7 +433,7 @@ KhachHangDAO dao = new KhachHangDAO();
         try {
             List<KhachHang> list = dao.selectAll();
             for (KhachHang kh : list) {
-                Object[] row = {kh.getMaKH(), kh.getTenKH(), kh.getSoDienThoai(), kh.getDiaChi(), kh.isGioiTinh() ? "Nam" : "Nữ"};
+                Object[] row = {kh.getMaKH(), kh.getTenKH(), kh.getSoDienThoai(), kh.getDiaChi(), kh.isGioiTinh() ? "Nam" : "Nữ", kh.getHinhAnh()};
                 model.addRow(row);
             }
         } catch (Exception e) {
@@ -513,6 +512,7 @@ KhachHangDAO dao = new KhachHangDAO();
         kh.setSoDienThoai(txtSDT.getText());
         kh.setDiaChi(txtDiaChi.getText());
         kh.setGioiTinh(rdoNam.isSelected()); // Nếu rdoNam được chọn => true (Nam), nếu không => false (Nữ)
+        kh.setHinhAnh(lblHinh.getToolTipText());
         return kh;
     }
 
@@ -528,20 +528,41 @@ KhachHangDAO dao = new KhachHangDAO();
         String soDT = tblKhachHang.getValueAt(selectedRow, 2).toString();
         String diaChi = tblKhachHang.getValueAt(selectedRow, 3).toString();
         boolean gioiTinh = tblKhachHang.getValueAt(selectedRow, 4).toString().equalsIgnoreCase("Nam");
-
+        String hinhAnh = (String) tblKhachHang.getValueAt(selectedRow, 5);
+        
         txtTenKH.setText(tenKH);
         txtSDT.setText(soDT);
         txtDiaChi.setText(diaChi);
         rdoNam.setSelected(gioiTinh);
         rdoNu.setSelected(!gioiTinh);
+        
+        if (hinhAnh != null) {
+            ImageIcon icon = XImage.read(hinhAnh);
+            if (icon != null) {
+                Image img = icon.getImage();
+                Image scaledImg = img.getScaledInstance(lblHinh.getWidth(), lblHinh.getHeight(), Image.SCALE_SMOOTH);
+                lblHinh.setIcon(new ImageIcon(scaledImg));
+                lblHinh.setToolTipText(hinhAnh);
+            }
+        } else {
+            lblHinh.setIcon(null);
+            lblHinh.setToolTipText(null);
+        }
+
     }
 
     boolean isValidate() {
+        String sdt = txtSDT.getText().trim();
         if (txtTenKH.getText().trim().isEmpty()
                 || txtSDT.getText().trim().isEmpty()
                 || txtDiaChi.getText().trim().isEmpty()
-                || (!rdoNam.isSelected() && !rdoNu.isSelected())) {
+                || (!rdoNam.isSelected() && !rdoNu.isSelected())
+                || lblHinh.getIcon() == null) {
             MsgBox.alert(this, "Vui lòng nhập đầy đủ thông tin!");
+            return false;
+        }
+        if (!sdt.matches("\\d{10,11}")) {
+            MsgBox.alert(this, "Số điện thoại không hợp lệ! Vui lòng nhập 10 hoặc 11 chữ số.");
             return false;
         }
         return true;
@@ -550,10 +571,16 @@ KhachHangDAO dao = new KhachHangDAO();
     void chonAnh() {
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
-            XImage.save(file);
-            ImageIcon icon = XImage.read(file.getName());
-            lblHinh.setIcon(icon);
-            lblHinh.setToolTipText(file.getName());
+            // Lưu hình ảnh vào thư mục cố định hoặc lưu tên file vào database
+            String fileName = file.getName();
+            XImage.save(file); // Lưu ảnh vào thư mục cố định (Cần xác định thư mục)
+
+            // Điều chỉnh kích thước hình ảnh cho phù hợp với JLabel
+            ImageIcon icon = XImage.read(fileName);
+            Image img = icon.getImage();
+            Image scaledImage = img.getScaledInstance(lblHinh.getWidth(), lblHinh.getHeight(), Image.SCALE_SMOOTH);
+            lblHinh.setIcon(new ImageIcon(scaledImage));
+            lblHinh.setToolTipText(fileName); // Lưu tên file vào tooltip của label
         }
     }
 }
