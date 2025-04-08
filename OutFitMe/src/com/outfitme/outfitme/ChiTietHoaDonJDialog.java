@@ -133,7 +133,7 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tblChiTietHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, 799, Short.MAX_VALUE)
+                .addComponent(tblChiTietHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, 821, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -148,6 +148,7 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Công cụ"));
 
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/icon_xoa.png"))); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,6 +156,7 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
             }
         });
 
+        btnThanhToan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/icon_thanhtoan.png"))); // NOI18N
         btnThanhToan.setText("Thanh Toán");
         btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,6 +214,7 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
             }
         });
 
+        btnKiemTraDiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/icon_check.png"))); // NOI18N
         btnKiemTraDiem.setText("Kiểm tra điểm");
         btnKiemTraDiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,6 +224,7 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
 
         jLabel7.setText("Ghi chú");
 
+        btnSoHD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/research.png"))); // NOI18N
         btnSoHD.setText("Tìm theo HĐ");
         btnSoHD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,7 +255,7 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
                                     .addComponent(btnKiemTraDiem)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                                         .addComponent(jLabel7)))
                                 .addGap(12, 12, 12))
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -265,18 +269,21 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addComponent(txtGhiChu, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jRadioButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButton2))
+                            .addComponent(jLabel1)
+                            .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnXoa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnThanhToan))
-                    .addComponent(jLabel1)
-                    .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(24, 24, 24)
+                        .addComponent(btnThanhToan))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,7 +307,7 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
                                 .addComponent(jLabel4)
                                 .addComponent(rdo10))
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnSoHD, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSoHD)
                                 .addComponent(txtSoHD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()

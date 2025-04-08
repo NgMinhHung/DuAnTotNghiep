@@ -91,7 +91,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="tblChiTietHoaDon" pref="799" max="32767" attributes="0"/>
+                  <Component id="tblChiTietHoaDon" pref="821" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -237,7 +237,7 @@
                                       <Component id="btnKiemTraDiem" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="53" max="32767" attributes="0"/>
+                                          <EmptySpace pref="39" max="32767" attributes="0"/>
                                           <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -259,20 +259,25 @@
                       </Group>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtTongTien" min="-2" pref="138" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnXoa" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                           <Component id="btnThanhToan" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtTongTien" min="-2" pref="138" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -303,7 +308,7 @@
                                   <Component id="rdo10" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="btnSoHD" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                                  <Component id="btnSoHD" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtSoHD" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -347,6 +352,9 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btnXoa">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/outfitme/icon/icon_xoa.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
           </Properties>
           <Events>
@@ -355,6 +363,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnThanhToan">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/outfitme/icon/icon_thanhtoan.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Thanh To&#xe1;n"/>
           </Properties>
           <Events>
@@ -465,6 +476,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnKiemTraDiem">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/outfitme/icon/icon_check.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Ki&#x1ec3;m tra &#x111;i&#x1ec3;m"/>
           </Properties>
           <Events>
@@ -480,6 +494,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnSoHD">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/outfitme/icon/research.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="T&#xec;m theo H&#x110;"/>
           </Properties>
           <Events>

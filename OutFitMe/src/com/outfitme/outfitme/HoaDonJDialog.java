@@ -209,6 +209,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/icon_find.png"))); // NOI18N
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,6 +219,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
 
         jLabel2.setText("Tìm kiếm Số hóa đơn");
 
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/them.png"))); // NOI18N
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,6 +227,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
             }
         });
 
+        btnChiTietHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/chitiethoadon.png"))); // NOI18N
         btnChiTietHoaDon.setText("Chi Tiết hóa đơn");
         btnChiTietHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -232,6 +235,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
             }
         });
 
+        btnMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/refesh.png"))); // NOI18N
         btnMoi.setText("Mới");
         btnMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,6 +243,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
             }
         });
 
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/addVaoCTHD.png"))); // NOI18N
         btnAdd.setText("Add vào cthd");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -320,7 +325,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnChiTietHoaDon, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -347,9 +352,9 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnMoi)
-                        .addGap(18, 18, 18)
+                        .addGap(60, 60, 60)
                         .addComponent(btnThem)
-                        .addGap(50, 50, 50)))
+                        .addGap(8, 8, 8)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
@@ -357,7 +362,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnAdd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(42, 42, 42)
                         .addComponent(btnChiTietHoaDon)
                         .addGap(86, 86, 86))))
         );

@@ -53,6 +53,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
             }
         });
 
+        btnDangNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/log-in.png"))); // NOI18N
         btnDangNhap.setText("Đăng nhập");
         btnDangNhap.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDangNhap.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -64,6 +65,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
 
         jLabel3.setText("Mật khẩu");
 
+        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Exit.png"))); // NOI18N
         btnExit.setText("Kết thúc");
         btnExit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnExit.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -108,7 +110,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDangNhap)
                     .addComponent(btnExit))
@@ -128,7 +130,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 183, Short.MAX_VALUE)
+            .addGap(0, 206, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 22, Short.MAX_VALUE)

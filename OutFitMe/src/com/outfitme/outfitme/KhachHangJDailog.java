@@ -70,6 +70,7 @@ public class KhachHangJDailog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/them.png"))); // NOI18N
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,6 +78,7 @@ public class KhachHangJDailog extends javax.swing.JDialog {
             }
         });
 
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/updated.png"))); // NOI18N
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,6 +86,7 @@ public class KhachHangJDailog extends javax.swing.JDialog {
             }
         });
 
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Delete.png"))); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,6 +94,7 @@ public class KhachHangJDailog extends javax.swing.JDialog {
             }
         });
 
+        btnMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/refesh.png"))); // NOI18N
         btnMoi.setText("Mới");
         btnMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,6 +167,7 @@ public class KhachHangJDailog extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(tblKhachHang);
 
+        btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Search.png"))); // NOI18N
         btnTimKiem.setText("Tim Kiếm");
         btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

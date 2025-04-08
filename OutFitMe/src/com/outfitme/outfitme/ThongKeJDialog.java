@@ -131,6 +131,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
 
         lblMaSP.setText("Mã sản phẩm:");
 
+        btnFindSL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/research.png"))); // NOI18N
         btnFindSL.setText("Find");
         btnFindSL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,6 +232,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
 
         lblMaNV2.setText("Mã nhân viên:");
 
+        btnLoad_DHNV1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Refresh.png"))); // NOI18N
         btnLoad_DHNV1.setText("Load");
         btnLoad_DHNV1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

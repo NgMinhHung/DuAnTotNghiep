@@ -41,7 +41,7 @@
                   <Component id="jPanel1" max="32767" attributes="0"/>
                   <Component id="jPanel2" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="46" max="32767" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnChiTietHoaDon" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAdd" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -75,9 +75,9 @@
                   <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="btnMoi" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                       <Component id="btnThem" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -88,7 +88,7 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="btnAdd" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                       <Component id="btnChiTietHoaDon" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
                   </Group>
@@ -376,6 +376,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="btnSearch">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/outfitme/icon/icon_find.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Search"/>
       </Properties>
       <Events>
@@ -391,6 +394,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnThem">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/outfitme/icon/them.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
       </Properties>
       <Events>
@@ -399,6 +405,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnChiTietHoaDon">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/outfitme/icon/chitiethoadon.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Chi Ti&#x1ebf;t h&#xf3;a &#x111;&#x1a1;n"/>
       </Properties>
       <Events>
@@ -407,6 +416,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnMoi">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/outfitme/icon/refesh.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="M&#x1edb;i"/>
       </Properties>
       <Events>
@@ -415,6 +427,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnAdd">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/outfitme/icon/addVaoCTHD.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Add v&#xe0;o cthd"/>
       </Properties>
       <Events>

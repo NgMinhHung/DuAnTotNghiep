@@ -48,6 +48,7 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        btnDoiMatKhau1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/dongy.png"))); // NOI18N
         btnDoiMatKhau1.setText("Đồng ý");
         btnDoiMatKhau1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -55,6 +56,7 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
             }
         });
 
+        btnHuy1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/cancel.png"))); // NOI18N
         btnHuy1.setText("Hủy bỏ");
         btnHuy1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,7 +115,7 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDoiMatKhau1)
                     .addComponent(btnHuy1))

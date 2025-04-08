@@ -49,7 +49,7 @@
               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="50" max="32767" attributes="0"/>
+              <EmptySpace pref="42" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnDoiMatKhau1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnHuy1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -62,6 +62,9 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="btnDoiMatKhau1">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/outfitme/icon/dongy.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="&#x110;&#x1ed3;ng &#xfd;"/>
       </Properties>
       <Events>
@@ -70,6 +73,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnHuy1">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/outfitme/icon/cancel.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="H&#x1ee7;y b&#x1ecf;"/>
       </Properties>
       <Events>
