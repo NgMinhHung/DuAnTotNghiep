@@ -41,9 +41,8 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         cboNam = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDoanhThu = new javax.swing.JTable();
-        lblNam1 = new javax.swing.JLabel();
-        lblNamDT = new javax.swing.JLabel();
-        lblTogDT = new javax.swing.JLabel();
+        lblSoHD = new javax.swing.JLabel();
+        lblSoDoanhThu = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblMaSP = new javax.swing.JLabel();
         btnFindSL = new javax.swing.JButton();
@@ -60,6 +59,13 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         btnLoad_DHNV1 = new javax.swing.JButton();
         lblMaNV3 = new javax.swing.JLabel();
         cboDH = new javax.swing.JComboBox<>();
+        jPanel3 = new javax.swing.JPanel();
+        lblNam2 = new javax.swing.JLabel();
+        cboThang = new javax.swing.JComboBox<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblDoanhThuThang = new javax.swing.JTable();
+        lblThangDT = new javax.swing.JLabel();
+        lblTogThang = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -78,13 +84,13 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tblDoanhThu);
 
-        lblNam1.setText("Tổng doanh thu năm");
+        lblSoHD.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblSoHD.setForeground(new java.awt.Color(255, 0, 51));
+        lblSoHD.setText("Tổng doanh thu tới hiện nay là");
 
-        lblNamDT.setText("2023");
-
-        lblTogDT.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblTogDT.setForeground(new java.awt.Color(255, 0, 0));
-        lblTogDT.setText("0 đ");
+        lblSoDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblSoDoanhThu.setForeground(new java.awt.Color(255, 0, 0));
+        lblSoDoanhThu.setText("0 đ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -102,13 +108,14 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                         .addComponent(cboNam, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(24, 24, 24))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(lblNam1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNamDT, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(112, 112, 112)
-                .addComponent(lblTogDT, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblSoDoanhThu, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblSoHD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(35, 35, 35))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,12 +126,11 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                     .addComponent(cboNam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNam1)
-                    .addComponent(lblNamDT)
-                    .addComponent(lblTogDT))
-                .addGap(59, 59, 59))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addComponent(lblSoHD)
+                .addGap(18, 18, 18)
+                .addComponent(lblSoDoanhThu, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
 
         tabsThongKe.addTab("Doanh Thu", jPanel1);
@@ -291,6 +297,69 @@ public class ThongKeJDialog extends javax.swing.JDialog {
 
         tabsThongKe.addTab("Đơn hàng của nhân viên", jPanel4);
 
+        lblNam2.setText("Tháng");
+
+        tblDoanhThuThang.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Tổng giao dịch", "Doanh thu", "Thấp nhất", "Cao nhất", "Trung bình"
+            }
+        ));
+        jScrollPane3.setViewportView(tblDoanhThuThang);
+
+        lblThangDT.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblThangDT.setForeground(new java.awt.Color(153, 0, 153));
+        lblThangDT.setText("Tổng doanh thu của tháng 1:");
+
+        lblTogThang.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTogThang.setForeground(new java.awt.Color(255, 0, 0));
+        lblTogThang.setText("0 đ");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap(38, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(lblNam2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cboThang, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(24, 24, 24))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblThangDT, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblTogThang, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNam2)
+                    .addComponent(cboThang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblThangDT)
+                    .addComponent(lblTogThang))
+                .addGap(60, 60, 60))
+        );
+
+        tabsThongKe.addTab("Doanh Thu", jPanel3);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -383,23 +452,29 @@ public class ThongKeJDialog extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cboDH;
     private javax.swing.JComboBox<String> cboNam;
     private javax.swing.JComboBox<String> cboSLSP;
+    private javax.swing.JComboBox<String> cboThang;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblMaNV2;
     private javax.swing.JLabel lblMaNV3;
     private javax.swing.JLabel lblMaNV4;
     private javax.swing.JLabel lblMaSP;
     private javax.swing.JLabel lblNam;
-    private javax.swing.JLabel lblNam1;
-    private javax.swing.JLabel lblNamDT;
-    private javax.swing.JLabel lblTogDT;
+    private javax.swing.JLabel lblNam2;
+    private javax.swing.JLabel lblSoDoanhThu;
+    private javax.swing.JLabel lblSoHD;
+    private javax.swing.JLabel lblThangDT;
+    private javax.swing.JLabel lblTogThang;
     private javax.swing.JTabbedPane tabsThongKe;
     private javax.swing.JTable tblDHNV2;
     private javax.swing.JTable tblDoanhThu;
+    private javax.swing.JTable tblDoanhThuThang;
     private javax.swing.JTable tblSLSP;
     private javax.swing.JTextField txtMaNV2;
     private javax.swing.JTextField txtMaSP;
@@ -416,10 +491,12 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         fillComboBoxNam();
         fillComboBoxNamDH();
         fillComboBoxNamSLSP();
+        fillComboBoxDoanhThuThang();
 
         fillTableDoanhThu();
         fillTableDHNV2();
         fillTableSLSP();
+        fillTableDoanhThuThang();
 
         this.selectTab(0);
     }
@@ -465,15 +542,33 @@ public class ThongKeJDialog extends javax.swing.JDialog {
             cboSLSP.setSelectedIndex(0);
         }
     }
+    
+    void fillComboBoxDoanhThuThang() {
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cboThang.getModel();
+        model.removeAllElements();
+
+        List<Integer> list = dao.selectMonth();
+        for (Integer month : list) {
+            model.addElement(month);
+        }
+
+        if (model.getSize() > 0) {
+            cboSLSP.setSelectedIndex(0);
+        }
+    }
 
     void fillTableDoanhThu() {
         Object selected = cboNam.getSelectedItem();
         if (selected == null) {
             return;
         }
+        Object[] kq = dao.selectDoanhThu();
+        lblSoHD.setText("Tổng số hóa đơn tới hiện nay: " + kq[0]);
+        lblSoDoanhThu.setText("Tổng số doanh thu tới hiện nay: " + kq[1]);
+
 
         int nam = (Integer) selected;
-        lblNamDT.setText(String.valueOf(nam));
+//        lblNamDT.setText(String.valueOf(nam));
 
         DefaultTableModel model = (DefaultTableModel) tblDoanhThu.getModel();
         model.setRowCount(0);
@@ -485,7 +580,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
 
         if (tblDoanhThu.getRowCount() > 0) {
             double togDt = Double.parseDouble(tblDoanhThu.getValueAt(0, 1).toString());
-            lblTogDT.setText((int) togDt + " VND");
+//            lblTogDT.setText((int) togDt + " VND");
         }
     }
 
@@ -522,6 +617,29 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         List<Object[]> list = dao.getDHNV(maNV, nam);
         for (Object[] row : list) {
             model.addRow(row);
+        }
+    }
+
+    void fillTableDoanhThuThang() {
+        Object selected = cboThang.getSelectedItem();
+        if (selected == null) {
+            return;
+        }
+
+        int thang = (Integer) selected;
+        lblThangDT.setText("Tổng doanh thu của tháng:" + " " + String.valueOf(thang));
+
+        DefaultTableModel model = (DefaultTableModel) tblDoanhThuThang.getModel();
+        model.setRowCount(0);
+
+        List<Object[]> list = dao.getDTTT(thang);
+        for (Object[] row : list) {
+            model.addRow(row);
+        }
+
+        if (tblDoanhThuThang.getRowCount() > 0) {
+            double togDt = Double.parseDouble(tblDoanhThuThang.getValueAt(0, 1).toString());
+            lblTogThang.setText((int) togDt + " VND");
         }
     }
 

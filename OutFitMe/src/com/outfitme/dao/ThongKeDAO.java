@@ -74,4 +74,45 @@ public class ThongKeDAO {
             throw new RuntimeException(ex);
         }
     }
+    
+    public List<Object[]> getDTTT(int month){
+        String sql = "{CALL sp_DTLS (?)}";
+        String[] cols = {"TongGiaoDich", "TongDoanhThu", "ThapNhat", "caoNhat",  "TrungBinh"};
+        return this.getListOfArray(sql, cols, month);
+    }
+
+    
+    public List<Integer> selectMonth() {
+        String sql="SELECT DISTINCT month(ls.ThoiGian) as 'Thang' FROM LichSuMuaHang ls ORDER BY month(ls.ThoiGian) DESC";
+        List<Integer> list=new ArrayList<>();
+        try {
+           ResultSet rs = XJdbc.query(sql);
+           while(rs.next()){
+                 list.add(rs.getInt(1));
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } 
+        catch (java.sql.SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+    
+    public Object[] selectDoanhThu() {
+        String sql = "SELECT COUNT(hd.SoHD) AS SoHoaDon, SUM(SoLuong * GiaBan) AS DoanhThu " +
+                     "FROM HoaDon hd JOIN SanPham sp ON hd.MaSanPham = sp.MaSanPham";
+        try {
+            ResultSet rs = XJdbc.query(sql);
+            if (rs.next()) {
+                Object[] result = new Object[2];
+                result[0] = rs.getInt("SoHoaDon");
+                result[1] = rs.getDouble("DoanhThu");
+                rs.getStatement().getConnection().close();
+                return result;
+            }
+        } catch (java.sql.SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        return null;
+    }
 }
