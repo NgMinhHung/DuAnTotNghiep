@@ -462,9 +462,8 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         loadLoaiSanPham();  // Load loại sản phẩm trước
         loadTable();  // Sau đó mới load bảng
         this.row = -1;
-        
-        lblHinhanh.setPreferredSize(new Dimension(100, 100)); // Đặt kích thước cố định cho JLabel
 
+        lblHinhanh.setPreferredSize(new Dimension(100, 100)); // Đặt kích thước cố định cho JLabel
 
         // Sự kiện chọn ComboBox sẽ cập nhật bảng
         cboLoai.addActionListener(e -> loadTable());
@@ -503,8 +502,8 @@ public class SanPhamJDialog extends javax.swing.JDialog {
             for (SanPham sp : list) {
                 model.addRow(new Object[]{
                     sp.getMaSP(), sp.getTenSP(), sp.getLoaiSP(),
-                    sp.getMoTa(), sp.getGiaNhap(), sp.getGiaBan(),
-                    sp.getSize(), sp.getSoLuongTonKho(), sp.getPhanLoai(),
+                    sp.getGiaNhap(), sp.getGiaBan(),
+                    sp.getSoLuongTonKho(), sp.getPhanLoai(), sp.getSize(), sp.getMoTa(),
                     sp.getHinhAnh()
                 });
             }
@@ -529,6 +528,7 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         SanPham sp = dao.selectById(maSP);
         setForm(sp);
     }
+
     private void setForm(SanPham sp) {
         if (sp == null) {
             return;
@@ -538,10 +538,10 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         txtMa.setText(sp.getMaSP());
         txtName.setText(sp.getTenSP());
         cboLoai.setSelectedItem(sp.getLoaiSP());
-        txtMoTa.setText(sp.getMoTa());
+
         txtNhap.setText(String.valueOf(sp.getGiaNhap()));
         txtBan.setText(String.valueOf(sp.getGiaBan()));
-        txtSize.setText(sp.getSize());
+
         txtSL.setText(String.valueOf(sp.getSoLuongTonKho()));
         if ("Nam".equals(sp.getPhanLoai())) {
             rdNam.setSelected(true);
@@ -550,7 +550,8 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         } else {
             buttonGroup1.clearSelection();
         }
-
+        txtSize.setText(sp.getSize());
+        txtMoTa.setText(sp.getMoTa());
         // Kiểm tra nếu có ảnh
         if (sp.getHinhAnh() != null && !sp.getHinhAnh().isEmpty()) {
             // Đọc ảnh từ cơ sở dữ liệu (ví dụ hình ảnh lưu dưới dạng đường dẫn)
@@ -568,8 +569,6 @@ public class SanPhamJDialog extends javax.swing.JDialog {
             lblHinhanh.setToolTipText("");
         }
     }
-
-        
 
     public void insert() {
         if (txtMa.getText().trim().isEmpty() || txtName.getText().trim().isEmpty() || txtNhap.getText().trim().isEmpty()
@@ -673,7 +672,7 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         txtSL.setText("");
         buttonGroup1.clearSelection();
         lblHinhanh.setToolTipText(null);
-         lblHinhanh.setIcon(null);
+        lblHinhanh.setIcon(null);
     }
 
     private void searchByMaSP() {
@@ -699,25 +698,23 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         }
     }
 
-    
     void chonAnh() {
-    JFileChooser fileChooser = new JFileChooser();
-    if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-        File file = fileChooser.getSelectedFile();
-        String fileName = file.getName();
-        XImage.save(file); // Lưu ảnh vào thư mục cố định
+        JFileChooser fileChooser = new JFileChooser();
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            String fileName = file.getName();
+            XImage.save(file); // Lưu ảnh vào thư mục cố định
 
-        // Đọc ảnh từ file và điều chỉnh kích thước
-        ImageIcon icon = XImage.read(fileName);
-        Image img = icon.getImage();
+            // Đọc ảnh từ file và điều chỉnh kích thước
+            ImageIcon icon = XImage.read(fileName);
+            Image img = icon.getImage();
 
-        Image scaledImage = img.getScaledInstance(167,225, Image.SCALE_SMOOTH);
+            Image scaledImage = img.getScaledInstance(167, 225, Image.SCALE_SMOOTH);
 
-        // Đặt icon cho JLabel mà không làm thay đổi kích thước của JLabel
-        lblHinhanh.setIcon(new ImageIcon(scaledImage));
-        lblHinhanh.setToolTipText(fileName); // Lưu tên file vào tooltip của label
+            // Đặt icon cho JLabel mà không làm thay đổi kích thước của JLabel
+            lblHinhanh.setIcon(new ImageIcon(scaledImage));
+            lblHinhanh.setToolTipText(fileName); // Lưu tên file vào tooltip của label
+        }
     }
-}
-
 
 }

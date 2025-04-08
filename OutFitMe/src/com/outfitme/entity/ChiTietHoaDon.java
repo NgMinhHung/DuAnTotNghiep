@@ -3,69 +3,81 @@ package com.outfitme.entity;
 import java.util.Date;
 
 public class ChiTietHoaDon {
-
-    private int soHD;
-    private Date ngayLap;
-    private String maNV;
-    private String tenNV;
-    private String maSP;
-    private String tenSP;
-    private int soLuong;
-    private double giaTien;
-    private double tongTien;
-    private String maKH;
+    private int id;              // Khóa chính tự tăng
+    private String soHD;         // Mã hóa đơn nhập tay
+    private Date ngayLap;        // Ngày lập hóa đơn
+    private String maNV;         // Mã nhân viên
+    private String tenNV;        // Tên nhân viên
+    private String maSP;         // Mã sản phẩm
+    private String tenSP;        // Tên sản phẩm
+    private String size;         // Kích cỡ
+    private int soLuong;         // Số lượng
+    private double giaTien;      // Giá bán
+    private double tongTien;     // Tổng tiền
+    private String maKH;         // Mã khách hàng
 
     // Constructor mặc định
     public ChiTietHoaDon() {
     }
 
-    // Constructor 8 tham số (tự tính tongTien)
-    public ChiTietHoaDon(int soHD, Date ngayLap, String maNV, String tenNV, String maSP, String tenSP, int soLuong, double giaTien) {
+    // Constructor cho insert (không cần id vì tự tăng)
+    public ChiTietHoaDon(String soHD, Date ngayLap, String maNV, String maSP, String size, int soLuong, String maKH) {
         this.soHD = soHD;
         this.ngayLap = ngayLap;
         this.maNV = maNV;
-        this.tenNV = tenNV;
         this.maSP = maSP;
-        this.tenSP = tenSP;
+        this.size = size;
         this.soLuong = soLuong;
-        this.giaTien = giaTien;
-        this.tongTien = soLuong * giaTien;
-    }
-
-    // Constructor 9 tham số (bao gồm maKH, tự tính tongTien)
-    public ChiTietHoaDon(int soHD, Date ngayLap, String maNV, String tenNV, String maSP, String tenSP, int soLuong, double giaTien, String maKH) {
-        this.soHD = soHD;
-        this.ngayLap = ngayLap;
-        this.maNV = maNV;
-        this.tenNV = tenNV;
-        this.maSP = maSP;
-        this.tenSP = tenSP;
-        this.soLuong = soLuong;
-        this.giaTien = giaTien;
-        this.tongTien = soLuong * giaTien;
         this.maKH = maKH;
     }
 
-    // Constructor 10 tham số (bao gồm tongTien, không tự tính)
-    public ChiTietHoaDon(int soHD, Date ngayLap, String maNV, String tenNV, String maSP, String tenSP, int soLuong, double giaTien, double tongTien, String maKH) {
+    // Constructor đầy đủ (dùng khi select từ database)
+    public ChiTietHoaDon(int id, String soHD, Date ngayLap, String maNV, String tenNV, 
+                         String maSP, String tenSP, String size, int soLuong, 
+                         double giaTien, double tongTien, String maKH) {
+        this.id = id;
         this.soHD = soHD;
         this.ngayLap = ngayLap;
         this.maNV = maNV;
         this.tenNV = tenNV;
         this.maSP = maSP;
         this.tenSP = tenSP;
+        this.size = size;
         this.soLuong = soLuong;
         this.giaTien = giaTien;
-        this.tongTien = tongTien; // Sử dụng giá trị tongTien được truyền vào
+        this.tongTien = tongTien;
         this.maKH = maKH;
+    }
+
+    // Constructor 9 tham số (tự tính tongTien)
+    public ChiTietHoaDon(String soHD, Date ngayLap, String maNV, String tenNV, 
+                         String maSP, String tenSP, String size, int soLuong, double giaTien) {
+        this.soHD = soHD;
+        this.ngayLap = ngayLap;
+        this.maNV = maNV;
+        this.tenNV = tenNV;
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.size = size;
+        this.soLuong = soLuong;
+        this.giaTien = giaTien;
+        this.tongTien = soLuong * giaTien;
     }
 
     // Getters và Setters
-    public int getSoHD() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getSoHD() {
         return soHD;
     }
 
-    public void setSoHD(int soHD) {
+    public void setSoHD(String soHD) {
         this.soHD = soHD;
     }
 
@@ -109,6 +121,14 @@ public class ChiTietHoaDon {
         this.tenSP = tenSP;
     }
 
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
     public int getSoLuong() {
         return soLuong;
     }
@@ -140,4 +160,6 @@ public class ChiTietHoaDon {
     public void setMaKH(String maKH) {
         this.maKH = maKH;
     }
+
+
 }

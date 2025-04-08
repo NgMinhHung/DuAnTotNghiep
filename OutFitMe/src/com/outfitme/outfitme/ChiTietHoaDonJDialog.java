@@ -14,6 +14,7 @@ import com.outfitme.utils.XJdbc;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,9 +33,9 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
     public ChiTietHoaDonJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        fillTable();
         fillCustomerComboBox();
         calculateTotalPrice();
+        fillTableSLSP();
 
         cboDSKhachHang.addItemListener(new java.awt.event.ItemListener() {
             @Override
@@ -98,6 +99,8 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
         cboDSKhachHang = new javax.swing.JComboBox<>();
         btnKiemTraDiem = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        txtSoHD = new javax.swing.JTextField();
+        btnSoHD = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -105,17 +108,17 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "SoHD", "Ngày lập HD", "MaSP", "Tên sản phẩm", "Số lượng", "Giá tiền", "Tổng tiền", "Nhân viên lập HD", "MaKH"
+                "SoHD", "Ngày lập HD", "MaSP", "Tên sản phẩm", "Size", "Số lượng", "Giá tiền", "Tổng tiền", "Nhân viên lập HD", "MaKH"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, true
+                false, false, false, false, true, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -203,6 +206,12 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
 
         jLabel6.setText("Tích Điểm Khách hàng");
 
+        cboDSKhachHang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboDSKhachHangActionPerformed(evt);
+            }
+        });
+
         btnKiemTraDiem.setText("Kiểm tra điểm");
         btnKiemTraDiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -211,6 +220,13 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
         });
 
         jLabel7.setText("Ghi chú");
+
+        btnSoHD.setText("Tìm theo HĐ");
+        btnSoHD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSoHDActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -234,13 +250,19 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnKiemTraDiem)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(cboDSKhachHang, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel7))))
-                            .addComponent(rdo10))
-                        .addGap(12, 12, 12)
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                                        .addComponent(jLabel7)))
+                                .addGap(12, 12, 12))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(rdo10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cboDSKhachHang, 0, 120, Short.MAX_VALUE)
+                                    .addComponent(txtSoHD))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSoHD)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addComponent(txtGhiChu, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
@@ -264,6 +286,7 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtGhiChu)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -271,21 +294,25 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
                                 .addComponent(jLabel3)
                                 .addComponent(rdo5)
                                 .addComponent(cboDSKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4)
+                                .addComponent(rdo10))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnSoHD, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtSoHD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(rdo10))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(rdo15)
-                                    .addComponent(jLabel5)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(btnKiemTraDiem)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtGhiChu)))
+                                    .addComponent(jLabel5))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnKiemTraDiem)
+                                .addGap(26, 26, 26))))))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
@@ -335,74 +362,75 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-        // Kiểm tra xem đã chọn phương thức thanh toán chưa
-        if (!jRadioButton1.isSelected() && !jRadioButton2.isSelected()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn hình thức thanh toán!");
-            return; // Dừng thực hiện nếu không chọn phương thức thanh toán
-        }
+    if (!jRadioButton1.isSelected() && !jRadioButton2.isSelected()) {
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn hình thức thanh toán!");
+        return;
+    }
 
-        int confirm = javax.swing.JOptionPane.showConfirmDialog(this,
-                "Bạn có chắc chắn muốn thanh toán và xóa toàn bộ sản phẩm của khách hàng này?",
-                "Xác nhận thanh toán",
-                javax.swing.JOptionPane.YES_NO_OPTION);
+    int confirm = JOptionPane.showConfirmDialog(this,
+            "Bạn có chắc chắn muốn thanh toán hóa đơn này?",
+            "Xác nhận thanh toán",
+            JOptionPane.YES_NO_OPTION);
 
-        if (confirm == javax.swing.JOptionPane.YES_OPTION) {
-            int selectedIndex = cboDSKhachHang.getSelectedIndex();
-            if (selectedIndex >= 0) {
-                String selectedCustomer = (String) cboDSKhachHang.getSelectedItem();
-                String maKH = selectedCustomer.split(" - ")[0];
-                KhachHang kh = khDao.selectById(maKH);
+    if (confirm == JOptionPane.YES_OPTION) {
+        int selectedIndex = cboDSKhachHang.getSelectedIndex();
+        String soHD = txtSoHD.getText().trim();
 
-                if (kh != null) {
-                    // Tính điểm tích lũy từ hóa đơn
-                    int newPoints = calculatePoints(totalPrice);
-                    int currentPoints = kh.getDiem();
+        if (selectedIndex >= 0 && !soHD.isEmpty()) {
+            String selectedCustomer = (String) cboDSKhachHang.getSelectedItem();
+            String maKH = selectedCustomer.split(" - ")[0];
+            KhachHang kh = khDao.selectById(maKH);
 
-                    // Trừ điểm nếu có áp dụng giảm giá
-                    int pointsToDeduct = 0;
-                    if (discountPercentage == 5.0) {
-                        pointsToDeduct = 50;
-                    } else if (discountPercentage == 10.0) {
-                        pointsToDeduct = 100;
-                    } else if (discountPercentage == 15.0) {
-                        pointsToDeduct = 200;
-                    }
+            if (kh != null) {
+                // Tính điểm tích lũy
+                int newPoints = calculatePoints(totalPrice);
+                int currentPoints = kh.getDiem();
 
-                    // Cập nhật điểm khách hàng: cộng điểm mới, trừ điểm đã dùng để giảm giá
-                    int updatedPoints = currentPoints + newPoints - pointsToDeduct;
-                    if (updatedPoints < 0) {
-                        updatedPoints = 0; // Đảm bảo điểm không âm
-                    }
-                    kh.setDiem(updatedPoints);
-                    khDao.update(kh);
-
-                    // Lưu lịch sử mua hàng
-                    savePurchaseHistory(maKH);
-
-                    // Xóa các bản ghi của khách hàng
-                    cthdDao.deleteByMaKH(maKH);
-                    filterTableByMaKH();
-
-                    // Đặt lại tổng tiền và giảm giá
-                    totalPrice = 0.0;
-                    discountPercentage = 0.0; // Đặt lại giảm giá về 0
-                    rdo5.setSelected(false); // Bỏ chọn các radio button
-                    rdo10.setSelected(false);
-                    rdo15.setSelected(false);
-                    updateTotalPriceWithDiscount();
-
-                    // Bỏ chọn phương thức thanh toán
-                    jRadioButton1.setSelected(false);
-                    jRadioButton2.setSelected(false);
-
-                    javax.swing.JOptionPane.showMessageDialog(this, "Thanh toán thành công!", "Thông báo", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    javax.swing.JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng với mã: " + maKH);
+                int pointsToDeduct = 0;
+                if (discountPercentage == 5.0) {
+                    pointsToDeduct = 50;
+                } else if (discountPercentage == 10.0) {
+                    pointsToDeduct = 100;
+                } else if (discountPercentage == 15.0) {
+                    pointsToDeduct = 200;
                 }
+
+                int updatedPoints = currentPoints + newPoints - pointsToDeduct;
+                if (updatedPoints < 0) {
+                    updatedPoints = 0;
+                }
+                kh.setDiem(updatedPoints);
+                khDao.update(kh);
+
+                // Lưu lịch sử
+                savePurchaseHistory(maKH);
+
+                // 🔥 Xóa duy nhất hóa đơn đã nhập
+                cthdDao.deleteBySoHD(soHD); // ← bạn cần có hàm delete theo Số HĐ
+
+                // Load lại bảng
+                filterTableByMaKH();
+
+                // Reset các giá trị
+                totalPrice = 0.0;
+                discountPercentage = 0.0;
+                rdo5.setSelected(false);
+                rdo10.setSelected(false);
+                rdo15.setSelected(false);
+                updateTotalPriceWithDiscount();
+                jRadioButton1.setSelected(false);
+                jRadioButton2.setSelected(false);
+
+                JOptionPane.showMessageDialog(this, "Thanh toán thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một khách hàng trước khi thanh toán!");
+                JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng với mã: " + maKH);
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng và nhập số hóa đơn!");
         }
+    }
+
+
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void savePurchaseHistory(String maKH) {
@@ -417,7 +445,7 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
 
         for (int i = 0; i < model.getRowCount(); i++) {
             String tenSP = (String) model.getValueAt(i, 3);
-            int soLuong = (int) model.getValueAt(i, 4);
+            int soLuong = (int) model.getValueAt(i, 5);
             sanPham.append(tenSP).append(" (").append(soLuong).append("), ");
         }
         if (sanPham.length() > 0) {
@@ -547,6 +575,15 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnKiemTraDiemActionPerformed
 
+    private void btnSoHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoHDActionPerformed
+        // TODO add your handling code here:
+        fillTableSLSP();
+    }//GEN-LAST:event_btnSoHDActionPerformed
+
+    private void cboDSKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDSKhachHangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboDSKhachHangActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -586,6 +623,7 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnKiemTraDiem;
+    private javax.swing.JButton btnSoHD;
     private javax.swing.JButton btnThanhToan;
     private javax.swing.JButton btnXoa;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -617,129 +655,141 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
     private javax.swing.JRadioButton rdo5;
     private javax.swing.JScrollPane tblChiTietHoaDon;
     private javax.swing.JTextField txtGhiChu;
+    private javax.swing.JTextField txtSoHD;
     private javax.swing.JTextField txtTongTien;
     // End of variables declaration//GEN-END:variables
+    
+    // DAO dùng chung
+    ChiTietHoaDonDAO dao = new ChiTietHoaDonDAO();
+    private double totalPrice = 0.0;
+    private double discountPercentage = 0.0;
 
-// Phương thức xóa dòng được chọn
-    private void delete() {
-        int selectedRow = jTable1.getSelectedRow();
-        if (selectedRow >= 0) {
-            int soHD = (int) jTable1.getValueAt(selectedRow, 0);
-            cthdDao.delete(String.valueOf(soHD));
-            fillTable(); // Cập nhật lại bảng sau khi xóa
-            calculateTotalPrice(); // Tính lại tổng tiền sau khi xóa
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để xóa!");
+    public void fillTableSLSP() {
+        Object selected = cboDSKhachHang.getSelectedItem();
+        if (selected == null) return;
+
+        String maKH1 = selected.toString().trim();
+        if (maKH1.contains("-")) {
+            maKH1 = maKH1.split("-")[0].trim(); // Lấy "KH01"
         }
-    }
 
-    // Phương thức sửa dòng được chọn (cần thêm giao diện nhập liệu để sửa)
-    private void update() {
-        int selectedRow = jTable1.getSelectedRow();
-        if (selectedRow >= 0) {
-            int soHD = (int) jTable1.getValueAt(selectedRow, 0);
-            String maSP = (String) jTable1.getValueAt(selectedRow, 2);
-            int soLuong = (int) jTable1.getValueAt(selectedRow, 4);
-
-            ChiTietHoaDon cthd = new ChiTietHoaDon();
-            cthd.setSoHD(soHD);
-            cthd.setMaSP(maSP);
-            cthd.setSoLuong(soLuong);
-
-            cthdDao.update(cthd);
-            fillTable(); // Cập nhật lại bảng sau khi sửa
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để sửa!");
-        }
-    }
-
-    private void fillTable() {
+        String soHD1 = txtSoHD.getText().trim();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
 
-        List<ChiTietHoaDon> list = cthdDao.selectAll();
-        System.out.println("Số dòng dữ liệu từ DAO: " + list.size()); // Debug
-        for (ChiTietHoaDon cthd : list) {
-            Object[] row = {
-                cthd.getSoHD(),
-                cthd.getNgayLap(),
-                cthd.getMaSP(),
-                cthd.getTenSP(),
-                cthd.getSoLuong(),
-                cthd.getGiaTien(),
-                cthd.getTongTien(),
-                cthd.getTenNV(),
-                cthd.getMaKH()
-            };
+        List<Object[]> list = dao.getBysoHD(maKH1, soHD1);
+        for (Object[] row : list) {
             model.addRow(row);
         }
-    }
-    private double totalPrice = 0.0; // Lưu tổng tiền trước khi giảm giá
-    private double discountPercentage = 0.0; // Lưu phần trăm giảm giá được chọn
 
-// Phương thức tính tổng tiền từ bảng
+        calculateTotalPrice();
+    }
+
+// Tính tổng tiền có giảm giá
     private void calculateTotalPrice() {
         totalPrice = 0.0;
         for (int i = 0; i < jTable1.getRowCount(); i++) {
-            Object value = jTable1.getValueAt(i, 6); // Lấy giá trị từ cột "Tổng tiền"
-            if (value != null) {
+            Object soluong = jTable1.getValueAt(i, 5); 
+            Object dongia = jTable1.getValueAt(i, 6); 
+            if (soluong != null && dongia!= null) {
                 try {
-                    double rowTotal = Double.parseDouble(value.toString());
-                    totalPrice += rowTotal;
+                    int sl = Integer.parseInt(soluong.toString());
+                    double dg = Double.parseDouble(dongia.toString());
+                    double tt = sl * dg;
+                    totalPrice += tt;
                 } catch (NumberFormatException e) {
-                    System.err.println("Lỗi khi phân tích tổng tiền ở dòng " + i + ": " + value);
+                    System.err.println("Lỗi tổng tiền tại dòng ");
                 }
             }
         }
-        updateTotalPriceWithDiscount(); // Cập nhật tổng tiền hiển thị với giảm giá hiện tại
+        updateTotalPriceWithDiscount();
     }
 
-// Phương thức áp dụng giảm giá và cập nhật tổng tiền vào ô văn bản
+// Áp dụng giảm giá (nếu có)
     private void updateTotalPriceWithDiscount() {
-        double discountedPrice = totalPrice;
+        double discounted = totalPrice;
         if (discountPercentage > 0) {
-            double discountAmount = totalPrice * (discountPercentage / 100);
-            discountedPrice = totalPrice - discountAmount;
+            discounted = totalPrice - (totalPrice * discountPercentage / 100);
         }
-        txtTongTien.setText(String.format("%.1f", discountedPrice)); // Hiển thị giá đã giảm
+        txtTongTien.setText(String.format("%.1f VNĐ", discounted));
     }
 
+// Xóa 1 dòng được chọn
+    private void delete() {
+        int row = jTable1.getSelectedRow();
+        if (row >= 0) {
+            String soHD = jTable1.getValueAt(row, 0).toString();
+            ChiTietHoaDon cthd = dao.selectBySoHD(soHD);
+            if (cthd != null) {
+                dao.delete(cthd.getId());
+                fillTableSLSP(); 
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để xóa!");
+        }
+    }
+
+// Sửa 1 dòng
+    private void update() {
+        int row = jTable1.getSelectedRow();
+        if (row >= 0) {
+            String soHD = jTable1.getValueAt(row, 0).toString();
+            String maSP = jTable1.getValueAt(row, 2).toString();
+            int soLuong = (int) jTable1.getValueAt(row, 5);
+
+            ChiTietHoaDon cthd = dao.selectBySoHD(soHD);
+            if (cthd != null) {
+                cthd.setSoHD(soHD);
+                cthd.setMaSP(maSP);
+                cthd.setSoLuong(soLuong);
+                dao.update(cthd);
+                fillTableSLSP(); // ✅ Load lại sau sửa
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để sửa!");
+        }
+    }
+
+// Lọc bảng theo Mã KH
+    private void filterTableByMaKH() {
+        String selected = (String) cboDSKhachHang.getSelectedItem();
+        if (selected == null || selected.isEmpty()) {
+            fillTableSLSP();
+            return;
+        }
+
+        String maKH = selected.split("-")[0].trim();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+
+        List<Object[]> list = dao.getBysoHD(maKH, txtSoHD.getText().trim());
+        for (Object[] row : list) {
+            model.addRow(row);
+        }
+
+        calculateTotalPrice();
+    }
+
+// Điểm tích lũy
     private int calculatePoints(double total) {
         return (int) (total / 100000) * 10;
     }
 
-    private void filterTableByMaKH() {
-        String selectedCustomer = (String) cboDSKhachHang.getSelectedItem();
-        if (selectedCustomer == null || selectedCustomer.isEmpty()) {
-            fillTable();
-            return;
-        }
-
-        String maKH = selectedCustomer.split(" - ")[0];
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
-
-        List<ChiTietHoaDon> list = cthdDao.selectAll();
-        for (ChiTietHoaDon cthd : list) {
-            if (cthd.getMaKH().equals(maKH)) {
-                Object[] row = {
-                    cthd.getSoHD(),
-                    cthd.getNgayLap(),
-                    cthd.getMaSP(),
-                    cthd.getTenSP(),
-                    cthd.getSoLuong(),
-                    cthd.getGiaTien(),
-                    cthd.getTongTien(),
-                    cthd.getTenNV(),
-                    cthd.getMaKH()
-                };
-                model.addRow(row);
-            }
-        }
-    }
-
+// Xóa tất cả HĐ theo mã KH
     public void deleteByMaKH(String maKH) {
         String sql = "DELETE FROM HoaDon WHERE MaKhachHang = ?";
         XJdbc.update(sql, maKH);
     }
+
+// Đổ combo khách hàng
+    void fillComboBoxNamSLSP() {
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cboDSKhachHang.getModel();
+        model.removeAllElements();
+
+        List<String> list = dao.selectYears();
+        for (String maKH : list) {
+            model.addElement(maKH);
+        }
+    }
+
 }

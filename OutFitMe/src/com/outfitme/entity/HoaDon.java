@@ -11,30 +11,51 @@ import java.util.Date;
  * @author MINH HUNG
  */
 public class HoaDon {
-    private int soHD;
+
+    private int Id;
+    private String soHD;
     private Date ngayLap;
     private String maNV;
     private String maKH;
     private int soLuong;
     private String maSP;
+    private String Size;
 
     public HoaDon() {
     }
 
-    public HoaDon(int soHD, Date ngayLap, String maNV, String maKH, int soLuong, String maSP) {
+    public HoaDon(int Id, String soHD, Date ngayLap, String maNV, String maKH, int soLuong, String maSP, String Size) {
+        this.Id = Id;
         this.soHD = soHD;
         this.ngayLap = ngayLap;
         this.maNV = maNV;
         this.maKH = maKH;
         this.soLuong = soLuong;
         this.maSP = maSP;
+        this.Size = Size;
     }
 
-    public int getSoHD() {
+    public String getSize() {
+        return Size;
+    }
+
+    public void setSize(String Size) {
+        this.Size = Size;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int Id) {
+        this.Id = Id;
+    }
+
+    public String getSoHD() {
         return soHD;
     }
 
-    public void setSoHD(int soHD) {
+    public void setSoHD(String soHD) {
         this.soHD = soHD;
     }
 
@@ -78,6 +99,4 @@ public class HoaDon {
         this.maSP = maSP;
     }
 
-
-    
 }
