@@ -42,6 +42,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel8 = new javax.swing.JLabel();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         tabs = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -106,8 +107,10 @@ public class NhanVienJDialog extends javax.swing.JDialog {
 
         jLabel5.setText("Giới tính");
 
+        buttonGroup2.add(rdoNam);
         rdoNam.setText("Nam");
 
+        buttonGroup2.add(rdoNu);
         rdoNu.setText("Nữ");
 
         jLabel6.setText("Số điện thoại");
@@ -623,6 +626,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
