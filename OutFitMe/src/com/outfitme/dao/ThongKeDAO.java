@@ -22,7 +22,7 @@ public class ThongKeDAO {
     }
 
     public List<Object[]> getSLSP(String maSP, int year) {
-        String sql = "{CALL sp_SLSP1 (?, ?)}";
+        String sql = "{CALL sp_SLSP2 (?, ?)}";
         String[] cols = {"MaSanPham", "TenSanPham", "SoLuongTonKho", "SLDaBan"};
         return this.getListOfArray(sql, cols, maSP, year);
     }
