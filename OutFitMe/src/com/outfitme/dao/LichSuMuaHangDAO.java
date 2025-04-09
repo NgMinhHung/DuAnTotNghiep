@@ -10,13 +10,14 @@ import java.util.List;
 public class LichSuMuaHangDAO {
 
     public void insert(LichSuMuaHang entity) {
-        String sql = "INSERT INTO LichSuMuaHang (MaKhachHang, ThoiGian, SanPham, TongTien) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO LichSuMuaHang (MaKhachHang, ThoiGian, SanPham, TongTien, MaNhanVien) VALUES (?, ?, ?, ?, ?)";
         try {
             XJdbc.update(sql,
                     entity.getMaKhachHang(),
                     new java.sql.Timestamp(entity.getThoiGian().getTime()),
                     entity.getSanPham(),
-                    entity.getTongTien()
+                    entity.getTongTien(),
+                    entity.getMaNhanVien() // Thêm MaNhanVien
             );
         } catch (Exception e) {
             throw new RuntimeException("Lỗi khi thêm lịch sử mua hàng: " + e.getMessage());
@@ -29,12 +30,13 @@ public class LichSuMuaHangDAO {
     }
 
     public void update(LichSuMuaHang entity) {
-        String sql = "UPDATE LichSuMuaHang SET MaKhachHang = ?, ThoiGian = ?, SanPham = ?, TongTien = ? WHERE MaGiaoDich = ?";
+        String sql = "UPDATE LichSuMuaHang SET MaKhachHang = ?, ThoiGian = ?, SanPham = ?, TongTien = ?, MaNhanVien = ? WHERE MaGiaoDich = ?";
         XJdbc.update(sql,
                 entity.getMaKhachHang(),
                 new java.sql.Timestamp(entity.getThoiGian().getTime()),
                 entity.getSanPham(),
                 entity.getTongTien(),
+                entity.getMaNhanVien(), // Thêm MaNhanVien
                 entity.getMaGiaoDich()
         );
     }
@@ -71,7 +73,8 @@ public class LichSuMuaHangDAO {
                 entity.setThoiGian(rs.getTimestamp("ThoiGian"));
                 entity.setSanPham(rs.getString("SanPham"));
                 entity.setTongTien(rs.getDouble("TongTien"));
-                entity.setTenKhachHang(rs.getString("TenKhachHang")); 
+                entity.setTenKhachHang(rs.getString("TenKhachHang"));
+                entity.setMaNhanVien(rs.getString("MaNhanVien")); // Thêm MaNhanVien
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();

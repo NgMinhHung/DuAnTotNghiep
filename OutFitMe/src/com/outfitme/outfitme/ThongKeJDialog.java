@@ -43,6 +43,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         tblDoanhThu = new javax.swing.JTable();
         lblSoHD = new javax.swing.JLabel();
         lblSoDoanhThu = new javax.swing.JLabel();
+        lblTogNam = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblMaSP = new javax.swing.JLabel();
         btnFindSL = new javax.swing.JButton();
@@ -92,21 +93,14 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         lblSoDoanhThu.setForeground(new java.awt.Color(255, 0, 0));
         lblSoDoanhThu.setText("0 đ");
 
+        lblTogNam.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblTogNam.setForeground(new java.awt.Color(255, 0, 51));
+        lblTogNam.setText("Tổng Năm :");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(38, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(lblNam, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cboNam, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(24, 24, 24))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,8 +108,21 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                         .addComponent(lblSoDoanhThu, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblSoHD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(35, 35, 35))))
+                        .addComponent(lblSoHD, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                        .addGap(412, 412, 412))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(lblNam, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cboNam, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addGap(17, 17, 17)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblTogNam))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,9 +131,11 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNam)
                     .addComponent(cboNam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblTogNam)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(lblSoHD)
                 .addGap(18, 18, 18)
                 .addComponent(lblSoDoanhThu, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -358,16 +367,15 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                 .addGap(60, 60, 60))
         );
 
-        tabsThongKe.addTab("Doanh Thu", jPanel3);
+        tabsThongKe.addTab("Doanh Thu Tháng", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
-                .addComponent(tabsThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tabsThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -470,6 +478,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel lblSoDoanhThu;
     private javax.swing.JLabel lblSoHD;
     private javax.swing.JLabel lblThangDT;
+    private javax.swing.JLabel lblTogNam;
     private javax.swing.JLabel lblTogThang;
     private javax.swing.JTabbedPane tabsThongKe;
     private javax.swing.JTable tblDHNV2;
@@ -542,18 +551,19 @@ public class ThongKeJDialog extends javax.swing.JDialog {
             cboSLSP.setSelectedIndex(0);
         }
     }
-    
+
     void fillComboBoxDoanhThuThang() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboThang.getModel();
         model.removeAllElements();
 
         List<Integer> list = dao.selectMonth();
-        for (Integer month : list) {
-            model.addElement(month);
-        }
-
-        if (model.getSize() > 0) {
-            cboSLSP.setSelectedIndex(0);
+        if (list.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không có dữ liệu tháng nào trong cơ sở dữ liệu!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        } else {
+            for (Integer month : list) {
+                model.addElement(month);
+            }
+            cboThang.setSelectedIndex(0);
         }
     }
 
@@ -562,25 +572,36 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         if (selected == null) {
             return;
         }
+
+        // Lấy tổng số hóa đơn và doanh thu từ đầu đến nay
         Object[] kq = dao.selectDoanhThu();
         lblSoHD.setText("Tổng số hóa đơn tới hiện nay: " + kq[0]);
-        lblSoDoanhThu.setText("Tổng số doanh thu tới hiện nay: " + kq[1]);
-
+        lblSoDoanhThu.setText("Tổng số doanh thu tới hiện nay: " + String.format("%,.0f", (Double) kq[1]) + " VND");
 
         int nam = (Integer) selected;
-//        lblNamDT.setText(String.valueOf(nam));
+        lblTogNam.setText("Tổng doanh thu của năm " + nam + ":");
 
         DefaultTableModel model = (DefaultTableModel) tblDoanhThu.getModel();
         model.setRowCount(0);
 
-        List<Object[]> list = dao.getDoanhThu(nam);
+        // Lấy dữ liệu doanh thu theo năm từ lịch sử mua hàng
+        List<Object[]> list = dao.getDoanhThuTheoNam(nam);
         for (Object[] row : list) {
-            model.addRow(row);
+            model.addRow(new Object[]{
+                row[0], // Tổng giao dịch
+                String.format("%,.0f", (Double) row[1]), // Tổng doanh thu
+                String.format("%,.0f", (Double) row[2]), // Thấp nhất
+                String.format("%,.0f", (Double) row[3]), // Cao nhất
+                String.format("%,.0f", (Double) row[4]) // Trung bình
+            });
         }
 
+        // Cập nhật nhãn tổng doanh thu của năm
         if (tblDoanhThu.getRowCount() > 0) {
-            double togDt = Double.parseDouble(tblDoanhThu.getValueAt(0, 1).toString());
-//            lblTogDT.setText((int) togDt + " VND");
+            double togDt = Double.parseDouble(tblDoanhThu.getValueAt(0, 1).toString().replace(",", ""));
+            lblTogNam.setText("Tổng doanh thu của năm " + nam + ": " + String.format("%,.0f", togDt) + " VND");
+        } else {
+            lblTogNam.setText("Tổng doanh thu của năm " + nam + ": 0 VND");
         }
     }
 
@@ -602,23 +623,42 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         }
     }
 
-    public void fillTableDHNV2() {
-        Object selected = cboDH.getSelectedItem();
-        if (selected == null) {
-            return;
-        }
-
-        DefaultTableModel model = (DefaultTableModel) tblDHNV2.getModel();
-        model.setRowCount(0);
-
-        String maNV = txtMaNV2.getText().trim();
-        int nam = (Integer) selected;
-
-        List<Object[]> list = dao.getDHNV(maNV, nam);
-        for (Object[] row : list) {
-            model.addRow(row);
-        }
+   public void fillTableDHNV2() {
+    Object selected = cboDH.getSelectedItem();
+    if (selected == null) {
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn một năm để thống kê!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        return;
     }
+
+    DefaultTableModel model = (DefaultTableModel) tblDHNV2.getModel();
+    model.setRowCount(0);
+
+    String maNV = txtMaNV2.getText().trim();
+    int nam = (Integer) selected;
+
+    try {
+        List<Object[]> list = dao.getDHNV(maNV, nam);
+        if (list.isEmpty()) {
+            JOptionPane.showMessageDialog(this, 
+                "Không tìm thấy dữ liệu cho " + (maNV.isEmpty() ? "bất kỳ nhân viên nào" : "nhân viên '" + maNV + "'") + 
+                " trong năm " + nam + "!", 
+                "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            for (Object[] row : list) {
+                model.addRow(new Object[]{
+                    row[0], // Mã nhân viên
+                    row[1], // Tên nhân viên
+                    row[2]  // Tổng hóa đơn
+                });
+            }
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, 
+            "Lỗi khi tải dữ liệu đơn hàng của nhân viên: " + e.getMessage(), 
+            "Lỗi", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+}
 
     void fillTableDoanhThuThang() {
         Object selected = cboThang.getSelectedItem();

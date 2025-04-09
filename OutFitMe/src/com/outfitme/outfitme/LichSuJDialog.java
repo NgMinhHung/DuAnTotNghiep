@@ -36,7 +36,7 @@ public class LichSuJDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }
 
-   private void loadFromDatabase() {
+    private void loadFromDatabase() {
         List<LichSuMuaHang> historyList = lsmhDao.selectAll();
         displayHistory(historyList);
     }
@@ -49,14 +49,16 @@ public class LichSuJDialog extends javax.swing.JDialog {
                     + ", TenKhachHang: " + history.getTenKhachHang()
                     + ", ThoiGian: " + dateFormat.format(history.getThoiGian())
                     + ", SanPham: " + history.getSanPham()
-                    + ", TongTien: " + history.getTongTien());
+                    + ", TongTien: " + history.getTongTien()
+                    + ", MaNhanVien: " + history.getMaNhanVien()); // Thêm log để kiểm tra
             tableModel.addRow(new Object[]{
                 history.getMaGiaoDich(),
                 history.getMaKhachHang(),
                 history.getTenKhachHang(),
                 dateFormat.format(history.getThoiGian()),
                 history.getSanPham(),
-                String.format("%,.0f", history.getTongTien())
+                String.format("%,.0f", history.getTongTien()),
+                history.getMaNhanVien() // Thêm MaNhanVien vào cột "Nhân viên lập"
             });
         }
     }
@@ -96,13 +98,13 @@ public class LichSuJDialog extends javax.swing.JDialog {
 
         tblLichSu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã giao dịch", "Mã khách hàng", "Tên khách hàng", "thời gian", "Sản phẩm", "Tiền"
+                "Mã giao dịch", "Mã khách hàng", "Tên khách hàng", "thời gian", "Sản phẩm", "Tiền", "Nhân viên lập"
             }
         ));
         tblLichSu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -190,8 +192,8 @@ public class LichSuJDialog extends javax.swing.JDialog {
                         .addComponent(btnSearch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -302,7 +304,7 @@ public class LichSuJDialog extends javax.swing.JDialog {
             // Cập nhật lại dữ liệu vào các trường
             txtMaGD.setText(tableModel.getValueAt(selectedRow, 0).toString());
             txtMaSP.setText(tableModel.getValueAt(selectedRow, 1).toString());
-            txtTenKhachHang.setText(tableModel.getValueAt(selectedRow,2).toString());
+            txtTenKhachHang.setText(tableModel.getValueAt(selectedRow, 2).toString());
             txtTime.setText(tableModel.getValueAt(selectedRow, 3).toString());
             txtSanPham.setText(tableModel.getValueAt(selectedRow, 4).toString());
             txtTien.setText(tableModel.getValueAt(selectedRow, 5).toString());
@@ -404,6 +406,7 @@ public class LichSuJDialog extends javax.swing.JDialog {
             model.addRow(row);
         }
     }
+
     private void searchByMaKhachHang() {
         String maKhachHang = txtSearch.getText().trim();
         if (maKhachHang.isEmpty()) {
@@ -427,7 +430,8 @@ public class LichSuJDialog extends javax.swing.JDialog {
             displayHistory(filteredList);
         }
     }
-     private void sortByMaKhachHangAndThoiGian() {
+
+    private void sortByMaKhachHangAndThoiGian() {
         List<LichSuMuaHang> historyList = lsmhDao.selectAll();
         Collections.sort(historyList, new Comparator<LichSuMuaHang>() {
             @Override

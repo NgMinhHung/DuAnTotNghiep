@@ -3,22 +3,25 @@ package com.outfitme.entity;
 import java.util.Date;
 
 public class LichSuMuaHang {
+
     private int maGiaoDich;
     private String maKhachHang;
-    private Date thoiGian; 
+    private Date thoiGian;
     private String sanPham;
     private double tongTien;
-    private String tenKhachHang; 
+    private String tenKhachHang;
+    private String maNhanVien;
 
     public LichSuMuaHang() {
     }
 
-    public LichSuMuaHang(String maKhachHang, Date thoiGian, String sanPham, double tongTien, String tenKhachHang) {
+    public LichSuMuaHang(String maKhachHang, Date thoiGian, String sanPham, double tongTien, String tenKhachHang, String maNhanVien) {
         this.maKhachHang = maKhachHang;
         this.thoiGian = thoiGian;
         this.sanPham = sanPham;
         this.tongTien = tongTien;
-        this.tenKhachHang = tenKhachHang; // Khởi tạo tên khách hàng
+        this.tenKhachHang = tenKhachHang;
+        this.maNhanVien = maNhanVien; // Thêm maNhanVien vào constructor
     }
 
     public int getMaGiaoDich() {
@@ -69,15 +72,25 @@ public class LichSuMuaHang {
         this.tenKhachHang = tenKhachHang;
     }
 
+    public String getMaNhanVien() {
+        return maNhanVien;
+    }
+
+    public void setMaNhanVien(String maNhanVien) {
+        this.maNhanVien = maNhanVien;
+    }
+
     @Override
     public String toString() {
-        return "LichSuMuaHang{" +
-                "maGiaoDich=" + maGiaoDich +
-                ", maKhachHang='" + maKhachHang + '\'' +
-                ", thoiGian=" + thoiGian +
-                ", sanPham='" + sanPham + '\'' +
-                ", tongTien=" + tongTien +
-                ", tenKhachHang='" + tenKhachHang + '\'' + 
+        return "LichSuMuaHang{"
+                + "maGiaoDich=" + maGiaoDich
+                + ", maKhachHang='" + maKhachHang + '\''
+                + ", thoiGian=" + thoiGian
+                + ", sanPham='" + sanPham + '\''
+                + ", tongTien=" + tongTien
+                + ", tenKhachHang='" + tenKhachHang + '\''
+                + ", maNhanVien='" + maNhanVien + '\''
+                + // Thêm maNhanVien vào toString
                 '}';
     }
 }
