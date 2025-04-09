@@ -608,6 +608,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
     public void fillTableSLSP() {
         Object selected = cboSLSP.getSelectedItem();
         if (selected == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một năm để thống kê!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -617,48 +618,67 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         String maSP = txtMaSP.getText().trim();
         int year = (Integer) selected;
 
-        List<Object[]> list = dao.getSLSP(maSP, year);
-        for (Object[] row : list) {
-            model.addRow(row);
-        }
-    }
-
-   public void fillTableDHNV2() {
-    Object selected = cboDH.getSelectedItem();
-    if (selected == null) {
-        JOptionPane.showMessageDialog(this, "Vui lòng chọn một năm để thống kê!", "Thông báo", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    DefaultTableModel model = (DefaultTableModel) tblDHNV2.getModel();
-    model.setRowCount(0);
-
-    String maNV = txtMaNV2.getText().trim();
-    int nam = (Integer) selected;
-
-    try {
-        List<Object[]> list = dao.getDHNV(maNV, nam);
-        if (list.isEmpty()) {
-            JOptionPane.showMessageDialog(this, 
-                "Không tìm thấy dữ liệu cho " + (maNV.isEmpty() ? "bất kỳ nhân viên nào" : "nhân viên '" + maNV + "'") + 
-                " trong năm " + nam + "!", 
-                "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            for (Object[] row : list) {
-                model.addRow(new Object[]{
-                    row[0], // Mã nhân viên
-                    row[1], // Tên nhân viên
-                    row[2]  // Tổng hóa đơn
-                });
+        try {
+            List<Object[]> list = dao.getSLSP(maSP, year);
+            if (list.isEmpty()) {
+                JOptionPane.showMessageDialog(this,
+                        "Không tìm thấy dữ liệu cho " + (maSP.isEmpty() ? "bất kỳ sản phẩm nào" : "sản phẩm '" + maSP + "'")
+                        + " trong năm " + year + "!",
+                        "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                for (Object[] row : list) {
+                    model.addRow(new Object[]{
+                        row[0],
+                        row[1],
+                        row[2],
+                        row[3]
+                    });
+                }
             }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Lỗi khi tải dữ liệu số lượng sản phẩm: " + e.getMessage(),
+                    "Lỗi", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, 
-            "Lỗi khi tải dữ liệu đơn hàng của nhân viên: " + e.getMessage(), 
-            "Lỗi", JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
     }
-}
+
+    public void fillTableDHNV2() {
+        Object selected = cboDH.getSelectedItem();
+        if (selected == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một năm để thống kê!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tblDHNV2.getModel();
+        model.setRowCount(0);
+
+        String maNV = txtMaNV2.getText().trim();
+        int nam = (Integer) selected;
+
+        try {
+            List<Object[]> list = dao.getDHNV(maNV, nam);
+            if (list.isEmpty()) {
+                JOptionPane.showMessageDialog(this,
+                        "Không tìm thấy dữ liệu cho " + (maNV.isEmpty() ? "bất kỳ nhân viên nào" : "nhân viên '" + maNV + "'")
+                        + " trong năm " + nam + "!",
+                        "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                for (Object[] row : list) {
+                    model.addRow(new Object[]{
+                        row[0], // Mã nhân viên
+                        row[1], // Tên nhân viên
+                        row[2] // Tổng hóa đơn
+                    });
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Lỗi khi tải dữ liệu đơn hàng của nhân viên: " + e.getMessage(),
+                    "Lỗi", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
 
     void fillTableDoanhThuThang() {
         Object selected = cboThang.getSelectedItem();

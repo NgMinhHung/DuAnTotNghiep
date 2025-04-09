@@ -17,11 +17,11 @@ public class HoaDonDAO extends OutFitMeDAO<HoaDon, Integer> { // Đổi kiểu k
     public void insert(HoaDon model) {
         String sql = "INSERT INTO HoaDon (SoHD, NgayLap, MaNhanVien, MaKhachHang, SoLuong, MaSanPham, Size) VALUES (?, ?, ?, ?, ?, ?, ?)";
         XJdbc.update(sql,
-                model.getSoHD(),      // SoHD do người dùng nhập
+                model.getSoHD(),
                 model.getNgayLap(),
                 model.getMaNV(),
                 model.getMaKH(),
-                model.getSoLuong(),
+                model.getSoLuong(), // Đảm bảo lưu đúng SoLuong
                 model.getMaSP(),
                 model.getSize()
         );
@@ -31,14 +31,14 @@ public class HoaDonDAO extends OutFitMeDAO<HoaDon, Integer> { // Đổi kiểu k
     public void update(HoaDon model) {
         String sql = "UPDATE HoaDon SET SoHD = ?, NgayLap = ?, MaNhanVien = ?, MaKhachHang = ?, SoLuong = ?, MaSanPham = ?, Size = ? WHERE Id = ?";
         XJdbc.update(sql,
-                model.getSoHD(),      // SoHD do người dùng nhập
+                model.getSoHD(), // SoHD do người dùng nhập
                 model.getNgayLap(),
                 model.getMaNV(),
                 model.getMaKH(),
                 model.getSoLuong(),
                 model.getMaSP(),
                 model.getSize(),
-                model.getId()         // Sử dụng Id để xác định bản ghi
+                model.getId() // Sử dụng Id để xác định bản ghi
         );
     }
 
@@ -95,6 +95,5 @@ public class HoaDonDAO extends OutFitMeDAO<HoaDon, Integer> { // Đổi kiểu k
         String sql = "SELECT * FROM HoaDon WHERE SoHD = ?";
         return this.selectBySql(sql, soHD);
     }
-    
-   
+
 }

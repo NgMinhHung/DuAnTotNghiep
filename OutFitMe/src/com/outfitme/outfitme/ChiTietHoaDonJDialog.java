@@ -125,6 +125,11 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         tblChiTietHoaDon.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -447,19 +452,6 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
             return;
         }
 
-        StringBuilder sanPham = new StringBuilder();
-        double tongTien = totalPrice * (1 - discountPercentage / 100);
-
-        for (int i = 0; i < model.getRowCount(); i++) {
-            String tenSP = (String) model.getValueAt(i, 3); // Cột "Tên sản phẩm"
-            int soLuong = (int) model.getValueAt(i, 5); // Cột "Số lượng"
-            sanPham.append(tenSP).append(" (").append(soLuong).append("), ");
-        }
-        if (sanPham.length() > 0) {
-            sanPham.setLength(sanPham.length() - 2);
-        }
-
-        // Lấy MaNhanVien từ cột "Nhân viên lập HD" (cột thứ 9, chỉ số 8)
         String maNhanVien = null;
         if (model.getRowCount() > 0) {
             Object maNhanVienObj = model.getValueAt(0, 8); // Lấy từ dòng đầu tiên, cột "Nhân viên lập HD"
@@ -473,21 +465,32 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
             return;
         }
 
-        LichSuMuaHang history = new LichSuMuaHang();
-        history.setMaKhachHang(maKH);
-        history.setThoiGian(new Date());
-        history.setSanPham(sanPham.toString());
-        history.setTongTien(tongTien);
-        history.setMaNhanVien(maNhanVien); // Gán MaNhanVien từ bảng
+        Date thoiGian = new Date();
 
-        try {
-            lsmhDao.insert(history);
-            System.out.println("Đã lưu lịch sử mua hàng: MaKhachHang=" + history.getMaKhachHang()
-                    + ", SanPham=" + history.getSanPham()
-                    + ", MaNhanVien=" + history.getMaNhanVien());
-        } catch (Exception e) {
-            System.err.println("Lỗi khi lưu lịch sử mua hàng: " + e.getMessage());
-            e.printStackTrace();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String maSP = (String) model.getValueAt(i, 2);
+            String tenSP = (String) model.getValueAt(i, 3);
+            int soLuong = (int) model.getValueAt(i, 5);
+            double tongTien = (double) model.getValueAt(i, 7);
+
+            LichSuMuaHang history = new LichSuMuaHang();
+            history.setMaKhachHang(maKH);
+            history.setThoiGian(thoiGian);
+            history.setSanPham(tenSP);
+            history.setTongTien(tongTien);
+            history.setMaNhanVien(maNhanVien);
+            history.setMaSanPham(maSP);
+            history.setSoLuong(soLuong);
+
+            try {
+                lsmhDao.insert(history);
+                System.out.println("Đã lưu lịch sử mua hàng: MaKhachHang=" + history.getMaKhachHang()
+                        + ", MaSanPham=" + history.getMaSanPham()
+                        + ", SoLuong=" + history.getSoLuong());
+            } catch (Exception e) {
+                System.err.println("Lỗi khi lưu lịch sử mua hàng: " + e.getMessage());
+                e.printStackTrace();
+            }
         }
     }
 
@@ -608,6 +611,14 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_cboDSKhachHangActionPerformed
 
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int row = jTable1.getSelectedRow();
+        if (row >= 0) {
+            String soHD = jTable1.getValueAt(row, 0).toString();
+            txtSoHD.setText(soHD);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -691,6 +702,7 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
     public void fillTableSLSP() {
         Object selected = cboDSKhachHang.getSelectedItem();
         if (selected == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một khách hàng!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -703,15 +715,29 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
 
-        List<Object[]> list = dao.getBysoHD(maKH1, soHD1);
-        for (Object[] row : list) {
-            model.addRow(row);
+        try {
+            List<Object[]> list = dao.getBysoHD(maKH1, soHD1);
+            if (list.isEmpty()) {
+                JOptionPane.showMessageDialog(this,
+                        "Không tìm thấy hóa đơn nào cho khách hàng " + maKH1
+                        + (soHD1.isEmpty() ? "" : " với số hóa đơn " + soHD1) + "!",
+                        "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                for (Object[] row : list) {
+                    model.addRow(row);
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Lỗi khi tải dữ liệu hóa đơn: " + e.getMessage(),
+                    "Lỗi", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
 
         calculateTotalPrice();
     }
-
 // Tính tổng tiền có giảm giá
+
     private void calculateTotalPrice() {
         totalPrice = 0.0;
         for (int i = 0; i < jTable1.getRowCount(); i++) {
@@ -724,7 +750,7 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
                     double tt = sl * dg;
                     totalPrice += tt;
                 } catch (NumberFormatException e) {
-                    System.err.println("Lỗi tổng tiền tại dòng ");
+                    System.err.println("Lỗi tính tổng tiền tại dòng " + i + ": " + e.getMessage());
                 }
             }
         }

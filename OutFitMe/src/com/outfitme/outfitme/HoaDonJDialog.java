@@ -609,13 +609,16 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                         String soLuongText = model.getValueAt(i, 7).toString(); // Cột 7: Số lượng
                         String size = model.getValueAt(i, 8).toString();    // Cột 8: Size
 
+                        // Chuyển đổi số lượng từ String sang int
+                        int soLuong = Integer.parseInt(soLuongText);
+
                         // Tạo đối tượng HoaDon và lưu vào cơ sở dữ liệu
                         HoaDon hd = new HoaDon();
                         hd.setSoHD(soHD);
                         hd.setNgayLap(java.sql.Date.valueOf(ngayLap));
                         hd.setMaNV(maNV);
                         hd.setMaKH(maKH);
-                        hd.setSoLuong(rowCount);
+                        hd.setSoLuong(soLuong); // Sử dụng số lượng từ cột SoLuong trong bảng
                         hd.setMaSP(maSP);
                         hd.setSize(size);
                         hddao.insert(hd);
@@ -629,7 +632,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                     // Cập nhật số hóa đơn mới
                     setNewSoHD();
                 } catch (Exception ex) {
-                    MsgBox.alert(HoaDonJDialog.this, "Lỗi khi lưu hóa đơn vào cơ sở dữ liệu!");
+                    MsgBox.alert(HoaDonJDialog.this, "Lỗi khi lưu hóa đơn vào cơ sở dữ liệu: " + ex.getMessage());
                     ex.printStackTrace();
                 }
             }

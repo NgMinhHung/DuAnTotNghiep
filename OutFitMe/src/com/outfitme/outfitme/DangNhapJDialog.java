@@ -55,7 +55,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
             }
         });
 
-        btnDangNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/log-in.png"))); // NOI18N
+        btnDangNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/sign-in-alt.png"))); // NOI18N
         btnDangNhap.setText("Đăng nhập");
         btnDangNhap.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDangNhap.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -67,7 +67,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
 
         jLabel3.setText("Mật khẩu");
 
-        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Exit.png"))); // NOI18N
+        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/sign-out-alt.png"))); // NOI18N
         btnExit.setText("Kết thúc");
         btnExit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnExit.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -112,7 +112,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDangNhap)
                     .addComponent(btnExit))

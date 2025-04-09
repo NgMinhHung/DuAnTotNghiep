@@ -62,6 +62,7 @@ public class OutFitMe extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OutFitMe\n");
 
+        btnKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/thumbs-up-trust.png"))); // NOI18N
         btnKhachHang.setText("Khách hàng");
         btnKhachHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,6 +70,7 @@ public class OutFitMe extends javax.swing.JFrame {
             }
         });
 
+        btnSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/shopping-cart (1).png"))); // NOI18N
         btnSanPham.setText("Sản phẩm");
         btnSanPham.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,6 +78,7 @@ public class OutFitMe extends javax.swing.JFrame {
             }
         });
 
+        btnHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/otf-hoadon.png"))); // NOI18N
         btnHoaDon.setText("Hóa đơn");
         btnHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,6 +86,7 @@ public class OutFitMe extends javax.swing.JFrame {
             }
         });
 
+        btnCTHD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/document-signed.png"))); // NOI18N
         btnCTHD.setText("Chi tiết hóa đơn");
         btnCTHD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +94,7 @@ public class OutFitMe extends javax.swing.JFrame {
             }
         });
 
+        btnThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/signal-alt-2.png"))); // NOI18N
         btnThongKe.setText("Thống kê");
         btnThongKe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +102,7 @@ public class OutFitMe extends javax.swing.JFrame {
             }
         });
 
+        btnNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/users-alt (1).png"))); // NOI18N
         btnNhanVien.setText("Nhân viên");
         btnNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,6 +117,7 @@ public class OutFitMe extends javax.swing.JFrame {
         lblDongHo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Alarm.png"))); // NOI18N
         lblDongHo.setText("13:57");
 
+        btnLichSu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/time-past.png"))); // NOI18N
         btnLichSu.setText("Lịch sử");
         btnLichSu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

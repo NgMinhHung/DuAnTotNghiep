@@ -36,33 +36,6 @@ public class LichSuJDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }
 
-    private void loadFromDatabase() {
-        List<LichSuMuaHang> historyList = lsmhDao.selectAll();
-        displayHistory(historyList);
-    }
-
-    private void displayHistory(List<LichSuMuaHang> historyList) {
-        tableModel.setRowCount(0);
-        for (LichSuMuaHang history : historyList) {
-            System.out.println("MaGiaoDich: " + history.getMaGiaoDich()
-                    + ", MaKhachHang: " + history.getMaKhachHang()
-                    + ", TenKhachHang: " + history.getTenKhachHang()
-                    + ", ThoiGian: " + dateFormat.format(history.getThoiGian())
-                    + ", SanPham: " + history.getSanPham()
-                    + ", TongTien: " + history.getTongTien()
-                    + ", MaNhanVien: " + history.getMaNhanVien()); // Thêm log để kiểm tra
-            tableModel.addRow(new Object[]{
-                history.getMaGiaoDich(),
-                history.getMaKhachHang(),
-                history.getTenKhachHang(),
-                dateFormat.format(history.getThoiGian()),
-                history.getSanPham(),
-                String.format("%,.0f", history.getTongTien()),
-                history.getMaNhanVien() // Thêm MaNhanVien vào cột "Nhân viên lập"
-            });
-        }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -98,13 +71,13 @@ public class LichSuJDialog extends javax.swing.JDialog {
 
         tblLichSu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã giao dịch", "Mã khách hàng", "Tên khách hàng", "thời gian", "Sản phẩm", "Tiền", "Nhân viên lập"
+                "Mã giao dịch", "Mã khách hàng", "Tên khách hàng", "thời gian", "Sản phẩm", "Số lượng", "Tiền", "Nhân viên lập"
             }
         ));
         tblLichSu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -307,7 +280,7 @@ public class LichSuJDialog extends javax.swing.JDialog {
             txtTenKhachHang.setText(tableModel.getValueAt(selectedRow, 2).toString());
             txtTime.setText(tableModel.getValueAt(selectedRow, 3).toString());
             txtSanPham.setText(tableModel.getValueAt(selectedRow, 4).toString());
-            txtTien.setText(tableModel.getValueAt(selectedRow, 5).toString());
+            txtTien.setText(tableModel.getValueAt(selectedRow, 6).toString());
         }
     }//GEN-LAST:event_tblLichSuMouseClicked
 
@@ -391,6 +364,34 @@ public class LichSuJDialog extends javax.swing.JDialog {
         txtTien.setText("");
     }
 
+    private void loadFromDatabase() {
+        List<LichSuMuaHang> historyList = lsmhDao.selectAll();
+        displayHistory(historyList);
+    }
+
+    private void displayHistory(List<LichSuMuaHang> historyList) {
+        tableModel.setRowCount(0);
+        for (LichSuMuaHang history : historyList) {
+            System.out.println("MaGiaoDich: " + history.getMaGiaoDich()
+                    + ", MaKhachHang: " + history.getMaKhachHang()
+                    + ", TenKhachHang: " + history.getTenKhachHang()
+                    + ", ThoiGian: " + dateFormat.format(history.getThoiGian())
+                    + ", SanPham: " + history.getSanPham()
+                    + ", TongTien: " + history.getTongTien()
+                    + ", MaNhanVien: " + history.getMaNhanVien());
+            tableModel.addRow(new Object[]{
+                history.getMaGiaoDich(),
+                history.getMaKhachHang(),
+                history.getTenKhachHang(),
+                dateFormat.format(history.getThoiGian()),
+                history.getSanPham(),
+                history.getSoLuong(), // Thêm số lượng vào cột "Số lượng"
+                String.format("%,.0f", history.getTongTien()),
+                history.getMaNhanVien() // Thêm MaNhanVien vào cột "Nhân viên lập"
+            });
+        }
+    }
+
     public void loadPurchaseHistory() {
         DefaultTableModel model = (DefaultTableModel) tblLichSu.getModel();
         model.setRowCount(0); // Xóa dữ liệu cũ trong bảng
@@ -398,10 +399,14 @@ public class LichSuJDialog extends javax.swing.JDialog {
         List<LichSuMuaHang> list = lsmhDao.selectAll(); // Lấy danh sách lịch sử mua hàng từ DB
         for (LichSuMuaHang ls : list) {
             Object[] row = {
+                ls.getMaGiaoDich(),
                 ls.getMaKhachHang(),
-                ls.getThoiGian(),
+                ls.getTenKhachHang(),
+                dateFormat.format(ls.getThoiGian()),
                 ls.getSanPham(),
-                ls.getTongTien()
+                ls.getSoLuong(), // Thêm số lượng vào cột "Số lượng"
+                String.format("%,.0f", ls.getTongTien()),
+                ls.getMaNhanVien()
             };
             model.addRow(row);
         }

@@ -10,18 +10,15 @@ import java.util.List;
 public class LichSuMuaHangDAO {
 
     public void insert(LichSuMuaHang entity) {
-        String sql = "INSERT INTO LichSuMuaHang (MaKhachHang, ThoiGian, SanPham, TongTien, MaNhanVien) VALUES (?, ?, ?, ?, ?)";
-        try {
-            XJdbc.update(sql,
-                    entity.getMaKhachHang(),
-                    new java.sql.Timestamp(entity.getThoiGian().getTime()),
-                    entity.getSanPham(),
-                    entity.getTongTien(),
-                    entity.getMaNhanVien() // Thêm MaNhanVien
-            );
-        } catch (Exception e) {
-            throw new RuntimeException("Lỗi khi thêm lịch sử mua hàng: " + e.getMessage());
-        }
+        String sql = "INSERT INTO LichSuMuaHang (MaKhachHang, ThoiGian, SanPham, TongTien, MaNhanVien, SoLuong, MaSanPham) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        XJdbc.update(sql,
+                entity.getMaKhachHang(),
+                entity.getThoiGian(),
+                entity.getSanPham(),
+                entity.getTongTien(),
+                entity.getMaNhanVien(),
+                entity.getSoLuong(),
+                entity.getMaSanPham());
     }
 
     public void delete(String maGiaoDich) {
@@ -42,23 +39,23 @@ public class LichSuMuaHangDAO {
     }
 
     public List<LichSuMuaHang> selectAll() {
-        String sql = "SELECT LichSuMuaHang.*, KhachHang.TenKhachHang FROM LichSuMuaHang " +
-                     "JOIN KhachHang ON LichSuMuaHang.MaKhachHang = KhachHang.MaKhachHang";
+        String sql = "SELECT LichSuMuaHang.*, KhachHang.TenKhachHang FROM LichSuMuaHang "
+                + "JOIN KhachHang ON LichSuMuaHang.MaKhachHang = KhachHang.MaKhachHang";
         return selectBySql(sql);
     }
 
     public LichSuMuaHang selectById(String maGiaoDich) {
-        String sql = "SELECT LichSuMuaHang.*, KhachHang.TenKhachHang FROM LichSuMuaHang " +
-                     "JOIN KhachHang ON LichSuMuaHang.MaKhachHang = KhachHang.MaKhachHang " +
-                     "WHERE LichSuMuaHang.MaGiaoDich = ?";
+        String sql = "SELECT LichSuMuaHang.*, KhachHang.TenKhachHang FROM LichSuMuaHang "
+                + "JOIN KhachHang ON LichSuMuaHang.MaKhachHang = KhachHang.MaKhachHang "
+                + "WHERE LichSuMuaHang.MaGiaoDich = ?";
         List<LichSuMuaHang> list = selectBySql(sql, maGiaoDich);
         return list.isEmpty() ? null : list.get(0);
     }
 
     public List<LichSuMuaHang> search(String keyword) {
-        String sql = "SELECT LichSuMuaHang.*, KhachHang.TenKhachHang FROM LichSuMuaHang " +
-                     "JOIN KhachHang ON LichSuMuaHang.MaKhachHang = KhachHang.MaKhachHang " +
-                     "WHERE LichSuMuaHang.MaKhachHang LIKE ? OR LichSuMuaHang.SanPham LIKE ?";
+        String sql = "SELECT LichSuMuaHang.*, KhachHang.TenKhachHang FROM LichSuMuaHang "
+                + "JOIN KhachHang ON LichSuMuaHang.MaKhachHang = KhachHang.MaKhachHang "
+                + "WHERE LichSuMuaHang.MaKhachHang LIKE ? OR LichSuMuaHang.SanPham LIKE ?";
         return selectBySql(sql, "%" + keyword + "%", "%" + keyword + "%");
     }
 
@@ -74,7 +71,9 @@ public class LichSuMuaHangDAO {
                 entity.setSanPham(rs.getString("SanPham"));
                 entity.setTongTien(rs.getDouble("TongTien"));
                 entity.setTenKhachHang(rs.getString("TenKhachHang"));
-                entity.setMaNhanVien(rs.getString("MaNhanVien")); // Thêm MaNhanVien
+                entity.setMaNhanVien(rs.getString("MaNhanVien"));
+                entity.setSoLuong(rs.getInt("SoLuong")); // Thêm dòng này để lấy cột SoLuong
+                entity.setMaSanPham(rs.getString("MaSanPham")); // Thêm dòng này để lấy cột MaSanPham
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();

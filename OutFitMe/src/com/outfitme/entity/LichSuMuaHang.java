@@ -11,6 +11,8 @@ public class LichSuMuaHang {
     private double tongTien;
     private String tenKhachHang;
     private String maNhanVien;
+    private String maSanPham;
+    private int soLuong;
 
     public LichSuMuaHang() {
     }
@@ -34,6 +36,22 @@ public class LichSuMuaHang {
 
     public String getMaKhachHang() {
         return maKhachHang;
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public String getMaSanPham() {
+        return maSanPham;
+    }
+
+    public void setMaSanPham(String maSanPham) {
+        this.maSanPham = maSanPham;
     }
 
     public void setMaKhachHang(String maKhachHang) {
