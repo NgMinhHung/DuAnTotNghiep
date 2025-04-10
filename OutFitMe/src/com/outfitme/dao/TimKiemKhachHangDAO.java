@@ -17,49 +17,52 @@ import java.util.List;
  * @author DELL
  */
 public class TimKiemKhachHangDAO extends OutFitMeDAO<TimKiemKhachHang, String> {
-
-    @Override
+     @Override
     public void insert(TimKiemKhachHang model) {
-        String sql = "INSERT INTO HoaDon (SoHoaDon, NgayLap, MaNV, MaKH, MaSP, TenSP, Size) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO LichSuMuaHang (MaKhachHang, ThoiGian, SanPham, TongTien, MaNhanVien, SoLuong, MaSanPham) VALUES (?, ?, ?, ?, ?, ?, ?)";
         XJdbc.update(sql,
-                model.getSoHD(),
-                model.getNgayLap(),
-                model.getMaNV(),
                 model.getMaKH(),
-                model.getMaSP(),
+                model.getNgayLap(),
                 model.getTenSP(),
-                model.getSize()
+                model.getTongTien(), // ✅ Dùng đúng getter
+                model.getMaNV(),
+                Integer.parseInt(model.getSize()),
+                model.getMaSP()
         );
     }
 
     @Override
     public void update(TimKiemKhachHang model) {
-        String sql = "UPDATE HoaDon SET NgayLap = ?, MaNV = ?, MaKH = ?, MaSP = ?, TenSP = ?, Size = ? WHERE SoHoaDon = ?";
+        String sql = "UPDATE LichSuMuaHang SET ThoiGian=?, SanPham=?, TongTien=?, MaNhanVien=?, SoLuong=?, MaSanPham=? WHERE MaGiaoDich=?";
         XJdbc.update(sql,
                 model.getNgayLap(),
-                model.getMaNV(),
-                model.getMaKH(),
-                model.getMaSP(),
                 model.getTenSP(),
-                model.getSize(),
-                model.getSoHD()
+                model.getTongTien(), // ✅ Cập nhật tổng tiền
+                model.getMaNV(),
+                Integer.parseInt(model.getSize()),
+                model.getMaSP(),
+                Integer.parseInt(model.getSoHD()) // SoHD dùng làm MaGiaoDich
         );
     }
 
     @Override
-    public void delete(String soHD) {
-        String sql = "DELETE FROM HoaDon WHERE SoHoaDon = ?";
-        XJdbc.update(sql, soHD);
+    public void delete(String maGiaoDich) {
+        String sql = "DELETE FROM LichSuMuaHang WHERE MaGiaoDich=?";
+        XJdbc.update(sql, maGiaoDich);
     }
 
-    public TimKiemKhachHang selectById(String soHD) {
-        String sql = "SELECT * FROM HoaDon WHERE SoHoaDon = ?";
-        return selectOne(sql, soHD);
+    public TimKiemKhachHang selectById(String maGiaoDich) {
+        String sql = "SELECT * FROM LichSuMuaHang WHERE MaGiaoDich=?";
+        return selectOne(sql, maGiaoDich);
     }
 
     @Override
     public List<TimKiemKhachHang> selectAll() {
-        String sql = "SELECT * FROM HoaDon";
+        String sql = """
+        SELECT ls.*, kh.TenKhachHang 
+        FROM LichSuMuaHang ls 
+        JOIN KhachHang kh ON ls.MaKhachHang = kh.MaKhachHang
+    """;
         return this.selectBySql(sql);
     }
 
@@ -71,33 +74,19 @@ public class TimKiemKhachHangDAO extends OutFitMeDAO<TimKiemKhachHang, String> {
     @Override
     protected List<TimKiemKhachHang> selectBySql(String sql, Object... args) {
         List<TimKiemKhachHang> list = new ArrayList<>();
-        try {
-            ResultSet rs = null;
-            try {
-                rs = XJdbc.query(sql, args);
-                while (rs.next()) {
-                    TimKiemKhachHang entity = new TimKiemKhachHang();
-                    entity.setSoHD(rs.getString("SoHoaDon"));
-                    entity.setNgayLap(rs.getDate("NgayLap"));
-                    entity.setMaNV(rs.getString("MaNV"));
-
-                    // Kiểm tra nếu cột MaKH tồn tại
-                    try {
-                        entity.setMaKH(rs.getString("MaKH"));
-                    } catch (SQLException e) {
-                        System.out.println("Cột 'MaKH' không tồn tại trong cơ sở dữ liệu.");
-                        entity.setMaKH(""); // Gán giá trị rỗng nếu cột không tồn tại
-                    }
-
-                    entity.setMaSP(rs.getString("MaSP"));
-                    entity.setTenSP(rs.getString("TenSP"));
-                    entity.setSize(rs.getString("Size"));
-                    list.add(entity);
-                }
-            } finally {
-                if (rs != null) {
-                    rs.getStatement().getConnection().close();
-                }
+        try (ResultSet rs = XJdbc.query(sql, args)) {
+            while (rs.next()) {
+                TimKiemKhachHang entity = new TimKiemKhachHang();
+                entity.setSoHD(String.valueOf(rs.getInt("MaGiaoDich")));
+                entity.setNgayLap(rs.getTimestamp("ThoiGian"));
+                entity.setMaNV(rs.getString("MaNhanVien"));
+                entity.setMaKH(rs.getString("MaKhachHang"));
+                entity.setTenKH(rs.getString("TenKhachHang")); // ✅ tên khách
+                entity.setMaSP(rs.getString("MaSanPham"));
+                entity.setTenSP(rs.getString("SanPham"));
+                entity.setSize(String.valueOf(rs.getInt("SoLuong")));
+                entity.setTongTien(rs.getDouble("TongTien"));  // ✅ tổng tiền
+                list.add(entity);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -106,9 +95,16 @@ public class TimKiemKhachHangDAO extends OutFitMeDAO<TimKiemKhachHang, String> {
         return list;
     }
 
-    // Tìm kiếm hóa đơn theo số điện thoại khách hàng
+// 🔍 Lấy dữ liệu lịch sử mua hàng theo số điện thoại
     public List<TimKiemKhachHang> selectByKeyword(String soDienThoai) {
-        String sql = "SELECT * FROM KhachHang WHERE SDT = ?";
+        String sql = """
+        SELECT ls.MaGiaoDich, ls.ThoiGian, ls.MaNhanVien, ls.MaKhachHang, kh.TenKhachHang,
+               ls.MaSanPham, ls.SanPham, ls.SoLuong, ls.TongTien
+        FROM LichSuMuaHang ls
+        JOIN KhachHang kh ON ls.MaKhachHang = kh.MaKhachHang
+        WHERE kh.SoDienThoai = ?
+    """;
         return selectBySql(sql, soDienThoai);
     }
+
 }

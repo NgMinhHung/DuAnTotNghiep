@@ -77,11 +77,9 @@ public class TimKiemKhachHangJDialog extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 533, Short.MAX_VALUE)
+            .addGap(0, 823, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 823, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,6 +156,14 @@ public class TimKiemKhachHangJDialog extends javax.swing.JDialog {
 
     void init() {
         setLocationRelativeTo(null);
+
+        // Đặt lại model cho tblTimKiem với tên cột mới
+        String[] columnNames = {
+            "Mã GD", "Thời gian", "Mã NV", "Mã KH", "Tên KH", "Mã SP", "Tên SP", "Số lượng", "Tổng tiền"
+        };
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        tblTimKiem.setModel(model);
+
         this.loadTable();
         this.row = -1;
     }
@@ -168,20 +174,27 @@ public class TimKiemKhachHangJDialog extends javax.swing.JDialog {
 
         try {
             List<TimKiemKhachHang> list = dao.selectByKeyword(soDienThoai);
+
+            if (list.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Khách hàng này chưa có lịch sử mua hàng.");
+                return; // Không cần tiếp tục
+            }
             for (TimKiemKhachHang kh : list) {
                 Object[] row = {
-                    kh.getSoHD(),
-                    kh.getNgayLap(),
-                    kh.getMaNV(),
-                    kh.getMaKH(),
-                    kh.getMaSP(),
-                    kh.getTenSP(),
-                    kh.getSize()
+                    kh.getSoHD(), // MaGiaoDich
+                    kh.getNgayLap(), // ThoiGian
+                    kh.getMaNV(), // MaNhanVien
+                    kh.getMaKH(), // MaKhachHang
+                    kh.getTenKH(), // ✅ TenKhachHang (mới thêm)
+                    kh.getMaSP(), // MaSanPham
+                    kh.getTenSP(), // SanPham
+                    kh.getSize(), // SoLuong (hiển thị là size)
+                    kh.getTongTien() // ✅ Tổng tiền (mới thêm)
                 };
                 model.addRow(row);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi khi tải dữ liệu hóa đơn của khách hàng!");
+            JOptionPane.showMessageDialog(this, "Lỗi khi tải dữ liệu mua hàng của khách hàng!");
             e.printStackTrace();
         }
     }

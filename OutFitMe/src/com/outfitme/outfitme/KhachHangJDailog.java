@@ -5,7 +5,9 @@
 package com.outfitme.outfitme;
 
 import com.outfitme.dao.KhachHangDAO;
+import com.outfitme.dao.TimKiemKhachHangDAO;
 import com.outfitme.entity.KhachHang;
+import com.outfitme.entity.TimKiemKhachHang;
 import com.outfitme.utils.MsgBox;
 import com.outfitme.utils.XImage;
 import java.awt.Image;
@@ -407,12 +409,22 @@ KhachHangDAO dao = new KhachHangDAO();
         if (!soDienThoai.matches("\\d{10,11}")) {
             JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ! Vui lòng nhập 10-11 số.");
             return;
-        } 
+        }
 
-        // Mở TimKiemKhachHangJDialog và truyền số điện thoại
-        TimKiemKhachHangJDialog dialog = new TimKiemKhachHangJDialog(parent1, true, soDienThoai );
+        // ✅ Kiểm tra lịch sử trước khi mở form
+        TimKiemKhachHangDAO dao = new TimKiemKhachHangDAO();
+        List<TimKiemKhachHang> list = dao.selectByKeyword(soDienThoai);
+
+        if (list.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Khách hàng này chưa có lịch sử mua hàng!");
+            return;
+        }
+
+        // ✅ Có lịch sử -> mới mở form
+        TimKiemKhachHangJDialog dialog = new TimKiemKhachHangJDialog(parent1, true, soDienThoai);
         dialog.setVisible(true);
     }
+
 
     private void clearForm() {
         txtTenKH.setText("");

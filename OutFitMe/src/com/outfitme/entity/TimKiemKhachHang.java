@@ -16,39 +16,28 @@ public class TimKiemKhachHang {
     private Date ngayLap;
     private String maNV;
     private String maKH;
+    private String tenKH;     // Thêm tên khách hàng
     private String maSP;
-    private String tenSP; // Thêm thuộc tính tên sản phẩm
+    private String tenSP;     // Tên sản phẩm
     private String size;
-
-    public TimKiemKhachHang(String soHD, Date ngayLap, String maNV, String maKH, String maSP, String tenSP, String size) {
-        this.soHD = soHD;
-        this.ngayLap = ngayLap;
-        this.maNV = maNV;
-        this.maKH = maKH;
-        this.maSP = maSP;
-        this.tenSP = tenSP;
-        this.size = size;
-    }
+    private double tongTien;  // Thêm tổng tiền
 
     public TimKiemKhachHang() {
     }
 
-    public void setTenSP(String tenSP) {
+    public TimKiemKhachHang(String soHD, Date ngayLap, String maNV, String maKH, String tenKH, String maSP, String tenSP, String size, double tongTien) {
+        this.soHD = soHD;
+        this.ngayLap = ngayLap;
+        this.maNV = maNV;
+        this.maKH = maKH;
+        this.tenKH = tenKH;
+        this.maSP = maSP;
         this.tenSP = tenSP;
-    }
-
-    public void setSize(String size) {
         this.size = size;
+        this.tongTien = tongTien;
     }
 
-    public TimKiemKhachHang(String size) {
-        this.size = size;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
+    // Getters and Setters
     public String getSoHD() {
         return soHD;
     }
@@ -81,6 +70,14 @@ public class TimKiemKhachHang {
         this.maKH = maKH;
     }
 
+    public String getTenKH() {
+        return tenKH;
+    }
+
+    public void setTenKH(String tenKH) {
+        this.tenKH = tenKH;
+    }
+
     public String getMaSP() {
         return maSP;
     }
@@ -91,5 +88,25 @@ public class TimKiemKhachHang {
 
     public String getTenSP() {
         return tenSP;
+    }
+
+    public void setTenSP(String tenSP) {
+        this.tenSP = tenSP;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public double getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(double tongTien) {
+        this.tongTien = tongTien;
     }
 }
