@@ -18,10 +18,9 @@ public class SanPhamDAO extends OutFitMeDAO<SanPham, String> {
 
     @Override
     public void insert(SanPham model) {
-        String sql = "INSERT INTO SanPham (MaSanPham, TenSanPham, LoaiSanPham, MoTa, GiaNhap, GiaBan, Size, SoLuongTonKho, PhanLoai, HinhAnh) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO SanPham (TenSanPham, LoaiSanPham, MoTa, GiaNhap, GiaBan, Size, SoLuongTonKho, PhanLoai, HinhAnh) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         XJdbc.update(sql,
-                model.getMaSP(),
                 model.getTenSP(),
                 model.getLoaiSP(),
                 model.getMoTa(),
@@ -111,6 +110,12 @@ public class SanPhamDAO extends OutFitMeDAO<SanPham, String> {
         String sql = "SELECT * FROM SanPham WHERE LoaiSanPham = ?";
         return selectBySql(sql, loaiSP);
     }
+    
+    public SanPham selectLast() {
+    String sql = "SELECT TOP 1 * FROM SanPham ORDER BY MaSanPham DESC";
+    List<SanPham> list = selectBySql(sql);
+    return list.isEmpty() ? null : list.get(0);
+}
 }
 
 
