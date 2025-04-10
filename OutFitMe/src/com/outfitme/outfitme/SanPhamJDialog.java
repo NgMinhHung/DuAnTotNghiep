@@ -89,6 +89,11 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         lblHinhanh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHinhanh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblHinhanhMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -235,6 +240,8 @@ public class SanPhamJDialog extends javax.swing.JDialog {
 
         jLabel7.setText("Size");
 
+        cboSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "S", "M", "L", "XL" }));
+
         jLabel8.setText("Mô tả");
 
         txtMoTa.setColumns(20);
@@ -256,10 +263,10 @@ public class SanPhamJDialog extends javax.swing.JDialog {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(txtSL, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cboSize, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cboSize, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(12, 12, 12))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -420,6 +427,11 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
         loadTable();
     }//GEN-LAST:event_cboLoaiActionPerformed
+
+    private void lblHinhanhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHinhanhMouseClicked
+        // TODO add your handling code here:
+        chonAnh();
+    }//GEN-LAST:event_lblHinhanhMouseClicked
 
     /**
      * @param args the command line arguments
@@ -710,7 +722,7 @@ public class SanPhamJDialog extends javax.swing.JDialog {
 
     private SanPham getForm() {
         SanPham sp = new SanPham();
-//        sp.setMaSP(txtMa.getText());
+        sp.setMaSP(txtMa.getText());
         sp.setTenSP(txtName.getText());
         sp.setLoaiSP(cboLoai.getSelectedItem().toString());
         sp.setMoTa(txtMoTa.getText());
