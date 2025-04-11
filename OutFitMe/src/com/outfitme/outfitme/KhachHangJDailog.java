@@ -486,6 +486,10 @@ KhachHangDAO dao = new KhachHangDAO();
         if (!isValidate()) {
             return;
         }
+        if (dao.isDuplicate(kh)) {
+            JOptionPane.showMessageDialog(this, "⚠ Khách hàng đã tồn tại! Vui lòng kiểm tra lại.");
+            return;
+        }
         try {
             dao.insert(kh);
             JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công!");
@@ -527,23 +531,29 @@ KhachHangDAO dao = new KhachHangDAO();
         }
     }
 
-    private void delete() {
-        String sdt = txtSDT.getText().trim(); // Lấy số điện thoại để xóa
-        if (sdt.isEmpty()) {
-            MsgBox.alert(this, "Vui lòng nhập Số Điện Thoại để xóa!");
-            return;
-        }
-
-        try {
-            dao.delete(sdt);  // Xóa khách hàng theo số điện thoại
-            this.loadTable();
-            this.clearForm();
-            MsgBox.alert(this, "Xóa thành công!");
-        } catch (Exception e) {
-            MsgBox.alert(this, "Xóa thất bại!");
-            e.printStackTrace();
-        }
+   private void delete() {
+    String sdt = txtSDT.getText().trim(); // Lấy số điện thoại để xóa
+    if (sdt.isEmpty()) {
+        MsgBox.alert(this, "⚠ Vui lòng nhập Số Điện Thoại để xóa!");
+        return;
     }
+
+    try {
+        dao.delete(sdt);  // Xóa khách hàng theo số điện thoại
+        this.loadTable();
+        this.clearForm();
+        MsgBox.alert(this, "✅ Xóa thành công!");
+    } catch (Exception e) {
+        // Kiểm tra xem lỗi có phải do ràng buộc khóa ngoại không
+        if (e.getMessage().contains("REFERENCE constraint") && e.getMessage().contains("FK_LichSuMuaHang_KhachHang")) {
+            MsgBox.alert(this, "❌ Không thể xóa khách hàng vì đã tồn tại lịch sử mua hàng liên quan!");
+        } else {
+            MsgBox.alert(this, "❌ Xóa thất bại!\n" + e.getMessage());
+        }
+        e.printStackTrace();
+    }
+}
+
 
     private KhachHang getForm() {
         KhachHang kh = new KhachHang();

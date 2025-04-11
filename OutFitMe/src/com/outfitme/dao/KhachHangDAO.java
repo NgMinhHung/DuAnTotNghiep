@@ -100,4 +100,23 @@ public class KhachHangDAO extends OutFitMeDAO<KhachHang, String> {
         }
         return list;
     }
+    public boolean isDuplicate(KhachHang model) {
+        String sql = """
+        SELECT COUNT(*) FROM KhachHang 
+        WHERE TenKhachHang = ? AND DiaChi = ? AND GioiTinh = ? AND SoDienThoai = ? AND HinhAnh = ? 
+    """;
+        try (ResultSet rs = XJdbc.query(sql,
+                model.getTenKH(),
+                model.getDiaChi(),
+                model.isGioiTinh(),
+                model.getSoDienThoai(),
+                model.getHinhAnh())) {
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

@@ -18,8 +18,8 @@ public class SanPhamDAO extends OutFitMeDAO<SanPham, String> {
 
     @Override
     public void insert(SanPham model) {
-        String sql = "INSERT INTO SanPham (TenSanPham, LoaiSanPham, MoTa, GiaNhap, GiaBan, Size, SoLuongTonKho, PhanLoai, HinhAnh) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO SanPham (TenSanPham, LoaiSanPham, MoTa, GiaNhap, GiaBan, Size, SoLuongTonKho, PhanLoai, HinhAnh) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         XJdbc.update(sql,
                 model.getTenSP(),
                 model.getLoaiSP(),
@@ -34,8 +34,8 @@ public class SanPhamDAO extends OutFitMeDAO<SanPham, String> {
 
     @Override
     public void update(SanPham model) {
-        String sql = "UPDATE SanPham SET TenSanPham = ?, LoaiSanPham = ?, MoTa = ?, GiaNhap = ?, GiaBan = ?, Size = ?, SoLuongTonKho = ?, PhanLoai = ?, HinhAnh = ? " +
-                     "WHERE MaSanPham = ?";
+        String sql = "UPDATE SanPham SET TenSanPham = ?, LoaiSanPham = ?, MoTa = ?, GiaNhap = ?, GiaBan = ?, Size = ?, SoLuongTonKho = ?, PhanLoai = ?, HinhAnh = ? "
+                + "WHERE MaSanPham = ?";
         XJdbc.update(sql,
                 model.getTenSP(),
                 model.getLoaiSP(),
@@ -110,12 +110,37 @@ public class SanPhamDAO extends OutFitMeDAO<SanPham, String> {
         String sql = "SELECT * FROM SanPham WHERE LoaiSanPham = ?";
         return selectBySql(sql, loaiSP);
     }
-    
+
     public SanPham selectLast() {
-    String sql = "SELECT TOP 1 * FROM SanPham ORDER BY MaSanPham DESC";
-    List<SanPham> list = selectBySql(sql);
-    return list.isEmpty() ? null : list.get(0);
-}
+        String sql = "SELECT TOP 1 * FROM SanPham ORDER BY MaSanPham DESC";
+        List<SanPham> list = selectBySql(sql);
+        return list.isEmpty() ? null : list.get(0);
+    }
+
+    public boolean isDuplicate(SanPham model) {
+        String sql = """
+        SELECT COUNT(*) FROM SanPham 
+        WHERE TenSanPham = ? AND LoaiSanPham = ? AND MoTa = ? AND GiaNhap = ? AND GiaBan = ? 
+              AND Size = ? AND PhanLoai = ? AND HinhAnh = ?
+    """;
+        try (ResultSet rs = XJdbc.query(sql,
+                model.getTenSP(),
+                model.getLoaiSP(),
+                model.getMoTa(),
+                model.getGiaNhap(),
+                model.getGiaBan(),
+                model.getSize(),
+                model.getPhanLoai(),
+                model.getHinhAnh())) {
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }
 
 

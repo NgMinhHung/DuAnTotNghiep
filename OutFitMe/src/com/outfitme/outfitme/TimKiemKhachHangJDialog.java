@@ -94,13 +94,7 @@ public class TimKiemKhachHangJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTimKiemMouseClicked
-        //        if (evt.getClickCount() == 2) {  // Chỉ xử lý khi click đúp
-        //            this.row = tblTimKiem.getSelectedRow();
-        //            if (this.row >= 0) {
-        //                fillTable();
-        //                loadTable();
-        //            }
-        //        }
+
     }//GEN-LAST:event_tblTimKiemMouseClicked
 
     /**

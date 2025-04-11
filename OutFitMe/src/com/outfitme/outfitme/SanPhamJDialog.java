@@ -660,9 +660,13 @@ public class SanPhamJDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "⚠ Vui lòng chọn hình ảnh cho sản phẩm!");
             return;
         }
-
+        
         SanPham sp = getForm();
         sp.setMaSP(null);
+        if (dao.isDuplicate(sp)) {
+            JOptionPane.showMessageDialog(this, "⚠ Sản phẩm đã tồn tại! Vui lòng kiểm tra lại.");
+            return;
+        }
         try {
             dao.insert(sp);
             JOptionPane.showMessageDialog(this, "✅ Thêm sản phẩm thành công!");
