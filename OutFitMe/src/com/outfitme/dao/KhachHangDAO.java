@@ -38,12 +38,21 @@ public class KhachHangDAO extends OutFitMeDAO<KhachHang, String> {
     }
 
     @Override
-    public void delete(String soDienThoai) {
+ public void delete(String soDienThoai) {
+    try {
+        // Gỡ ràng buộc khóa ngoại trong bảng HoaDon (nếu có)
         String sqlUpdateHoaDon = "UPDATE HoaDon SET MaKhachHang = NULL WHERE MaKhachHang = (SELECT MaKhachHang FROM KhachHang WHERE SoDienThoai = ?)";
         XJdbc.update(sqlUpdateHoaDon, soDienThoai);
+
+        // Sau khi gỡ, xóa khách hàng
         String sqlDeleteKhachHang = "DELETE FROM KhachHang WHERE SoDienThoai = ?";
         XJdbc.update(sqlDeleteKhachHang, soDienThoai);
+    } catch (Exception e) {
+        // Ném lại lỗi với thông báo rõ ràng để xử lý ở giao diện
+        throw new RuntimeException("Không thể xóa khách hàng. Dữ liệu đang được sử dụng trong lịch sử mua hàng hoặc hóa đơn.");
     }
+}
+
 
     public KhachHang selectById(String maKH) {
         String sql = "SELECT * FROM KhachHang WHERE MaKhachHang = ?";
