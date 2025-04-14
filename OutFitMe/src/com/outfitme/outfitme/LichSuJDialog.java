@@ -5,12 +5,16 @@
 package com.outfitme.outfitme;
 
 import com.outfitme.dao.LichSuMuaHangDAO;
+import com.outfitme.dao.SanPhamDAO;
 import com.outfitme.entity.LichSuMuaHang;
+import com.outfitme.entity.SanPham;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 public class LichSuJDialog extends javax.swing.JDialog {
 
     private LichSuMuaHangDAO lsmhDao = new LichSuMuaHangDAO();
+    private SanPhamDAO sanPhamDAO = new SanPhamDAO();
     private DefaultTableModel tableModel;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
@@ -77,7 +82,7 @@ public class LichSuJDialog extends javax.swing.JDialog {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã giao dịch", "Mã khách hàng", "Tên khách hàng", "thời gian", "Sản phẩm", "Số lượng", "Tiền", "Nhân viên lập"
+                "ID", "Mã khách hàng", "Tên khách hàng", "thời gian", "Sản phẩm", "Số lượng", "Tiền", "Nhân viên lập"
             }
         ));
         tblLichSu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -253,15 +258,18 @@ public class LichSuJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtMaSPActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        int selectedRow = tblLichSu.getSelectedRow();
+      int selectedRow = tblLichSu.getSelectedRow();
         if (selectedRow >= 0) {
             int confirm = javax.swing.JOptionPane.showConfirmDialog(this,
                     "Bạn có chắc chắn muốn xóa giao dịch này?",
                     "Xác nhận xóa",
                     javax.swing.JOptionPane.YES_NO_OPTION);
             if (confirm == javax.swing.JOptionPane.YES_OPTION) {
-                int maGiaoDich = (int) tableModel.getValueAt(selectedRow, 0);
-                lsmhDao.delete(String.valueOf(maGiaoDich));
+                String maGiaoDichStr = tableModel.getValueAt(selectedRow, 0).toString();
+                String[] maGiaoDichArray = maGiaoDichStr.split(", ");
+                for (String maGiaoDich : maGiaoDichArray) {
+                    lsmhDao.delete(maGiaoDich);
+                }
                 loadFromDatabase();
                 clearForm();
                 javax.swing.JOptionPane.showMessageDialog(this, "Đã xóa giao dịch!");
@@ -293,7 +301,7 @@ public class LichSuJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtTenKhachHangActionPerformed
 
     private void btnSapXepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSapXepActionPerformed
-        sortByMaKhachHangAndThoiGian();
+        sortByThoiGian();
     }//GEN-LAST:event_btnSapXepActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -359,7 +367,10 @@ public class LichSuJDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void clearForm() {
+        txtMaGD.setText("");
         txtMaSP.setText("");
+        txtTenKhachHang.setText("");
+        txtTime.setText("");
         txtSanPham.setText("");
         txtTien.setText("");
     }
@@ -371,45 +382,75 @@ public class LichSuJDialog extends javax.swing.JDialog {
 
     private void displayHistory(List<LichSuMuaHang> historyList) {
         tableModel.setRowCount(0);
+
+        // Sử dụng Map để nhóm các giao dịch theo MaKhachHang và ThoiGian
+        Map<String, GroupedLichSuMuaHang> groupedHistory = new HashMap<>();
+
         for (LichSuMuaHang history : historyList) {
-            System.out.println("MaGiaoDich: " + history.getMaGiaoDich()
-                    + ", MaKhachHang: " + history.getMaKhachHang()
-                    + ", TenKhachHang: " + history.getTenKhachHang()
-                    + ", ThoiGian: " + dateFormat.format(history.getThoiGian())
-                    + ", SanPham: " + history.getSanPham()
-                    + ", TongTien: " + history.getTongTien()
-                    + ", MaNhanVien: " + history.getMaNhanVien());
+            // Tạo key để nhóm: MaKhachHang + ThoiGian
+            String key = history.getMaKhachHang() + "|" + dateFormat.format(history.getThoiGian());
+
+            // Nếu key đã tồn tại trong Map, cập nhật danh sách sản phẩm, số lượng và tiền
+            if (groupedHistory.containsKey(key)) {
+                GroupedLichSuMuaHang grouped = groupedHistory.get(key);
+                grouped.maGiaoDichList.add(history.getMaGiaoDich());
+                grouped.sanPhamList.add(history.getSanPham());
+                grouped.soLuong += history.getSoLuong();
+                grouped.tongTien += history.getTongTien();
+            } else {
+                // Nếu key chưa tồn tại, tạo mới GroupedLichSuMuaHang
+                GroupedLichSuMuaHang grouped = new GroupedLichSuMuaHang();
+                grouped.maGiaoDichList.add(history.getMaGiaoDich());
+                grouped.maKhachHang = history.getMaKhachHang();
+                grouped.tenKhachHang = history.getTenKhachHang();
+                grouped.thoiGian = history.getThoiGian();
+                grouped.sanPhamList.add(history.getSanPham());
+                grouped.soLuong = history.getSoLuong();
+                grouped.tongTien = history.getTongTien();
+                grouped.maNhanVien = history.getMaNhanVien();
+                groupedHistory.put(key, grouped);
+            }
+        }
+
+        // Thêm các nhóm vào bảng
+        for (GroupedLichSuMuaHang grouped : groupedHistory.values()) {
+            String maGiaoDich = grouped.maGiaoDichList.toString().replace("[", "").replace("]", "");
+            String sanPham = String.join(", ", grouped.sanPhamList);
+
             tableModel.addRow(new Object[]{
-                history.getMaGiaoDich(),
-                history.getMaKhachHang(),
-                history.getTenKhachHang(),
-                dateFormat.format(history.getThoiGian()),
-                history.getSanPham(),
-                history.getSoLuong(), // Thêm số lượng vào cột "Số lượng"
-                String.format("%,.0f", history.getTongTien()),
-                history.getMaNhanVien() // Thêm MaNhanVien vào cột "Nhân viên lập"
+                maGiaoDich,
+                grouped.maKhachHang,
+                grouped.tenKhachHang,
+                dateFormat.format(grouped.thoiGian),
+                sanPham,
+                grouped.soLuong,
+                String.format("%,.0f", grouped.tongTien),
+                grouped.maNhanVien
             });
         }
     }
 
-    public void loadPurchaseHistory() {
-        DefaultTableModel model = (DefaultTableModel) tblLichSu.getModel();
-        model.setRowCount(0); // Xóa dữ liệu cũ trong bảng
+    // Lớp hỗ trợ để lưu thông tin nhóm lịch sử mua hàng
+    private static class GroupedLichSuMuaHang {
 
-        List<LichSuMuaHang> list = lsmhDao.selectAll(); // Lấy danh sách lịch sử mua hàng từ DB
-        for (LichSuMuaHang ls : list) {
-            Object[] row = {
-                ls.getMaGiaoDich(),
-                ls.getMaKhachHang(),
-                ls.getTenKhachHang(),
-                dateFormat.format(ls.getThoiGian()),
-                ls.getSanPham(),
-                ls.getSoLuong(), // Thêm số lượng vào cột "Số lượng"
-                String.format("%,.0f", ls.getTongTien()),
-                ls.getMaNhanVien()
-            };
-            model.addRow(row);
+        List<Integer> maGiaoDichList;
+        String maKhachHang;
+        String tenKhachHang;
+        java.util.Date thoiGian;
+        List<String> sanPhamList;
+        int soLuong;
+        double tongTien;
+        String maNhanVien;
+
+        GroupedLichSuMuaHang() {
+            maGiaoDichList = new ArrayList<>();
+            sanPhamList = new ArrayList<>();
         }
+    }
+
+    public void loadPurchaseHistory() {
+        List<LichSuMuaHang> historyList = lsmhDao.selectAll();
+        displayHistory(historyList);
     }
 
     private void searchByMaKhachHang() {
@@ -436,17 +477,12 @@ public class LichSuJDialog extends javax.swing.JDialog {
         }
     }
 
-    private void sortByMaKhachHangAndThoiGian() {
+    private void sortByThoiGian() {
         List<LichSuMuaHang> historyList = lsmhDao.selectAll();
         Collections.sort(historyList, new Comparator<LichSuMuaHang>() {
             @Override
             public int compare(LichSuMuaHang o1, LichSuMuaHang o2) {
-                // Sắp xếp theo MaKhachHang tăng dần
-                int compareMaKH = o1.getMaKhachHang().compareTo(o2.getMaKhachHang());
-                if (compareMaKH != 0) {
-                    return compareMaKH;
-                }
-                // Trong cùng MaKhachHang, sắp xếp theo ThoiGian giảm dần (mới nhất trước)
+                // Sắp xếp theo ThoiGian giảm dần (mới nhất trước)
                 return o2.getThoiGian().compareTo(o1.getThoiGian());
             }
         });

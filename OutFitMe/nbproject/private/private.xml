@@ -3,35 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/utils/XJdbc.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/NhanVienJDialog.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/OutFitMe.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/KhachHangJDailog.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/HoaDonJDialog.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/LichSuJDialog.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/ChiTietHoaDonJDialog.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/DoiMatKhauJDialog.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/DangNhapJDialog.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/ThongKeJDialog.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/dao/HoaDonDAO.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/dao/ThongKeDAO.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/dao/NhanVienDAO.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/dao/OutFitMeDAO.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/dao/LichSuMuaHangDAO.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/dao/ChiTietHoaDonDAO.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/dao/TimKiemKhachHangDAO.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/SanPhamJDialog.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/TimKiemKhachHangJDialog.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/ChaoJDialog.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/utils/XDate.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/utils/XImage.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/entity/HoaDon.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/entity/ChiTietHoaDon.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/dao/SanPhamDAO.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/entity/LichSuMuaHang.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/entity/ThongKe.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/entity/NhanVien.java</file>
-            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/entity/SanPham.java</file>
+            <file>file:/D:/DuAnTotNghiep/OutFitMe/src/com/outfitme/dao/SanPhamDAO.java</file>
+            <file>file:/D:/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/LichSuJDialog.java</file>
+            <file>file:/D:/DuAnTotNghiep/OutFitMe/src/com/outfitme/entity/SanPham.java</file>
+            <file>file:/D:/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/ThanhToanJDialog.java</file>
         </group>
     </open-files>
 </project-private>

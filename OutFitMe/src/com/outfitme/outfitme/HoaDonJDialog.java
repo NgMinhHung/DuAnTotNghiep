@@ -82,6 +82,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         cboSize = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("OutFitMe - Hóa Đơn");
@@ -118,15 +119,6 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblMaKH)
-                        .addGap(18, 18, 18)
-                        .addComponent(cboMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblMaNV)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cboMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblId)
                             .addComponent(jLabel5))
@@ -135,12 +127,21 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                             .addComponent(txtSoHoaDon)
                             .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                        .addComponent(lblNgayLapHD)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblNgayLapHD))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblMaKH)
+                        .addGap(18, 18, 18)
+                        .addComponent(cboMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblMaNV)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtNgayLapHD, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSetDate)
-                        .addGap(3, 3, 3))))
+                        .addComponent(btnSetDate))
+                    .addComponent(cboMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,17 +170,17 @@ public class HoaDonJDialog extends javax.swing.JDialog {
 
         tblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Số hóa đơn", "Ngày lập HD", "Mã sản phẩm", "Tên sản phẩm", "Mã nhân viên", "Mã khách hàng", "Số lượng", "Size"
+                "ID", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Size"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false, false, true
+                true, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -197,16 +198,14 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 13, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/icon_find.png"))); // NOI18N
@@ -228,7 +227,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         });
 
         btnChiTietHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/chitiethoadon.png"))); // NOI18N
-        btnChiTietHoaDon.setText("Chi Tiết hóa đơn");
+        btnChiTietHoaDon.setText("Thanh Toán");
         btnChiTietHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChiTietHoaDonActionPerformed(evt);
@@ -244,7 +243,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         });
 
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/addVaoCTHD.png"))); // NOI18N
-        btnAdd.setText("Add vào cthd");
+        btnAdd.setText("Tạo Hóa Đơn");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -306,6 +305,14 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/document-signed.png"))); // NOI18N
+        jButton1.setText("Chi Tiết Hóa đơn");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -325,84 +332,89 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnChiTietHoaDon, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnThem, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnMoi, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
+                    .addComponent(btnThem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                    .addComponent(btnMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnChiTietHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblHoaDon)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSearch)
                             .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblHoaDon)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel2))
+                        .addGap(71, 71, 71)
+                        .addComponent(btnAdd)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnMoi)
-                        .addGap(60, 60, 60)
-                        .addComponent(btnThem)
-                        .addGap(8, 8, 8)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnAdd)
-                        .addGap(42, 42, 42)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnMoi)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnThem)
+                        .addGap(90, 90, 90)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnChiTietHoaDon)
-                        .addGap(86, 86, 86))))
+                        .addGap(72, 72, 72))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblHoaDonMouseClicked
+
     private void txtNgayLapHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNgayLapHDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNgayLapHDActionPerformed
 
-    private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_tblHoaDonMouseClicked
-
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_btnSearchActionPerformed
-
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
         // TODO add your handling code here:
-
     }//GEN-LAST:event_btnMoiActionPerformed
 
     private void btnChiTietHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietHoaDonActionPerformed
-        ChiTietHoaDonJDialog chiTietDialog = new ChiTietHoaDonJDialog(new javax.swing.JFrame(), true);
-        chiTietDialog.setLocationRelativeTo(this);
-        chiTietDialog.setVisible(true);
+        ThanhToanJDialog thanhToanDialog = new ThanhToanJDialog(new javax.swing.JFrame(), true);
+        thanhToanDialog.setLocationRelativeTo(this);
+        thanhToanDialog.setVisible(true);
     }//GEN-LAST:event_btnChiTietHoaDonActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnThemActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ChiTietHoaDonJDialog chiTietDialog = new ChiTietHoaDonJDialog(new javax.swing.JFrame(), true);
+        chiTietDialog.setLocationRelativeTo(this);
+        chiTietDialog.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -457,6 +469,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cboMaNV;
     private javax.swing.JComboBox<String> cboMaSP;
     private javax.swing.JComboBox<String> cboSize;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -563,17 +576,17 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                     // Thêm dữ liệu vào bảng tblHoaDon
                     DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
                     String Id = txtId.getText();
-                    String SoHD = txtSoHoaDon.getText();
-                    String ngayLap = txtNgayLapHD.getText();
+//                    String SoHD = txtSoHoaDon.getText();
+//                    String ngayLap = txtNgayLapHD.getText();
                     String maSP = cboMaSP.getSelectedItem().toString();
                     String tenSP = txtTenSanPham.getText();
-                    String maNV = cboMaNV.getSelectedItem().toString();
-                    String maKH = cboMaKH.getSelectedItem().toString();
+//                    String maNV = cboMaNV.getSelectedItem().toString();
+//                    String maKH = cboMaKH.getSelectedItem().toString();
                     String size = cboSize.getSelectedItem().toString();
                     int soLuong = Integer.parseInt(txtSoLuong.getText());
 
                     // Thêm một dòng mới vào CUỐI bảng
-                    model.addRow(new Object[]{Id, SoHD, ngayLap, maSP, tenSP, maNV, maKH, soLuong, size});
+                    model.addRow(new Object[]{Id, maSP, tenSP, soLuong, size});
 
                     MsgBox.alert(HoaDonJDialog.this, "Thêm vào bảng thành công!");
 
@@ -592,22 +605,31 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                 DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
                 int rowCount = model.getRowCount();
 
+                // Kiểm tra xem bảng có dữ liệu không
                 if (rowCount == 0) {
                     MsgBox.alert(HoaDonJDialog.this, "Bảng hóa đơn trống, không có dữ liệu để lưu!");
+                    return;
+                }
+
+                // Lấy thông tin từ các ô nhập liệu
+                String soHD = txtSoHoaDon.getText().trim();
+                String maKH = cboMaKH.getSelectedItem() != null ? cboMaKH.getSelectedItem().toString() : "";
+                String ngayLap = txtNgayLapHD.getText().trim();
+                String maNV = cboMaNV.getSelectedItem() != null ? cboMaNV.getSelectedItem().toString() : "";
+
+                // Kiểm tra dữ liệu nhập liệu
+                if (soHD.isEmpty() || maKH.isEmpty() || ngayLap.isEmpty() || maNV.isEmpty()) {
+                    MsgBox.alert(HoaDonJDialog.this, "Vui lòng điền đầy đủ thông tin hóa đơn (Số hóa đơn, Mã khách hàng, Ngày lập HD, Mã nhân viên)!");
                     return;
                 }
 
                 try {
                     // Duyệt qua từng dòng trong bảng tblHoaDon
                     for (int i = 0; i < rowCount; i++) {
-                        String soHD = model.getValueAt(i, 1).toString();    // Cột 1: Số hóa đơn
-                        String ngayLap = model.getValueAt(i, 2).toString(); // Cột 2: Ngày lập HD
-                        String maSP = model.getValueAt(i, 3).toString();    // Cột 3: Mã sản phẩm
-                        String tenSP = model.getValueAt(i, 4).toString();   // Cột 4: Tên sản phẩm (không lưu vào DB)
-                        String maNV = model.getValueAt(i, 5).toString();    // Cột 5: Mã nhân viên
-                        String maKH = model.getValueAt(i, 6).toString();    // Cột 6: Mã khách hàng
-                        String soLuongText = model.getValueAt(i, 7).toString(); // Cột 7: Số lượng
-                        String size = model.getValueAt(i, 8).toString();    // Cột 8: Size
+                        String maSP = model.getValueAt(i, 1).toString();    // Cột 3: Mã sản phẩm
+                        String tenSP = model.getValueAt(i, 2).toString();   // Cột 4: Tên sản phẩm (không lưu vào DB)
+                        String soLuongText = model.getValueAt(i, 3).toString(); // Cột 7: Số lượng
+                        String size = model.getValueAt(i, 4).toString();    // Cột 8: Size
 
                         // Chuyển đổi số lượng từ String sang int
                         int soLuong = Integer.parseInt(soLuongText);
@@ -615,10 +637,10 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                         // Tạo đối tượng HoaDon và lưu vào cơ sở dữ liệu
                         HoaDon hd = new HoaDon();
                         hd.setSoHD(soHD);
-                        hd.setNgayLap(java.sql.Date.valueOf(ngayLap));
+                        hd.setNgayLap(new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd").parse(ngayLap).getTime()));
                         hd.setMaNV(maNV);
                         hd.setMaKH(maKH);
-                        hd.setSoLuong(soLuong); // Sử dụng số lượng từ cột SoLuong trong bảng
+                        hd.setSoLuong(soLuong);
                         hd.setMaSP(maSP);
                         hd.setSize(size);
                         hddao.insert(hd);
@@ -631,6 +653,10 @@ public class HoaDonJDialog extends javax.swing.JDialog {
 
                     // Cập nhật số hóa đơn mới
                     setNewSoHD();
+                    clearForm();
+                } catch (ParseException ex) {
+                    MsgBox.alert(HoaDonJDialog.this, "Ngày lập hóa đơn không đúng định dạng (yyyy-MM-dd)!");
+                    ex.printStackTrace();
                 } catch (Exception ex) {
                     MsgBox.alert(HoaDonJDialog.this, "Lỗi khi lưu hóa đơn vào cơ sở dữ liệu: " + ex.getMessage());
                     ex.printStackTrace();
@@ -806,6 +832,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
     private void clearForm() {
         cboMaSP.setSelectedIndex(-1);
         cboMaNV.setSelectedIndex(-1);
+        txtSoHoaDon.setText("");
         cboMaKH.setSelectedIndex(-1);
         txtNgayLapHD.setText("");
         txtSoLuong.setText("");
@@ -895,9 +922,9 @@ public class HoaDonJDialog extends javax.swing.JDialog {
     // Hàm làm trắng form (nút Mới)
     private void clearFormKoClearTblHoaDon() {
         cboMaSP.setSelectedIndex(-1);
-        cboMaNV.setSelectedIndex(-1);
-        cboMaKH.setSelectedIndex(-1);
-        txtNgayLapHD.setText("");
+//        cboMaNV.setSelectedIndex(-1);
+//        cboMaKH.setSelectedIndex(-1);
+//        txtNgayLapHD.setText("");
         txtSoLuong.setText("");
         txtTenSanPham.setText("");
         txtSearch.setText("");

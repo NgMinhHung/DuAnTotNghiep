@@ -1,6 +1,6 @@
 package com.outfitme.dao;
 
-import com.outfitme.entity.ChiTietHoaDon;
+import com.outfitme.entity.ThanhToan;
 //import com.outfitme.utils.XJdbc;
 //import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,10 +16,10 @@ import java.util.List;
  *
  * @author MINH HUNG
  */
-public class ChiTietHoaDonDAO extends OutFitMeDAO<ChiTietHoaDon, Integer> {  // Đổi String thành Integer vì khóa chính giờ là Id
+public class ThanhToanDAO extends OutFitMeDAO<ThanhToan, Integer> {  // Đổi String thành Integer vì khóa chính giờ là Id
 
     @Override
-    public void insert(ChiTietHoaDon entity) {
+    public void insert(ThanhToan entity) {
         String sql = "INSERT INTO HoaDon (SoHD, NgayLap, MaNhanVien, MaKhachHang, SoLuong, MaSanPham) VALUES (?, ?, ?, ?, ?, ?)";
         XJdbc.update(sql,
                 entity.getSoHD(),
@@ -32,7 +32,7 @@ public class ChiTietHoaDonDAO extends OutFitMeDAO<ChiTietHoaDon, Integer> {  // 
     }
 
     @Override
-    public void update(ChiTietHoaDon entity) {
+    public void update(ThanhToan entity) {
         String sql = "UPDATE HoaDon SET SoHD = ?, NgayLap = ?, MaNhanVien = ?, MaKhachHang = ?, SoLuong = ?, MaSanPham = ? WHERE Id = ?";
         XJdbc.update(sql,
                 entity.getSoHD(),
@@ -58,7 +58,7 @@ public class ChiTietHoaDonDAO extends OutFitMeDAO<ChiTietHoaDon, Integer> {  // 
     }
 
     @Override
-    public ChiTietHoaDon selectById(Integer id) {  // Đổi tham số từ String soHD thành Integer id
+    public ThanhToan selectById(Integer id) {  // Đổi tham số từ String soHD thành Integer id
         String sql = """
         SELECT hd.Id, hd.SoHD, hd.NgayLap, nv.MaNhanVien, nv.TenNhanVien, 
                sp.MaSanPham, sp.TenSanPham, hd.Size, hd.SoLuong, sp.GiaBan, 
@@ -68,12 +68,12 @@ public class ChiTietHoaDonDAO extends OutFitMeDAO<ChiTietHoaDon, Integer> {  // 
         JOIN SanPham sp ON hd.MaSanPham = sp.MaSanPham
         WHERE hd.Id = ?
     """;
-        List<ChiTietHoaDon> list = this.selectBySql(sql, id);
+        List<ThanhToan> list = this.selectBySql(sql, id);
         return list.isEmpty() ? null : list.get(0);
     }
 
     // Thêm phương thức tìm kiếm theo SoHD
-    public ChiTietHoaDon selectBySoHD(String soHD) {
+    public ThanhToan selectBySoHD(String soHD) {
         String sql = """
         SELECT hd.Id, hd.SoHD, hd.NgayLap, nv.MaNhanVien, nv.TenNhanVien, 
                sp.MaSanPham, sp.TenSanPham, hd.Size, hd.SoLuong, sp.GiaBan, 
@@ -83,12 +83,12 @@ public class ChiTietHoaDonDAO extends OutFitMeDAO<ChiTietHoaDon, Integer> {  // 
         JOIN SanPham sp ON hd.MaSanPham = sp.MaSanPham
         WHERE hd.SoHD = ?
     """;
-        List<ChiTietHoaDon> list = this.selectBySql(sql, soHD);
+        List<ThanhToan> list = this.selectBySql(sql, soHD);
         return list.isEmpty() ? null : list.get(0);
     }
 
     @Override
-    public List<ChiTietHoaDon> selectAll() {
+    public List<ThanhToan> selectAll() {
         String sql = """
         SELECT hd.Id, hd.SoHD, hd.NgayLap, nv.MaNhanVien, nv.TenNhanVien, 
                sp.MaSanPham, sp.TenSanPham, hd.Size, hd.SoLuong, sp.GiaBan, 
@@ -101,11 +101,11 @@ public class ChiTietHoaDonDAO extends OutFitMeDAO<ChiTietHoaDon, Integer> {  // 
     }
 
     @Override
-    protected List<ChiTietHoaDon> selectBySql(String sql, Object... args) {
-        List<ChiTietHoaDon> list = new ArrayList<>();
+    protected List<ThanhToan> selectBySql(String sql, Object... args) {
+        List<ThanhToan> list = new ArrayList<>();
         try (ResultSet rs = XJdbc.query(sql, args)) {
             while (rs.next()) {
-                ChiTietHoaDon cthd = new ChiTietHoaDon(
+                ThanhToan cthd = new ThanhToan(
                         rs.getInt("Id"),          // Thêm Id
                         rs.getString("SoHD"),     // Số hóa đơn nhập tay
                         rs.getDate("NgayLap"),    // Ngày lập hóa đơn

@@ -2,7 +2,7 @@ package com.outfitme.entity;
 
 import java.util.Date;
 
-public class ChiTietHoaDon {
+public class ThanhToan {
     private int id;              // Khóa chính tự tăng
     private String soHD;         // Mã hóa đơn nhập tay
     private Date ngayLap;        // Ngày lập hóa đơn
@@ -17,11 +17,11 @@ public class ChiTietHoaDon {
     private String maKH;         // Mã khách hàng
 
     // Constructor mặc định
-    public ChiTietHoaDon() {
+    public ThanhToan() {
     }
 
     // Constructor cho insert (không cần id vì tự tăng)
-    public ChiTietHoaDon(String soHD, Date ngayLap, String maNV, String maSP, String size, int soLuong, String maKH) {
+    public ThanhToan(String soHD, Date ngayLap, String maNV, String maSP, String size, int soLuong, String maKH) {
         this.soHD = soHD;
         this.ngayLap = ngayLap;
         this.maNV = maNV;
@@ -32,7 +32,7 @@ public class ChiTietHoaDon {
     }
 
     // Constructor đầy đủ (dùng khi select từ database)
-    public ChiTietHoaDon(int id, String soHD, Date ngayLap, String maNV, String tenNV, 
+    public ThanhToan(int id, String soHD, Date ngayLap, String maNV, String tenNV, 
                          String maSP, String tenSP, String size, int soLuong, 
                          double giaTien, double tongTien, String maKH) {
         this.id = id;
@@ -50,7 +50,7 @@ public class ChiTietHoaDon {
     }
 
     // Constructor 9 tham số (tự tính tongTien)
-    public ChiTietHoaDon(String soHD, Date ngayLap, String maNV, String tenNV, 
+    public ThanhToan(String soHD, Date ngayLap, String maNV, String tenNV, 
                          String maSP, String tenSP, String size, int soLuong, double giaTien) {
         this.soHD = soHD;
         this.ngayLap = ngayLap;
