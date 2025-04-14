@@ -10,6 +10,7 @@ import com.outfitme.utils.Auth;
 import com.outfitme.utils.MsgBox;
 import com.outfitme.utils.XDate;
 import com.outfitme.utils.XImage;
+import java.awt.Image;
 import java.io.File;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -885,10 +886,16 @@ public class NhanVienJDialog extends javax.swing.JDialog {
     void chonAnh() {
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
-            XImage.save(file);
-            ImageIcon icon = XImage.read(file.getName());
-            lblHinhAnh.setIcon(icon);
-            lblHinhAnh.setToolTipText(file.getName());
+            // Lưu hình ảnh vào thư mục cố định hoặc lưu tên file vào database
+            String fileName = file.getName();
+            XImage.save(file); // Lưu ảnh vào thư mục cố định (Cần xác định thư mục)
+
+            // Điều chỉnh kích thước hình ảnh cho phù hợp với JLabel
+            ImageIcon icon = XImage.read(fileName);
+            Image img = icon.getImage();
+            Image scaledImage = img.getScaledInstance(192, 227, Image.SCALE_SMOOTH);
+            lblHinhAnh.setIcon(new ImageIcon(scaledImage));
+            lblHinhAnh.setToolTipText(fileName); // Lưu tên file vào tooltip của label
         }
     }
 }
