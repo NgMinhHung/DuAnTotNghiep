@@ -6,6 +6,7 @@ package com.outfitme.outfitme;
 
 import com.outfitme.dao.KhachHangDAO;
 import com.outfitme.dao.LichSuMuaHangDAO;
+import com.outfitme.dao.SanPhamDAO;
 import com.outfitme.entity.KhachHang;
 import com.outfitme.entity.LichSuMuaHang;
 import java.text.SimpleDateFormat;
@@ -208,7 +209,7 @@ public class DanhSachKhachHang extends javax.swing.JDialog {
     private javax.swing.JTextField txtDiem;
     private javax.swing.JTextField txtSDT;
     // End of variables declaration//GEN-END:variables
-
+    SanPhamDAO sanPhamDAO = new SanPhamDAO();
     private void init() {
         // Đặt vị trí giữa màn hình
         setLocationRelativeTo(null);
@@ -284,8 +285,9 @@ public class DanhSachKhachHang extends javax.swing.JDialog {
 
         for (LichSuMuaHang ls : lichSuList) {
             if (ls.getMaKhachHang().equals(maKH)) {
-                // Giả định Size (cần điều chỉnh nếu Size nằm trong bảng SanPham)
-                String size = "M"; // Giả định giá trị, bạn cần lấy từ dữ liệu thực tế
+                var sanPham = sanPhamDAO.selectById(ls.getMaSanPham());
+                String size = (sanPham != null) ? sanPham.getSize() : "N/A";
+
                 tableModel.addRow(new Object[]{
                     ls.getSanPham(),
                     ls.getSoLuong(),

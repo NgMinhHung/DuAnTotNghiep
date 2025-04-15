@@ -507,6 +507,16 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         fillTableSLSP();
         fillTableDoanhThuThang();
 
+        // Thêm lắng nghe sự kiện khi chuyển tab
+        tabsThongKe.addChangeListener(new javax.swing.event.ChangeListener() {
+            @Override
+            public void stateChanged(javax.swing.event.ChangeEvent e) {
+                if (tabsThongKe.getSelectedIndex() == 1) { // Tab "Số lượng sản phẩm"
+                    fillTableSLSP();
+                }
+            }
+        });
+
         this.selectTab(0);
     }
 

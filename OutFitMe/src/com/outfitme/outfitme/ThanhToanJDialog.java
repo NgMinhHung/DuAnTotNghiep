@@ -7,9 +7,11 @@ package com.outfitme.outfitme;
 import com.outfitme.dao.ThanhToanDAO;
 import com.outfitme.dao.KhachHangDAO;
 import com.outfitme.dao.LichSuMuaHangDAO;
+import com.outfitme.dao.SanPhamDAO;
 import com.outfitme.entity.ThanhToan;
 import com.outfitme.entity.KhachHang;
 import com.outfitme.entity.LichSuMuaHang;
+import com.outfitme.entity.SanPham;
 import com.outfitme.utils.XJdbc;
 import java.util.Date;
 import java.util.List;
@@ -364,7 +366,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-       this.ThanhToan();
+        this.ThanhToan();
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void rdo10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdo10ActionPerformed
@@ -666,8 +668,9 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         calculateTotalPrice();
     }
-    private void ThanhToan(){
-         if (!jRadioButton1.isSelected() && !jRadioButton2.isSelected()) {
+
+    private void ThanhToan() {
+        if (!jRadioButton1.isSelected() && !jRadioButton2.isSelected()) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn hình thức thanh toán!");
             return;
         }
@@ -707,11 +710,29 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                     kh.setDiem(updatedPoints);
                     khDao.update(kh);
 
-                    // Lưu lịch sử
+                    // Cập nhật số lượng tồn kho
+                    SanPhamDAO spDao = new SanPhamDAO();
+                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                    for (int i = 0; i < model.getRowCount(); i++) {
+                        String maSP = model.getValueAt(i, 2).toString();
+                        int soLuongBan = Integer.parseInt(model.getValueAt(i, 5).toString());
+                        SanPham sp = spDao.selectById(maSP);
+                        if (sp != null) {
+                            int soLuongTonKhoMoi = sp.getSoLuongTonKho() - soLuongBan;
+                            if (soLuongTonKhoMoi < 0) {
+                                JOptionPane.showMessageDialog(this, "Sản phẩm " + maSP + " không đủ số lượng tồn kho!");
+                                return;
+                            }
+                            sp.setSoLuongTonKho(soLuongTonKhoMoi);
+                            spDao.update(sp);
+                        }
+                    }
+
+                    // Lưu lịch sử mua hàng
                     savePurchaseHistory(maKH);
 
-                    // 🔥 Xóa duy nhất hóa đơn đã nhập
-                    cthdDao.deleteBySoHD(soHD); // ← bạn cần có hàm delete theo Số HĐ
+                    // Xóa hóa đơn
+                    cthdDao.deleteBySoHD(soHD);
 
                     // Load lại bảng
                     filterTableByMaKH();
@@ -733,11 +754,9 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng và nhập số hóa đơn!");
             }
         }
-
-
     }
-// Tính tổng tiền có giảm giá
 
+// Tính tổng tiền có giảm giá
     private void calculateTotalPrice() {
         totalPrice = 0.0;
         for (int i = 0; i < jTable1.getRowCount(); i++) {
