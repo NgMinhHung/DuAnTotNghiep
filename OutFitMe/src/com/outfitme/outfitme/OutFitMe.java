@@ -60,6 +60,8 @@ public class OutFitMe extends javax.swing.JFrame {
         mniHoaDon = new javax.swing.JMenuItem();
         mniCTHD = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        mnuTroGiup = new javax.swing.JMenu();
+        mniGioiThieu = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OutFitMe\n");
@@ -248,6 +250,25 @@ public class OutFitMe extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuQuanli);
 
+        mnuTroGiup.setText("Trợ giúp");
+        mnuTroGiup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuTroGiupActionPerformed(evt);
+            }
+        });
+
+        mniGioiThieu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniGioiThieu.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        mniGioiThieu.setText("Giới thiệu sản phẩm");
+        mniGioiThieu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniGioiThieuActionPerformed(evt);
+            }
+        });
+        mnuTroGiup.add(mniGioiThieu);
+
+        jMenuBar1.add(mnuTroGiup);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -272,7 +293,7 @@ public class OutFitMe extends javax.swing.JFrame {
                         .addComponent(lblTrangThai))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblDongHo, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblDongHo, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -383,6 +404,16 @@ public class OutFitMe extends javax.swing.JFrame {
         this.OpenCTHD();
     }//GEN-LAST:event_btnCTHDActionPerformed
 
+    private void mniGioiThieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniGioiThieuActionPerformed
+        // TODO add your handling code here:
+        this.OpenGioiThieu();
+    }//GEN-LAST:event_mniGioiThieuActionPerformed
+
+    private void mnuTroGiupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuTroGiupActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_mnuTroGiupActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -436,6 +467,7 @@ public class OutFitMe extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniDangNhap;
     private javax.swing.JMenuItem mniDangXuat;
     private javax.swing.JMenuItem mniDoiMatKhau;
+    private javax.swing.JMenuItem mniGioiThieu;
     private javax.swing.JMenuItem mniHoaDon;
     private javax.swing.JMenuItem mniKetThuc;
     private javax.swing.JMenuItem mniKhachHang;
@@ -443,6 +475,7 @@ public class OutFitMe extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniSanPham;
     private javax.swing.JMenu mnuHeThong;
     private javax.swing.JMenu mnuQuanli;
+    private javax.swing.JMenu mnuTroGiup;
     // End of variables declaration//GEN-END:variables
  void init() {
         setIconImage(XImage.getAppIcon());
@@ -532,24 +565,24 @@ public class OutFitMe extends javax.swing.JFrame {
             MsgBox.alert(this, "Vui lòng đăng nhập!");
         }
     }
-    
+
     void OpenLichSu() {
         if (Auth.isLogin()) {
-            new LichSuJDialog(this, true).setVisible(true); 
+            new LichSuJDialog(this, true).setVisible(true);
         } else {
             MsgBox.alert(this, "Vui lòng đăng nhập!");
         }
     }
-    
-     void Opendskhachhang() {
+
+    void Opendskhachhang() {
         if (Auth.isLogin()) {
             new DanhSachKhachHang(this, true).setVisible(true);
         } else {
             MsgBox.alert(this, "Vui lòng đăng nhập!");
         }
     }
-    
-     void OpenCTHD() {
+
+    void OpenCTHD() {
         if (Auth.isLogin()) {
             new ChiTietHoaDonJDialog(this, true).setVisible(true);
         } else {
@@ -557,4 +590,12 @@ public class OutFitMe extends javax.swing.JFrame {
         }
     }
 
+    void OpenGioiThieu() {
+        if (Auth.isLogin()) {
+            new GioiThieuJDialog(this, true).setVisible(true);
+        } else {
+            MsgBox.alert(this, "Vui lòng đăng nhập!");
+        }
+
+    }
 }
