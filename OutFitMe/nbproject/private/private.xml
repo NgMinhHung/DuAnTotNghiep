@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/DuAnTotNghiep/OutFitMe/src/com/outfitme/dao/SanPhamDAO.java</file>
-            <file>file:/D:/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/LichSuJDialog.java</file>
-            <file>file:/D:/DuAnTotNghiep/OutFitMe/src/com/outfitme/entity/SanPham.java</file>
-            <file>file:/D:/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/ThanhToanJDialog.java</file>
+            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/ThanhToanJDialog.java</file>
+            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/utils/XJdbc.java</file>
+            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/dao/ThanhToanDAO.java</file>
+            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/entity/ThanhToan.java</file>
+            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/DanhSachKhachHang.java</file>
+            <file>file:/D:/Pro230-DuAnTotNghiep/DuAnTotNghiep/OutFitMe/src/com/outfitme/outfitme/SanPhamJDialog.java</file>
         </group>
     </open-files>
 </project-private>
