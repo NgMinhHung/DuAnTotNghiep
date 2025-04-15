@@ -36,6 +36,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         fillCustomerComboBox();
         calculateTotalPrice();
         fillTableSLSP();
+        setLocationRelativeTo(null);
 
         cboDSKhachHang.addItemListener(new java.awt.event.ItemListener() {
             @Override

@@ -469,6 +469,7 @@ KhachHangDAO dao = new KhachHangDAO();
 
         // ✅ Có lịch sử -> mới mở form
         TimKiemKhachHangJDialog dialog = new TimKiemKhachHangJDialog(parent1, true, soDienThoai);
+        this.setAlwaysOnTop(false); // Trước khi gọi dialog mới
         dialog.setVisible(true);
     }
 
