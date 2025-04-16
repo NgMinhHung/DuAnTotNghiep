@@ -107,5 +107,17 @@ public class NhanVienDAO extends OutFitMeDAO<NhanVien, String> {
         }
         return list;
     }
+    public static String getTenNhanVienById(String maNV) {
+        String sql = "SELECT TenNhanVien FROM NhanVien WHERE MaNhanVien = ?";
+        try {
+            ResultSet rs = XJdbc.query(sql, maNV);
+            if (rs.next()) {
+                return rs.getString("TenNhanVien");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

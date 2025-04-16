@@ -94,4 +94,5 @@ public class HoaDonDAO extends OutFitMeDAO<HoaDon, Integer> {
         return this.selectBySql(sql, soHD);
     }
 
+
 }

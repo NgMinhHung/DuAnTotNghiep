@@ -121,4 +121,17 @@ public class KhachHangDAO extends OutFitMeDAO<KhachHang, String> {
         }
         return false;
     }
+    public static String getTenKhachHangById(String maKH) {
+        String sql = "SELECT TenKhachHang FROM KhachHang WHERE MaKhachHang = ?";
+        try {
+            ResultSet rs = XJdbc.query(sql, maKH);
+            if (rs.next()) {
+                return rs.getString("TenKhachHang");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

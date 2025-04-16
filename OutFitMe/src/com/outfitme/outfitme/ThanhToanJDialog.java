@@ -4,15 +4,32 @@
  */
 package com.outfitme.outfitme;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.outfitme.dao.ThanhToanDAO;
 import com.outfitme.dao.KhachHangDAO;
 import com.outfitme.dao.LichSuMuaHangDAO;
+import com.outfitme.dao.NhanVienDAO;
 import com.outfitme.dao.SanPhamDAO;
 import com.outfitme.entity.ThanhToan;
 import com.outfitme.entity.KhachHang;
 import com.outfitme.entity.LichSuMuaHang;
 import com.outfitme.entity.SanPham;
+import com.outfitme.utils.Auth;
+import com.outfitme.utils.MsgBox;
 import com.outfitme.utils.XJdbc;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -72,7 +89,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         buttonGroup10 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         tblChiTietHoaDon = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblThanhToan = new javax.swing.JTable();
         btnSoHD = new javax.swing.JButton();
         txtSoHD = new javax.swing.JTextField();
         lblHoaDon = new javax.swing.JLabel();
@@ -99,7 +116,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Thông tin", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblThanhToan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null},
@@ -118,12 +135,12 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblThanhToan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                tblThanhToanMouseClicked(evt);
             }
         });
-        tblChiTietHoaDon.setViewportView(jTable1);
+        tblChiTietHoaDon.setViewportView(tblThanhToan);
 
         btnSoHD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/research.png"))); // NOI18N
         btnSoHD.setText("Tìm theo HĐ");
@@ -486,13 +503,13 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_cboDSKhachHangActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        int row = jTable1.getSelectedRow();
+    private void tblThanhToanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblThanhToanMouseClicked
+        int row = tblThanhToan.getSelectedRow();
         if (row >= 0) {
-            String soHD = jTable1.getValueAt(row, 0).toString();
+            String soHD = tblThanhToan.getValueAt(row, 0).toString();
             txtSoHD.setText(soHD);
         }
-    }//GEN-LAST:event_jTable1MouseClicked
+    }//GEN-LAST:event_tblThanhToanMouseClicked
 
     /**
      * @param args the command line arguments
@@ -558,12 +575,12 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblHoaDon;
     private javax.swing.JRadioButton rdo10;
     private javax.swing.JRadioButton rdo15;
     private javax.swing.JRadioButton rdo5;
     private javax.swing.JScrollPane tblChiTietHoaDon;
+    private javax.swing.JTable tblThanhToan;
     private javax.swing.JTextField txtSoHD;
     private javax.swing.JTextField txtTongTien;
     // End of variables declaration//GEN-END:variables
@@ -574,7 +591,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     private double discountPercentage = 0.0;
 
     private void savePurchaseHistory(String maKH) {
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblThanhToan.getModel();
         if (model.getRowCount() == 0) {
             System.out.println("Không có sản phẩm để lưu vào lịch sử mua hàng!");
             return;
@@ -646,7 +663,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         }
 
         String soHD1 = txtSoHD.getText().trim();
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblThanhToan.getModel();
         model.setRowCount(0);
 
         try {
@@ -672,98 +689,207 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     }
 
     private void ThanhToan() {
-        if (!jRadioButton1.isSelected() && !jRadioButton2.isSelected()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn hình thức thanh toán!");
-            return;
-        }
+    if (!jRadioButton1.isSelected() && !jRadioButton2.isSelected()) {
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn hình thức thanh toán!");
+        return;
+    }
 
-        int confirm = JOptionPane.showConfirmDialog(this,
-                "Bạn có chắc chắn muốn thanh toán hóa đơn này?",
-                "Xác nhận thanh toán",
-                JOptionPane.YES_NO_OPTION);
+    int confirm = JOptionPane.showConfirmDialog(this,
+            "Bạn có chắc chắn muốn thanh toán hóa đơn này?",
+            "Xác nhận thanh toán",
+            JOptionPane.YES_NO_OPTION);
 
-        if (confirm == JOptionPane.YES_OPTION) {
-            int selectedIndex = cboDSKhachHang.getSelectedIndex();
-            String soHD = txtSoHD.getText().trim();
+    if (confirm == JOptionPane.YES_OPTION) {
+        int selectedIndex = cboDSKhachHang.getSelectedIndex();
+        String soHD = txtSoHD.getText().trim();
+        
 
-            if (selectedIndex >= 0 && !soHD.isEmpty()) {
-                String selectedCustomer = (String) cboDSKhachHang.getSelectedItem();
-                String maKH = selectedCustomer.split(" - ")[0];
-                KhachHang kh = khDao.selectById(maKH);
+        if (selectedIndex >= 0 && !soHD.isEmpty()) {
+            String selectedCustomer = (String) cboDSKhachHang.getSelectedItem();
+            String maKH = selectedCustomer.split(" - ")[0];
+            KhachHang kh = khDao.selectById(maKH);
 
-                if (kh != null) {
-                    // Tính điểm tích lũy
-                    int newPoints = calculatePoints(totalPrice);
-                    int currentPoints = kh.getDiem();
+            if (kh != null) {
+                // Tính điểm tích lũy
+                int newPoints = calculatePoints(totalPrice);
+                int currentPoints = kh.getDiem();
 
-                    int pointsToDeduct = 0;
-                    if (discountPercentage == 5.0) {
-                        pointsToDeduct = 50;
-                    } else if (discountPercentage == 10.0) {
-                        pointsToDeduct = 100;
-                    } else if (discountPercentage == 15.0) {
-                        pointsToDeduct = 200;
-                    }
-
-                    int updatedPoints = currentPoints + newPoints - pointsToDeduct;
-                    if (updatedPoints < 0) {
-                        updatedPoints = 0;
-                    }
-                    kh.setDiem(updatedPoints);
-                    khDao.update(kh);
-
-                    // Cập nhật số lượng tồn kho
-                    SanPhamDAO spDao = new SanPhamDAO();
-                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-                    for (int i = 0; i < model.getRowCount(); i++) {
-                        String maSP = model.getValueAt(i, 2).toString();
-                        int soLuongBan = Integer.parseInt(model.getValueAt(i, 5).toString());
-                        SanPham sp = spDao.selectById(maSP);
-                        if (sp != null) {
-                            int soLuongTonKhoMoi = sp.getSoLuongTonKho() - soLuongBan;
-                            if (soLuongTonKhoMoi < 0) {
-                                JOptionPane.showMessageDialog(this, "Sản phẩm " + maSP + " không đủ số lượng tồn kho!");
-                                return;
-                            }
-                            sp.setSoLuongTonKho(soLuongTonKhoMoi);
-                            spDao.update(sp);
-                        }
-                    }
-
-                    // Lưu lịch sử mua hàng
-                    savePurchaseHistory(maKH);
-
-                    // Xóa hóa đơn
-                    cthdDao.deleteBySoHD(soHD);
-
-                    // Load lại bảng
-                    filterTableByMaKH();
-
-                    // Reset các giá trị
-                    totalPrice = 0.0;
-                    discountPercentage = 0.0;
-                    rdo5.setSelected(false);
-                    rdo10.setSelected(false);
-                    rdo15.setSelected(false);
-                    updateTotalPriceWithDiscount();
-                    jRadioButton1.setSelected(false);
-                    jRadioButton2.setSelected(false);
-                    txtSoHD.setText("");
-
-                    JOptionPane.showMessageDialog(this, "Thanh toán thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                int pointsToDeduct = 0;
+                if (discountPercentage == 5.0) {
+                    pointsToDeduct = 50;
+                } else if (discountPercentage == 10.0) {
+                    pointsToDeduct = 100;
+                } else if (discountPercentage == 15.0) {
+                    pointsToDeduct = 200;
                 }
+
+                int updatedPoints = currentPoints + newPoints - pointsToDeduct;
+                if (updatedPoints < 0) {
+                    updatedPoints = 0;
+                }
+                kh.setDiem(updatedPoints);
+                khDao.update(kh);
+
+                // Cập nhật số lượng tồn kho
+                SanPhamDAO spDao = new SanPhamDAO();
+                DefaultTableModel model = (DefaultTableModel) tblThanhToan.getModel();
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    String maSP = model.getValueAt(i, 2).toString();
+                    int soLuongBan = Integer.parseInt(model.getValueAt(i, 5).toString());
+                    SanPham sp = spDao.selectById(maSP);
+                    if (sp != null) {
+                        int soLuongTonKhoMoi = sp.getSoLuongTonKho() - soLuongBan;
+                        if (soLuongTonKhoMoi < 0) {
+                            JOptionPane.showMessageDialog(this, "Sản phẩm " + maSP + " không đủ số lượng tồn kho!");
+                            return;
+                        }
+                        sp.setSoLuongTonKho(soLuongTonKhoMoi);
+                        spDao.update(sp);
+                    }
+                }
+
+                // Lưu lịch sử mua hàng
+                savePurchaseHistory(maKH);
+
+                // Xóa hóa đơn
+                cthdDao.deleteBySoHD(soHD);
+                
+                String maNV = Auth.user.getMaNV(); // hoặc nơi bạn lưu mã nhân viên đang đăng nhập
+
+
+                // Xuất PDF hóa đơn
+                generateInvoicePDF(soHD, maKH, maNV);
+
+                // Load lại bảng
+                filterTableByMaKH();
+
+                // Reset các giá trị
+                totalPrice = 0.0;
+                discountPercentage = 0.0;
+                rdo5.setSelected(false);
+                rdo10.setSelected(false);
+                rdo15.setSelected(false);
+                updateTotalPriceWithDiscount();
+                jRadioButton1.setSelected(false);
+                jRadioButton2.setSelected(false);
+                txtSoHD.setText("");
             } else {
                 JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng và nhập số hóa đơn!");
             }
         }
     }
+}
+
+    private void generateInvoicePDF(String soHD, String maKH, String maNV) {
+        DefaultTableModel model = (DefaultTableModel) tblThanhToan.getModel();
+        String fileName = "Invoice_" + soHD + ".pdf";
+
+        try {
+            // Khởi tạo tài liệu PDF
+            Document document = new Document();
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(fileName));
+            document.open();
+
+            // Lấy tên khách hàng và tên nhân viên từ DAO
+            KhachHangDAO khachHangDAO = new KhachHangDAO();
+            String tenKH = khachHangDAO.getTenKhachHangById(maKH);
+
+            NhanVienDAO nhanVienDAO = new NhanVienDAO();
+            String tenNV = nhanVienDAO.getTenNhanVienById(maNV);
+
+            if (tenKH == null || tenNV == null) {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng hoặc nhân viên.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Tải font
+            String fontPath = "C:/Windows/Fonts/times.ttf";
+            BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            Font font = new Font(baseFont, 12);
+            Font boldFont = new Font(baseFont, 16, Font.BOLD);
+
+            // Tiêu đề và thông tin chung
+            document.add(new Paragraph("HÓA ĐƠN BÁN HÀNG", boldFont));
+            document.add(new Paragraph("Hóa đơn số: " + soHD, font));
+            document.add(new Paragraph("Ngày lập: " + new SimpleDateFormat("dd/MM/yyyy").format(new Date()), font));
+            document.add(new Paragraph("Mã khách hàng: " + maKH, font));
+            document.add(new Paragraph("Tên khách hàng: " + tenKH, font));
+            document.add(new Paragraph("Mã nhân viên: " + maNV, font));
+            document.add(new Paragraph("Tên nhân viên: " + tenNV, font));
+            document.add(new Paragraph(" ")); // dòng trống
+
+            // Bảng sản phẩm
+            PdfPTable table = new PdfPTable(5);
+            table.setWidthPercentage(100);
+            table.setSpacingBefore(10f);
+            table.setSpacingAfter(10f);
+            table.setWidths(new float[]{1f, 4f, 2f, 2f, 2.5f});
+
+            // Thêm tiêu đề cột
+            table.addCell(createCell("STT", baseFont, Font.BOLD));
+            table.addCell(createCell("Tên sản phẩm", baseFont, Font.BOLD));
+            table.addCell(createCell("Số lượng", baseFont, Font.BOLD));
+            table.addCell(createCell("Đơn giá", baseFont, Font.BOLD));
+            table.addCell(createCell("Thành tiền", baseFont, Font.BOLD));
+
+            // Tổng tiền
+            double totalPrice = 0;
+
+            for (int i = 0; i < model.getRowCount(); i++) {
+                table.addCell(createCell(String.valueOf(i + 1), baseFont, Font.NORMAL));
+                table.addCell(createCell(model.getValueAt(i, 3).toString(), baseFont, Font.NORMAL)); // Tên sản phẩm
+                table.addCell(createCell(model.getValueAt(i, 5).toString(), baseFont, Font.NORMAL)); // Số lượng
+                table.addCell(createCell(model.getValueAt(i, 6).toString(), baseFont, Font.NORMAL)); // Đơn giá
+
+                int quantity = Integer.parseInt(model.getValueAt(i, 5).toString());
+                double unitPrice = Double.parseDouble(model.getValueAt(i, 6).toString());
+                double total = quantity * unitPrice;
+                totalPrice += total;
+
+                table.addCell(createCell(String.format("%.2f", total), baseFont, Font.NORMAL));
+            }
+
+            document.add(table);
+
+            // Tổng kết
+            document.add(new Paragraph("Tổng tiền: " + String.format("%.2f", totalPrice) + " VNĐ", font));
+            if (discountPercentage > 0) {
+                double discountedTotal = totalPrice - (totalPrice * discountPercentage / 100);
+                document.add(new Paragraph("Giảm giá: " + discountPercentage + "%", font));
+                document.add(new Paragraph("Tổng tiền sau giảm giá: " + String.format("%.2f", discountedTotal) + " VNĐ", font));
+            }
+
+            document.close();
+
+            File pdfFile = new File(fileName);
+            if (pdfFile.exists()) {
+                Desktop.getDesktop().open(pdfFile);
+            }
+
+            JOptionPane.showMessageDialog(this, "Hóa đơn đã được xuất thành công dưới dạng PDF: " + fileName);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi xuất hóa đơn: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+    private PdfPCell createCell(String text, BaseFont baseFont, int style) {
+        Font cellFont = new Font(baseFont, 12);
+        cellFont.setStyle(style);
+        PdfPCell cell = new PdfPCell(new Phrase(text, cellFont));
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        return cell;
+    }
+
+
 
 // Tính tổng tiền có giảm giá
     private void calculateTotalPrice() {
         totalPrice = 0.0;
-        for (int i = 0; i < jTable1.getRowCount(); i++) {
-            Object soluong = jTable1.getValueAt(i, 5);
-            Object dongia = jTable1.getValueAt(i, 6);
+        for (int i = 0; i < tblThanhToan.getRowCount(); i++) {
+            Object soluong = tblThanhToan.getValueAt(i, 5);
+            Object dongia = tblThanhToan.getValueAt(i, 6);
             if (soluong != null && dongia != null) {
                 try {
                     int sl = Integer.parseInt(soluong.toString());
@@ -789,9 +915,9 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
 // Xóa 1 dòng được chọn
     private void delete() {
-        int row = jTable1.getSelectedRow();
+        int row = tblThanhToan.getSelectedRow();
         if (row >= 0) {
-            String soHD = jTable1.getValueAt(row, 0).toString();
+            String soHD = tblThanhToan.getValueAt(row, 0).toString();
             ThanhToan cthd = dao.selectBySoHD(soHD);
             if (cthd != null) {
                 dao.delete(cthd.getId());
@@ -804,11 +930,11 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
 // Sửa 1 dòng
     private void update() {
-        int row = jTable1.getSelectedRow();
+        int row = tblThanhToan.getSelectedRow();
         if (row >= 0) {
-            String soHD = jTable1.getValueAt(row, 0).toString();
-            String maSP = jTable1.getValueAt(row, 2).toString();
-            int soLuong = (int) jTable1.getValueAt(row, 5);
+            String soHD = tblThanhToan.getValueAt(row, 0).toString();
+            String maSP = tblThanhToan.getValueAt(row, 2).toString();
+            int soLuong = (int) tblThanhToan.getValueAt(row, 5);
 
             ThanhToan cthd = dao.selectBySoHD(soHD);
             if (cthd != null) {
@@ -832,7 +958,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         }
 
         String maKH = selected.split("-")[0].trim();
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblThanhToan.getModel();
         model.setRowCount(0);
 
         List<Object[]> list = dao.getBysoHD(maKH, txtSoHD.getText().trim());
@@ -864,5 +990,4 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
             model.addElement(maKH);
         }
     }
-
 }
