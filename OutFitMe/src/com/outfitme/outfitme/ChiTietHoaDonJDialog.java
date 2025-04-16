@@ -129,7 +129,7 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("Khách Hàng");
+        jLabel4.setText("Hóa đơn");
 
         jLabel13.setText("Số Hóa đơn");
 

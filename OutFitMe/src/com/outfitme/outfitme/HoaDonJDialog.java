@@ -86,7 +86,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         txtSearch = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnThem = new javax.swing.JButton();
-        btnChiTietHoaDon = new javax.swing.JButton();
+        btnThanhToan = new javax.swing.JButton();
         btnMoi = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -98,7 +98,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         cboSize = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btnChiTietHoaDon = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("OutFitMe - Hóa Đơn");
@@ -242,11 +242,11 @@ public class HoaDonJDialog extends javax.swing.JDialog {
             }
         });
 
-        btnChiTietHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/chitiethoadon.png"))); // NOI18N
-        btnChiTietHoaDon.setText("Thanh Toán");
-        btnChiTietHoaDon.addActionListener(new java.awt.event.ActionListener() {
+        btnThanhToan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/chitiethoadon.png"))); // NOI18N
+        btnThanhToan.setText("Thanh Toán");
+        btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChiTietHoaDonActionPerformed(evt);
+                btnThanhToanActionPerformed(evt);
             }
         });
 
@@ -326,11 +326,11 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/document-signed.png"))); // NOI18N
-        jButton1.setText("Chi Tiết Hóa đơn");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnChiTietHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/document-signed.png"))); // NOI18N
+        btnChiTietHoaDon.setText("Chi Tiết Hóa đơn");
+        btnChiTietHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnChiTietHoaDonActionPerformed(evt);
             }
         });
 
@@ -360,8 +360,8 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                     .addComponent(btnMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnChiTietHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnThanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnChiTietHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -392,9 +392,9 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnThem)
                         .addGap(90, 90, 90)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnChiTietHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnChiTietHoaDon)
+                        .addComponent(btnThanhToan)
                         .addGap(72, 72, 72))))
         );
 
@@ -421,21 +421,21 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMoiActionPerformed
 
-    private void btnChiTietHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietHoaDonActionPerformed
+    private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         ThanhToanJDialog thanhToanDialog = new ThanhToanJDialog(new javax.swing.JFrame(), true);
         thanhToanDialog.setLocationRelativeTo(this);
         thanhToanDialog.setVisible(true);
-    }//GEN-LAST:event_btnChiTietHoaDonActionPerformed
+    }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnThemActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnChiTietHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietHoaDonActionPerformed
         ChiTietHoaDonJDialog chiTietDialog = new ChiTietHoaDonJDialog(new javax.swing.JFrame(), true);
         chiTietDialog.setLocationRelativeTo(this);
         chiTietDialog.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnChiTietHoaDonActionPerformed
 
     private void cboSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSizeActionPerformed
 
@@ -482,6 +482,17 @@ public class HoaDonJDialog extends javax.swing.JDialog {
             }
         });
     }
+    // Phương thức kiểm tra số hóa đơn trùng lặp
+    private boolean isSoHDDuplicate(String soHD) {
+        try {
+            List<HoaDon> list = hddao.selectBySoHD(soHD);
+            return !list.isEmpty(); // Trả về true nếu số hóa đơn đã tồn tại
+        } catch (Exception e) {
+            MsgBox.alert(this, "Lỗi khi kiểm tra số hóa đơn: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -489,12 +500,12 @@ public class HoaDonJDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnMoi;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSetDate;
+    private javax.swing.JButton btnThanhToan;
     private javax.swing.JButton btnThem;
     private javax.swing.JComboBox<String> cboMaKH;
     private javax.swing.JComboBox<String> cboMaNV;
     private javax.swing.JComboBox<String> cboMaSP;
     private javax.swing.JComboBox<String> cboSize;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -610,7 +621,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         });
 
         // Thêm sự kiện cho nút Add vào thanh toán
-        btnAdd.addActionListener(new ActionListener() {
+      btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
@@ -629,6 +640,12 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                 // Kiểm tra dữ liệu nhập liệu
                 if (soHD.isEmpty() || maKH.isEmpty() || ngayLap.isEmpty() || maNV.isEmpty()) {
                     MsgBox.alert(HoaDonJDialog.this, "Vui lòng điền đầy đủ thông tin hóa đơn (Số hóa đơn, Mã khách hàng, Ngày lập HD, Mã nhân viên)!");
+                    return;
+                }
+
+                // Kiểm tra số hóa đơn trùng lặp
+                if (isSoHDDuplicate(soHD)) {
+                    MsgBox.alert(HoaDonJDialog.this, "Số hóa đơn " + soHD + " đang còn trong giao dịch! Vui lòng chọn số hóa đơn khác.");
                     return;
                 }
 
