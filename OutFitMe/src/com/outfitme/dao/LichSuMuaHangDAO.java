@@ -10,7 +10,7 @@ import java.util.List;
 public class LichSuMuaHangDAO {
 
     public void insert(LichSuMuaHang entity) {
-        String sql = "INSERT INTO LichSuMuaHang (MaKhachHang, ThoiGian, SanPham, TongTien, MaNhanVien, SoLuong, MaSanPham) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO LichSuMuaHang (MaKhachHang, ThoiGian, SanPham, TongTien, MaNhanVien, SoLuong, MaSanPham, Size) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         XJdbc.update(sql,
                 entity.getMaKhachHang(),
                 entity.getThoiGian(),
@@ -18,7 +18,8 @@ public class LichSuMuaHangDAO {
                 entity.getTongTien(),
                 entity.getMaNhanVien(),
                 entity.getSoLuong(),
-                entity.getMaSanPham());
+                entity.getMaSanPham(),
+                entity.getSize());
     }
 
     public void delete(String maGiaoDich) {
@@ -27,15 +28,17 @@ public class LichSuMuaHangDAO {
     }
 
     public void update(LichSuMuaHang entity) {
-        String sql = "UPDATE LichSuMuaHang SET MaKhachHang = ?, ThoiGian = ?, SanPham = ?, TongTien = ?, MaNhanVien = ? WHERE MaGiaoDich = ?";
+        String sql = "UPDATE LichSuMuaHang SET MaKhachHang = ?, ThoiGian = ?, SanPham = ?, TongTien = ?, MaNhanVien = ?, SoLuong = ?, MaSanPham = ?, Size = ? WHERE MaGiaoDich = ?";
         XJdbc.update(sql,
                 entity.getMaKhachHang(),
                 new java.sql.Timestamp(entity.getThoiGian().getTime()),
                 entity.getSanPham(),
                 entity.getTongTien(),
-                entity.getMaNhanVien(), // Thêm MaNhanVien
-                entity.getMaGiaoDich()
-        );
+                entity.getMaNhanVien(),
+                entity.getSoLuong(),
+                entity.getMaSanPham(),
+                entity.getSize(),
+                entity.getMaGiaoDich());
     }
 
     public List<LichSuMuaHang> selectAll() {
@@ -72,8 +75,9 @@ public class LichSuMuaHangDAO {
                 entity.setTongTien(rs.getDouble("TongTien"));
                 entity.setTenKhachHang(rs.getString("TenKhachHang"));
                 entity.setMaNhanVien(rs.getString("MaNhanVien"));
-                entity.setSoLuong(rs.getInt("SoLuong")); // Thêm dòng này để lấy cột SoLuong
-                entity.setMaSanPham(rs.getString("MaSanPham")); // Thêm dòng này để lấy cột MaSanPham
+                entity.setSoLuong(rs.getInt("SoLuong"));
+                entity.setMaSanPham(rs.getString("MaSanPham"));
+                entity.setSize(rs.getString("Size"));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();

@@ -11,7 +11,6 @@ public class KhachHangDAO extends OutFitMeDAO<KhachHang, String> {
 
     @Override
     public void insert(KhachHang model) {
-        // Câu lệnh SQL INSERT đã thêm cột HinhAnh và Diem
         String sql = "INSERT INTO KhachHang (MaKhachHang, TenKhachHang, SoDienThoai, GioiTinh, DiaChi, HinhAnh, Diem) VALUES (?, ?, ?, ?, ?, ?, ?)";
         XJdbc.update(sql,
                 model.getMaKH(),
@@ -19,40 +18,34 @@ public class KhachHangDAO extends OutFitMeDAO<KhachHang, String> {
                 model.getSoDienThoai(),
                 model.isGioiTinh(),
                 model.getDiaChi(),
-                model.getHinhAnh(),  // Thêm cột HinhAnh
-                model.getDiem());    // Thêm cột Diem
+                model.getHinhAnh(), 
+                model.getDiem());   
     }
 
     @Override
     public void update(KhachHang model) {
-        // Cập nhật câu lệnh SQL cho cả HinhAnh và Diem
         String sql = "UPDATE KhachHang SET TenKhachHang = ?, GioiTinh = ?, DiaChi = ?, SoDienThoai = ?, HinhAnh = ?, Diem = ? WHERE MaKhachHang = ?";
         XJdbc.update(sql,
                 model.getTenKH(),
                 model.isGioiTinh(),
                 model.getDiaChi(),
                 model.getSoDienThoai(),
-                model.getHinhAnh(),  // Thêm cột HinhAnh
-                model.getDiem(),     // Thêm cột Diem
+                model.getHinhAnh(),  
+                model.getDiem(),    
                 model.getMaKH());
     }
 
     @Override
  public void delete(String soDienThoai) {
     try {
-        // Gỡ ràng buộc khóa ngoại trong bảng HoaDon (nếu có)
         String sqlUpdateHoaDon = "UPDATE HoaDon SET MaKhachHang = NULL WHERE MaKhachHang = (SELECT MaKhachHang FROM KhachHang WHERE SoDienThoai = ?)";
         XJdbc.update(sqlUpdateHoaDon, soDienThoai);
-
-        // Sau khi gỡ, xóa khách hàng
         String sqlDeleteKhachHang = "DELETE FROM KhachHang WHERE SoDienThoai = ?";
         XJdbc.update(sqlDeleteKhachHang, soDienThoai);
     } catch (Exception e) {
-        // Ném lại lỗi với thông báo rõ ràng để xử lý ở giao diện
         throw new RuntimeException("Không thể xóa khách hàng. Dữ liệu đang được sử dụng trong lịch sử mua hàng hoặc hóa đơn.");
     }
 }
-
 
     public KhachHang selectById(String maKH) {
         String sql = "SELECT * FROM KhachHang WHERE MaKhachHang = ?";
@@ -94,8 +87,8 @@ public class KhachHangDAO extends OutFitMeDAO<KhachHang, String> {
                     entity.setSoDienThoai(rs.getString("SoDienThoai"));
                     entity.setGioiTinh(rs.getBoolean("GioiTinh"));
                     entity.setDiaChi(rs.getString("DiaChi"));
-                    entity.setHinhAnh(rs.getString("HinhAnh")); // Lấy HinhAnh từ cơ sở dữ liệu
-                    entity.setDiem(rs.getInt("Diem"));         // Lấy Diem từ cơ sở dữ liệu
+                    entity.setHinhAnh(rs.getString("HinhAnh"));
+                    entity.setDiem(rs.getInt("Diem"));      
                     list.add(entity);
                 }
             } finally {

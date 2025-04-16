@@ -895,7 +895,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
             Image img = icon.getImage();
             Image scaledImage = img.getScaledInstance(192, 227, Image.SCALE_SMOOTH);
             lblHinhAnh.setIcon(new ImageIcon(scaledImage));
-            lblHinhAnh.setToolTipText(fileName); // Lưu tên file vào tooltip của label
+            lblHinhAnh.setToolTipText(fileName);
         }
     }
 }

@@ -44,8 +44,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
             @Override
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
-                    filterTableByMaKH(); // Lọc bảng theo MaKH
-                    calculateTotalPrice(); // Tính lại tổng tiền sau khi lọc
+                    filterTableByMaKH(); 
+                    calculateTotalPrice(); 
                 }
             }
         });
@@ -382,8 +382,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                     discountPercentage = 10.0;
                     updateTotalPriceWithDiscount();
                 } else {
-                    rdo10.setSelected(false); // Bỏ chọn radio button
-                    discountPercentage = 0.0; // Đặt lại giảm giá về 0
+                    rdo10.setSelected(false); 
+                    discountPercentage = 0.0; 
                     updateTotalPriceWithDiscount();
                     javax.swing.JOptionPane.showMessageDialog(this, "Bạn chưa đủ điểm! Cần ít nhất 1000 điểm để giảm 10%.");
                 }
@@ -411,8 +411,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                     discountPercentage = 5.0;
                     updateTotalPriceWithDiscount();
                 } else {
-                    rdo5.setSelected(false); // Bỏ chọn radio button
-                    discountPercentage = 0.0; // Đặt lại giảm giá về 0
+                    rdo5.setSelected(false); 
+                    discountPercentage = 0.0; 
                     updateTotalPriceWithDiscount();
                     javax.swing.JOptionPane.showMessageDialog(this, "Bạn chưa đủ điểm! Cần ít nhất 500 điểm để giảm 5%.");
                 }
@@ -439,8 +439,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                     discountPercentage = 15.0;
                     updateTotalPriceWithDiscount();
                 } else {
-                    rdo15.setSelected(false); // Bỏ chọn radio button
-                    discountPercentage = 0.0; // Đặt lại giảm giá về 0
+                    rdo15.setSelected(false); 
+                    discountPercentage = 0.0; 
                     updateTotalPriceWithDiscount();
                     javax.swing.JOptionPane.showMessageDialog(this, "Bạn chưa đủ điểm! Cần ít nhất 1500 điểm để giảm 15%.");
                 }
@@ -458,11 +458,11 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         int selectedIndex = cboDSKhachHang.getSelectedIndex();
         if (selectedIndex >= 0) {
             String selectedCustomer = (String) cboDSKhachHang.getSelectedItem();
-            String maKH = selectedCustomer.split(" - ")[0]; // Lấy mã khách hàng
+            String maKH = selectedCustomer.split(" - ")[0]; 
             KhachHang kh = khDao.selectById(maKH);
             if (kh != null) {
-                int newPoints = calculatePoints(totalPrice); // Điểm từ hóa đơn hiện tại
-                int currentPoints = kh.getDiem(); // Không cần kiểm tra null vì diem là int
+                int newPoints = calculatePoints(totalPrice); 
+                int currentPoints = kh.getDiem(); 
                 javax.swing.JOptionPane.showMessageDialog(this,
                         "Khách hàng: " + kh.getTenKH()
                         + "\nĐiểm hiện tại: " + currentPoints
@@ -582,7 +582,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         String maNhanVien = null;
         if (model.getRowCount() > 0) {
-            Object maNhanVienObj = model.getValueAt(0, 8); // Lấy từ dòng đầu tiên, cột "Nhân viên lập HD"
+            Object maNhanVienObj = model.getValueAt(0, 8);
             if (maNhanVienObj != null) {
                 maNhanVien = maNhanVienObj.toString();
             }
@@ -600,6 +600,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
             String tenSP = (String) model.getValueAt(i, 3);
             int soLuong = (int) model.getValueAt(i, 5);
             double tongTien = (double) model.getValueAt(i, 7);
+            String Size = (String)model.getValueAt(i,4);
 
             LichSuMuaHang history = new LichSuMuaHang();
             history.setMaKhachHang(maKH);
@@ -609,6 +610,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
             history.setMaNhanVien(maNhanVien);
             history.setMaSanPham(maSP);
             history.setSoLuong(soLuong);
+            history.setSize(Size);
 
             try {
                 lsmhDao.insert(history);
@@ -640,7 +642,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         String maKH1 = selected.toString().trim();
         if (maKH1.contains("-")) {
-            maKH1 = maKH1.split("-")[0].trim(); // Lấy "KH01"
+            maKH1 = maKH1.split("-")[0].trim();
         }
 
         String soHD1 = txtSoHD.getText().trim();
@@ -814,7 +816,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                 cthd.setMaSP(maSP);
                 cthd.setSoLuong(soLuong);
                 dao.update(cthd);
-                fillTableSLSP(); // ✅ Load lại sau sửa
+                fillTableSLSP();
             }
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để sửa!");

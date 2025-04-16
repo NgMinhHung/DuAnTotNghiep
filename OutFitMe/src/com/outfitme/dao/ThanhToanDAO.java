@@ -1,12 +1,7 @@
 package com.outfitme.dao;
 
 import com.outfitme.entity.ThanhToan;
-//import com.outfitme.utils.XJdbc;
-//import java.sql.ResultSet;
 import java.sql.SQLException;
-//import java.util.ArrayList;
-//import java.util.List;
-
 import com.outfitme.utils.XJdbc;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -16,8 +11,7 @@ import java.util.List;
  *
  * @author MINH HUNG
  */
-public class ThanhToanDAO extends OutFitMeDAO<ThanhToan, Integer> {  // Đổi String thành Integer vì khóa chính giờ là Id
-
+public class ThanhToanDAO extends OutFitMeDAO<ThanhToan, Integer> { 
     @Override
     public void insert(ThanhToan entity) {
         String sql = "INSERT INTO HoaDon (SoHD, NgayLap, MaNhanVien, MaKhachHang, SoLuong, MaSanPham) VALUES (?, ?, ?, ?, ?, ?)";
@@ -46,7 +40,7 @@ public class ThanhToanDAO extends OutFitMeDAO<ThanhToan, Integer> {  // Đổi S
     }
 
     @Override
-    public void delete(Integer id) {  // Đổi tham số từ String soHD thành Integer id
+    public void delete(Integer id) {
         String sql = "DELETE FROM HoaDon WHERE Id = ?";
         XJdbc.update(sql, id);
     }
@@ -58,7 +52,7 @@ public class ThanhToanDAO extends OutFitMeDAO<ThanhToan, Integer> {  // Đổi S
     }
 
     @Override
-    public ThanhToan selectById(Integer id) {  // Đổi tham số từ String soHD thành Integer id
+    public ThanhToan selectById(Integer id) { 
         String sql = """
         SELECT hd.Id, hd.SoHD, hd.NgayLap, nv.MaNhanVien, nv.TenNhanVien, 
                sp.MaSanPham, sp.TenSanPham, hd.Size, hd.SoLuong, sp.GiaBan, 
@@ -106,18 +100,18 @@ public class ThanhToanDAO extends OutFitMeDAO<ThanhToan, Integer> {  // Đổi S
         try (ResultSet rs = XJdbc.query(sql, args)) {
             while (rs.next()) {
                 ThanhToan cthd = new ThanhToan(
-                        rs.getInt("Id"),          // Thêm Id
-                        rs.getString("SoHD"),     // Số hóa đơn nhập tay
-                        rs.getDate("NgayLap"),    // Ngày lập hóa đơn
-                        rs.getString("MaNhanVien"), // Mã nhân viên
-                        rs.getString("TenNhanVien"), // Tên nhân viên
-                        rs.getString("MaSanPham"),  // Mã sản phẩm
-                        rs.getString("TenSanPham"), // Tên sản phẩm
-                        rs.getString("Size"),      // Size
-                        rs.getInt("SoLuong"),     // Số lượng
-                        rs.getDouble("GiaBan"),   // Giá bán
-                        rs.getDouble("TongTien"), // Tổng tiền
-                        rs.getString("MaKhachHang") // Mã khách hàng
+                        rs.getInt("Id"),          
+                        rs.getString("SoHD"),     
+                        rs.getDate("NgayLap"),   
+                        rs.getString("MaNhanVien"),
+                        rs.getString("TenNhanVien"), 
+                        rs.getString("MaSanPham"),  
+                        rs.getString("TenSanPham"), 
+                        rs.getString("Size"),     
+                        rs.getInt("SoLuong"),     
+                        rs.getDouble("GiaBan"),   
+                        rs.getDouble("TongTien"), 
+                        rs.getString("MaKhachHang") 
                 );
                 list.add(cthd);
             }

@@ -29,7 +29,7 @@ public class LichSuJDialog extends javax.swing.JDialog {
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
     public LichSuJDialog() {
-        this(null, false); // Gọi constructor khác với parent = null và modal = false
+        this(null, false);
     }
 
     public LichSuJDialog(java.awt.Frame parent, boolean modal) {
@@ -258,7 +258,7 @@ public class LichSuJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtMaSPActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-      int selectedRow = tblLichSu.getSelectedRow();
+        int selectedRow = tblLichSu.getSelectedRow();
         if (selectedRow >= 0) {
             int confirm = javax.swing.JOptionPane.showConfirmDialog(this,
                     "Bạn có chắc chắn muốn xóa giao dịch này?",
@@ -457,10 +457,9 @@ public class LichSuJDialog extends javax.swing.JDialog {
         String maKhachHang = txtSearch.getText().trim();
         if (maKhachHang.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng nhập mã khách hàng để tìm kiếm!");
-            loadFromDatabase(); // Tải lại toàn bộ danh sách nếu không nhập mã
+            loadFromDatabase();
             return;
         }
-
         List<LichSuMuaHang> historyList = lsmhDao.selectAll();
         List<LichSuMuaHang> filteredList = new ArrayList<>();
         for (LichSuMuaHang history : historyList) {
@@ -482,7 +481,6 @@ public class LichSuJDialog extends javax.swing.JDialog {
         Collections.sort(historyList, new Comparator<LichSuMuaHang>() {
             @Override
             public int compare(LichSuMuaHang o1, LichSuMuaHang o2) {
-                // Sắp xếp theo ThoiGian giảm dần (mới nhất trước)
                 return o2.getThoiGian().compareTo(o1.getThoiGian());
             }
         });

@@ -41,38 +41,6 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
         fillComboBoxSoHoaDon();
     }
 
-    private void init() {
-        setLocationRelativeTo(null);
-
-        DefaultTableModel model = (DefaultTableModel) tblChiTietHoaDon.getModel();
-        model.setRowCount(0);
-        fillComboBoxSoHoaDon();
-    }
-
-    private class KhachHangComboBoxItem {
-
-        private String maKH;
-        private String tenKH;
-
-        public KhachHangComboBoxItem(String maKH, String tenKH) {
-            this.maKH = maKH;
-            this.tenKH = tenKH;
-        }
-
-        public String getMaKH() {
-            return maKH;
-        }
-
-        public String getTenKH() {
-            return tenKH;
-        }
-
-        @Override
-        public String toString() {
-            return tenKH; // Hiển thị tên khách hàng trong JComboBox
-        }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -325,7 +293,6 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
         String soHoaDon = (String) cboSoHoaDon.getSelectedItem();
         if (soHoaDon != null) {
             try {
-                // Cập nhật bảng với hóa đơn có số hóa đơn được chọn
                 fillTable(soHoaDon);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -406,10 +373,41 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txtTenSanPham;
     private javax.swing.JTextField txtTongTien;
     // End of variables declaration//GEN-END:variables
+   private void init() {
+        setLocationRelativeTo(null);
+
+        DefaultTableModel model = (DefaultTableModel) tblChiTietHoaDon.getModel();
+        model.setRowCount(0);
+        fillComboBoxSoHoaDon();
+    }
+
+    private class KhachHangComboBoxItem {
+
+        private String maKH;
+        private String tenKH;
+
+        public KhachHangComboBoxItem(String maKH, String tenKH) {
+            this.maKH = maKH;
+            this.tenKH = tenKH;
+        }
+
+        public String getMaKH() {
+            return maKH;
+        }
+
+        public String getTenKH() {
+            return tenKH;
+        }
+
+        @Override
+        public String toString() {
+            return tenKH;
+        }
+    }
 
     double tongTienHoaDon = 0;
 
-   private void fillTable(String soHoaDon) {
+    private void fillTable(String soHoaDon) {
         DefaultTableModel model = (DefaultTableModel) tblChiTietHoaDon.getModel();
         model.setRowCount(0);
 
@@ -447,14 +445,11 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
                 SanPham sp = spdao.selectById(hd.getMaSP());
                 String tenSanPham = sp != null ? sp.getTenSP() : "";
                 double donGia = sp != null ? sp.getGiaBan() : 0;
-                double tongTienSanPham = donGia * hd.getSoLuong(); // Tổng tiền của sản phẩm này
+                double tongTienSanPham = donGia * hd.getSoLuong();
                 tongTienHoaDon += tongTienSanPham;
                 tongSoLuong += hd.getSoLuong();
-
-                // Định dạng ngày lập
                 String ngayLap = dateFormat.format(hd.getNgayLap());
 
-                // Thêm dòng vào bảng
                 model.addRow(new Object[]{
                     hd.getMaKH(),
                     tenKhachHang,
@@ -462,14 +457,14 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
                     tenSanPham,
                     hd.getSize(),
                     hd.getSoLuong(),
-                    String.format("%,.0f", tongTienSanPham), // Tổng tiền của sản phẩm này
+                    String.format("%,.0f", tongTienSanPham), 
                     maNV,
                     tenNhanVien,
                     ngayLap,
                     hd.getSoHD()
                 });
 
-                // Cập nhật các ô nhập liệu (trừ Tổng Tiền và Số Lượng)
+                // Cập nhật các ô nhập liệu
                 txtMaKhachHang.setText(hd.getMaKH());
                 txtTenKhachHang.setText(tenKhachHang);
                 txtSoDienThoai.setText(soDienThoai);
@@ -480,8 +475,6 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
                 txtNgayLap.setText(ngayLap);
                 txtSoHoaDon.setText(hd.getSoHD());
             }
-
-            // Sau khi vòng lặp kết thúc, cập nhật ô Tổng Tiền và Số Lượng
             txtTongTien.setText(String.format("%,.0f", tongTienHoaDon));
             txtSoLuong.setText(String.valueOf(tongSoLuong));
 
@@ -491,14 +484,13 @@ public class ChiTietHoaDonJDialog extends javax.swing.JDialog {
         }
     }
 
-    // Hàm để nạp danh sách số hóa đơn vào cboSoHoaDon
     private void fillComboBoxSoHoaDon() {
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
         cboSoHoaDon.setModel(model);
 
         try {
             List<HoaDon> list = hddao.selectAll();
-            // Sử dụng Set để loại bỏ số hóa đơn trùng lặp
+            //dùng Set để  bỏ số hóa đơn trùng lặp
             Set<String> uniqueSoHoaDon = new HashSet<>();
             for (HoaDon hd : list) {
                 if (hd.getSoHD() != null && !hd.getSoHD().isEmpty()) {

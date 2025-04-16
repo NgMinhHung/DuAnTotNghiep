@@ -25,7 +25,7 @@ public class TimKiemKhachHangDAO extends OutFitMeDAO<TimKiemKhachHang, String> {
                 model.getMaKH(),
                 model.getNgayLap(),
                 model.getTenSP(),
-                model.getTongTien(), // ✅ Dùng đúng getter
+                model.getTongTien(),
                 model.getMaNV(),
                 Integer.parseInt(model.getSize()),
                 model.getMaSP()
@@ -38,11 +38,11 @@ public class TimKiemKhachHangDAO extends OutFitMeDAO<TimKiemKhachHang, String> {
         XJdbc.update(sql,
                 model.getNgayLap(),
                 model.getTenSP(),
-                model.getTongTien(), // ✅ Cập nhật tổng tiền
+                model.getTongTien(),
                 model.getMaNV(),
                 Integer.parseInt(model.getSize()),
                 model.getMaSP(),
-                Integer.parseInt(model.getSoHD()) // SoHD dùng làm MaGiaoDich
+                Integer.parseInt(model.getSoHD())
         );
     }
 
@@ -82,11 +82,11 @@ public class TimKiemKhachHangDAO extends OutFitMeDAO<TimKiemKhachHang, String> {
                 entity.setNgayLap(rs.getTimestamp("ThoiGian"));
                 entity.setMaNV(rs.getString("MaNhanVien"));
                 entity.setMaKH(rs.getString("MaKhachHang"));
-                entity.setTenKH(rs.getString("TenKhachHang")); // ✅ tên khách
+                entity.setTenKH(rs.getString("TenKhachHang"));
                 entity.setMaSP(rs.getString("MaSanPham"));
                 entity.setTenSP(rs.getString("SanPham"));
                 entity.setSize(String.valueOf(rs.getInt("SoLuong")));
-                entity.setTongTien(rs.getDouble("TongTien"));  // ✅ tổng tiền
+                entity.setTongTien(rs.getDouble("TongTien"));
                 list.add(entity);
             }
         } catch (SQLException ex) {
@@ -96,7 +96,7 @@ public class TimKiemKhachHangDAO extends OutFitMeDAO<TimKiemKhachHang, String> {
         return list;
     }
 
-// 🔍 Lấy dữ liệu lịch sử mua hàng theo số điện thoại
+//Lấy dữ liệu lịch sử mua hàng theo số điện thoại
     public List<TimKiemKhachHang> selectByKeyword(String soDienThoai) {
         String sql = """
         SELECT ls.MaGiaoDich, ls.ThoiGian, ls.MaNhanVien, ls.MaKhachHang, kh.TenKhachHang,

@@ -29,7 +29,7 @@ public class SanPhamDAO extends OutFitMeDAO<SanPham, String> {
                 model.getSize(),
                 model.getSoLuongTonKho(),
                 model.getPhanLoai(),
-                model.getHinhAnh()); // Thêm ảnh
+                model.getHinhAnh());
     }
 
     @Override
@@ -45,7 +45,7 @@ public class SanPhamDAO extends OutFitMeDAO<SanPham, String> {
                 model.getSize(),
                 model.getSoLuongTonKho(),
                 model.getPhanLoai(),
-                model.getHinhAnh(), // Thêm ảnh
+                model.getHinhAnh(),
                 model.getMaSP());
     }
 
@@ -83,7 +83,7 @@ public class SanPhamDAO extends OutFitMeDAO<SanPham, String> {
                 sp.setSize(rs.getString("Size"));
                 sp.setSoLuongTonKho(rs.getInt("SoLuongTonKho"));
                 sp.setPhanLoai(rs.getString("PhanLoai"));
-                sp.setHinhAnh(rs.getString("HinhAnh")); // Lấy ảnh
+                sp.setHinhAnh(rs.getString("HinhAnh"));
                 list.add(sp);
             }
         } catch (SQLException e) {

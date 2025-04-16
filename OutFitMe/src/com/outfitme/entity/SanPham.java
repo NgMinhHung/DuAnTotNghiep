@@ -20,7 +20,7 @@ public class SanPham {
     private String size;
     private int soLuongTonKho;
     private String phanLoai;
-    private String hinhAnh; // ➕ Thuộc tính ảnh
+    private String hinhAnh;
 
     // Constructor mặc định
     public SanPham() {

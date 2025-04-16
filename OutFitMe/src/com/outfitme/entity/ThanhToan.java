@@ -3,24 +3,22 @@ package com.outfitme.entity;
 import java.util.Date;
 
 public class ThanhToan {
-    private int id;              // Khóa chính tự tăng
-    private String soHD;         // Mã hóa đơn nhập tay
-    private Date ngayLap;        // Ngày lập hóa đơn
-    private String maNV;         // Mã nhân viên
-    private String tenNV;        // Tên nhân viên
-    private String maSP;         // Mã sản phẩm
-    private String tenSP;        // Tên sản phẩm
-    private String size;         // Kích cỡ
-    private int soLuong;         // Số lượng
-    private double giaTien;      // Giá bán
-    private double tongTien;     // Tổng tiền
-    private String maKH;         // Mã khách hàng
+    private int id;              
+    private String soHD;         
+    private Date ngayLap;        
+    private String maNV;        
+    private String tenNV;        
+    private String maSP;        
+    private String tenSP;        
+    private String size;        
+    private int soLuong;        
+    private double giaTien;      
+    private double tongTien;     
+    private String maKH;         
 
-    // Constructor mặc định
     public ThanhToan() {
     }
 
-    // Constructor cho insert (không cần id vì tự tăng)
     public ThanhToan(String soHD, Date ngayLap, String maNV, String maSP, String size, int soLuong, String maKH) {
         this.soHD = soHD;
         this.ngayLap = ngayLap;
@@ -31,7 +29,6 @@ public class ThanhToan {
         this.maKH = maKH;
     }
 
-    // Constructor đầy đủ (dùng khi select từ database)
     public ThanhToan(int id, String soHD, Date ngayLap, String maNV, String tenNV, 
                          String maSP, String tenSP, String size, int soLuong, 
                          double giaTien, double tongTien, String maKH) {

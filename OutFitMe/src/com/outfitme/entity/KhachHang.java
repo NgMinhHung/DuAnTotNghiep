@@ -14,8 +14,8 @@ public class KhachHang {
     private String diaChi;
     private boolean gioiTinh;
     private String soDienThoai;
-    private int diem; // Thêm thuộc tính diem để lưu số điểm
-    private String hinhAnh; // Thêm thuộc tính hinhAnh để lưu tên file hình ảnh
+    private int diem;
+    private String hinhAnh; 
 
     public KhachHang() {
     }
@@ -27,7 +27,7 @@ public class KhachHang {
         this.gioiTinh = gioiTinh;
         this.soDienThoai = soDienThoai;
         this.diem = diem;
-        this.hinhAnh = hinhAnh; // Khởi tạo giá trị cho hinhAnh
+        this.hinhAnh = hinhAnh;
     }
 
     public String getMaKH() {
@@ -88,6 +88,6 @@ public class KhachHang {
 
     @Override
     public String toString() {
-        return tenKH; // Hiển thị tên khách hàng trong JComboBox
+        return tenKH;
     }
 }

@@ -13,17 +13,21 @@ public class LichSuMuaHang {
     private String maNhanVien;
     private String maSanPham;
     private int soLuong;
+    private String size;
 
     public LichSuMuaHang() {
     }
 
-    public LichSuMuaHang(String maKhachHang, Date thoiGian, String sanPham, double tongTien, String tenKhachHang, String maNhanVien) {
+    public LichSuMuaHang(String maKhachHang, Date thoiGian, String sanPham, double tongTien, String tenKhachHang, String maNhanVien, String maSanPham, int soLuong, String size) {
         this.maKhachHang = maKhachHang;
         this.thoiGian = thoiGian;
         this.sanPham = sanPham;
         this.tongTien = tongTien;
         this.tenKhachHang = tenKhachHang;
-        this.maNhanVien = maNhanVien; // Thêm maNhanVien vào constructor
+        this.maNhanVien = maNhanVien;
+        this.maSanPham = maSanPham;
+        this.soLuong = soLuong;
+        this.size = size;
     }
 
     public int getMaGiaoDich() {
@@ -36,22 +40,6 @@ public class LichSuMuaHang {
 
     public String getMaKhachHang() {
         return maKhachHang;
-    }
-
-    public int getSoLuong() {
-        return soLuong;
-    }
-
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
-    }
-
-    public String getMaSanPham() {
-        return maSanPham;
-    }
-
-    public void setMaSanPham(String maSanPham) {
-        this.maSanPham = maSanPham;
     }
 
     public void setMaKhachHang(String maKhachHang) {
@@ -98,6 +86,30 @@ public class LichSuMuaHang {
         this.maNhanVien = maNhanVien;
     }
 
+    public String getMaSanPham() {
+        return maSanPham;
+    }
+
+    public void setMaSanPham(String maSanPham) {
+        this.maSanPham = maSanPham;
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
     @Override
     public String toString() {
         return "LichSuMuaHang{"
@@ -108,7 +120,9 @@ public class LichSuMuaHang {
                 + ", tongTien=" + tongTien
                 + ", tenKhachHang='" + tenKhachHang + '\''
                 + ", maNhanVien='" + maNhanVien + '\''
-                + // Thêm maNhanVien vào toString
-                '}';
+                + ", maSanPham='" + maSanPham + '\''
+                + ", soLuong=" + soLuong
+                + ", size='" + size + '\''
+                + '}';
     }
 }

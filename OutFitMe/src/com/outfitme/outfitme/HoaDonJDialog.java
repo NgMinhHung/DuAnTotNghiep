@@ -515,20 +515,15 @@ public class HoaDonJDialog extends javax.swing.JDialog {
 
     void init() {
         setLocationRelativeTo(null);
-        // Tắt editable cho txtSoHD vì đã tự động tăng trong SQL
+        // Tắt editable cho txtSoHD vì đã tự động tăng
         txtId.setEditable(false);
-
-        // Lấy số hóa đơn mới nhất từ cơ sở dữ liệu để hiển thị
         setNewSoHD();
-
-        // Điền dữ liệu vào các JComboBox
         fillComboBoxMaSP();
         fillComboBoxMaNV();
         fillComboBoxMaKH();
 
-// Làm trống bảng tblHoaDon khi khởi tạo giao diện
         DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
-        model.setRowCount(0); // Đặt số hàng về 0 để bảng trống
+        model.setRowCount(0);
 
         // Thêm sự kiện cho nút Set Date
         btnSetDate.addActionListener(new ActionListener() {
@@ -551,10 +546,10 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                         // Hiển thị tên sản phẩm lên txtTenSanPham
                         txtTenSanPham.setText(sp.getTenSP());
                     } else {
-                        txtTenSanPham.setText(""); // Nếu không tìm thấy sản phẩm, để trống
+                        txtTenSanPham.setText("");
                     }
                 } else {
-                    txtTenSanPham.setText(""); // Nếu không chọn mã sản phẩm, để trống
+                    txtTenSanPham.setText("");
                 }
             }
         });
@@ -562,14 +557,12 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         cboMaNV.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Bỏ updateTable()
             }
         });
 
         cboMaKH.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Bỏ updateTable()
             }
         });
 
@@ -577,7 +570,6 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         txtSoLuong.addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                // Bỏ updateTable()
             }
         });
 
@@ -589,20 +581,13 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                     // Thêm dữ liệu vào bảng tblHoaDon
                     DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
                     String Id = txtId.getText();
-//                    String SoHD = txtSoHoaDon.getText();
-//                    String ngayLap = txtNgayLapHD.getText();
                     String maSP = cboMaSP.getSelectedItem().toString();
                     String tenSP = txtTenSanPham.getText();
-//                    String maNV = cboMaNV.getSelectedItem().toString();
-//                    String maKH = cboMaKH.getSelectedItem().toString();
                     String size = cboSize.getSelectedItem().toString();
                     int soLuong = Integer.parseInt(txtSoLuong.getText());
-
-                    // Thêm một dòng mới vào CUỐI bảng
+                    
                     model.addRow(new Object[]{Id, maSP, tenSP, soLuong, size});
-
                     MsgBox.alert(HoaDonJDialog.this, "Thêm vào bảng thành công!");
-
                     clearFormKoClearTblHoaDon();
                     setNewSoHD();
                 } else {
@@ -611,14 +596,12 @@ public class HoaDonJDialog extends javax.swing.JDialog {
             }
         });
 
-        // Thêm sự kiện cho nút Add vào cthd
+        // Thêm sự kiện cho nút Add vào thanh toán
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
                 int rowCount = model.getRowCount();
-
-                // Kiểm tra xem bảng có dữ liệu không
                 if (rowCount == 0) {
                     MsgBox.alert(HoaDonJDialog.this, "Bảng hóa đơn trống, không có dữ liệu để lưu!");
                     return;
@@ -639,12 +622,10 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                 try {
                     // Duyệt qua từng dòng trong bảng tblHoaDon
                     for (int i = 0; i < rowCount; i++) {
-                        String maSP = model.getValueAt(i, 1).toString();    // Cột 3: Mã sản phẩm
-                        String tenSP = model.getValueAt(i, 2).toString();   // Cột 4: Tên sản phẩm (không lưu vào DB)
-                        String soLuongText = model.getValueAt(i, 3).toString(); // Cột 7: Số lượng
-                        String size = model.getValueAt(i, 4).toString();    // Cột 8: Size
-
-                        // Chuyển đổi số lượng từ String sang int
+                        String maSP = model.getValueAt(i, 1).toString();    
+                        String tenSP = model.getValueAt(i, 2).toString();   
+                        String soLuongText = model.getValueAt(i, 3).toString(); 
+                        String size = model.getValueAt(i, 4).toString();    
                         int soLuong = Integer.parseInt(soLuongText);
 
                         // Tạo đối tượng HoaDon và lưu vào cơ sở dữ liệu
@@ -658,7 +639,6 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                         hd.setSize(size);
                         hddao.insert(hd);
                     }
-
                     MsgBox.alert(HoaDonJDialog.this, "Lưu hóa đơn vào cơ sở dữ liệu thành công!");
 
                     // Xóa dữ liệu tạm trong bảng tblHoaDon
@@ -681,9 +661,9 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         btnMoi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                clearForm(); // Làm trắng form và xóa dữ liệu trong bảng
-                setNewSoHD(); // Cập nhật số hóa đơn mới
-                // fillTable(); // Bỏ dòng này nếu không muốn tải lại dữ liệu từ cơ sở dữ liệu
+                clearForm(); 
+                setNewSoHD();
+
             }
         });
 
@@ -699,11 +679,11 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         tblHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                if (evt.getClickCount() == 2) { // Kiểm tra click đúp
+                if (evt.getClickCount() == 2) { 
                     int selectedRow = tblHoaDon.getSelectedRow();
                     if (selectedRow >= 0) {
+                        
                         // Lấy dữ liệu từ dòng được chọn
-
                         String id = tblHoaDon.getValueAt(selectedRow, 0).toString();
                         String SoHD = tblHoaDon.getValueAt(selectedRow, 1).toString();
                         String ngayLap = tblHoaDon.getValueAt(selectedRow, 2).toString();
@@ -736,7 +716,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
             int lastSoHD = list.get(list.size() - 1).getId();
             txtId.setText(String.valueOf(lastSoHD + 1));
         } else {
-            txtId.setText("1"); // Nếu chưa có hóa đơn nào, bắt đầu từ 1
+            txtId.setText("1");
         }
     }
 
@@ -792,13 +772,13 @@ public class HoaDonJDialog extends javax.swing.JDialog {
 // Cập nhật dữ liệu vào bảng tblHoaDon
     private void updateTable() {
         DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
-        model.setRowCount(0); // Xóa dữ liệu cũ trong bảng
+        model.setRowCount(0); 
 
         String Id = txtId.getText();
         String SoHD = txtSoHoaDon.getText();
         String ngayLap = txtNgayLapHD.getText();
         String maSP = cboMaSP.getSelectedItem() != null ? cboMaSP.getSelectedItem().toString() : "";
-        String tenSP = txtTenSanPham.getText(); // Lấy tên sản phẩm từ txtTenSanPham
+        String tenSP = txtTenSanPham.getText(); 
         String maNV = cboMaNV.getSelectedItem() != null ? cboMaNV.getSelectedItem().toString() : "";
         String maKH = cboMaKH.getSelectedItem() != null ? cboMaKH.getSelectedItem().toString() : "";
         String soLuong = txtSoLuong.getText();
@@ -808,7 +788,6 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                 int soLuongInt = Integer.parseInt(soLuong);
                 model.addRow(new Object[]{Id, SoHD, ngayLap, maSP, tenSP, maNV, maKH, soLuongInt});
             } catch (NumberFormatException e) {
-                // Không thêm nếu số lượng không hợp lệ
             }
         }
     }
@@ -819,7 +798,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
             return false;
         }
         if (cboMaSP.getSelectedItem() == null) {
-            return false; // Kiểm tra MaSP
+            return false; 
         }
         if (cboMaNV.getSelectedItem() == null) {
             return false;
@@ -853,7 +832,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
 
         // Xóa dữ liệu trong bảng tblHoaDon
         DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
-        model.setRowCount(0); // Đặt số hàng về 0 để làm trống bảng
+        model.setRowCount(0);
     }
 
 // Hàm tìm hóa đơn theo SoHD (nút Tìm)
@@ -914,8 +893,8 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                     tenSP = sp.getTenSP();
                 }
                 model.addRow(new Object[]{
-                    hd.getId(), // Hiển thị Id
-                    hd.getSoHD(), // Hiển thị SoHD
+                    hd.getId(), 
+                    hd.getSoHD(), 
                     hd.getNgayLap(),
                     hd.getMaSP(),
                     tenSP,
@@ -934,12 +913,8 @@ public class HoaDonJDialog extends javax.swing.JDialog {
     // Hàm làm trắng form (nút Mới)
     private void clearFormKoClearTblHoaDon() {
         cboMaSP.setSelectedIndex(-1);
-//        cboMaNV.setSelectedIndex(-1);
-//        cboMaKH.setSelectedIndex(-1);
-//        txtNgayLapHD.setText("");
         txtSoLuong.setText("");
         txtTenSanPham.setText("");
         txtSearch.setText("");
-        // Không xóa dữ liệu trong bảng tblHoaDon
     }
 }

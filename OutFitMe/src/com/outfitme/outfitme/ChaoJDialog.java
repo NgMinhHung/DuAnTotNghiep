@@ -131,7 +131,6 @@ public class ChaoJDialog extends javax.swing.JDialog {
 
     progressBar1.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100), 2));
     
-    // Hiệu ứng mượt hơn với Timer  
     new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -139,7 +138,7 @@ public class ChaoJDialog extends javax.swing.JDialog {
             if (value < 100) {
                 progressBar1.setValue(value + 1);
             } else {
-                ((Timer) e.getSource()).stop(); // Dừng Timer khi hoàn tất
+                ((Timer) e.getSource()).stop();
                 ChaoJDialog.this.dispose();
             }
         }

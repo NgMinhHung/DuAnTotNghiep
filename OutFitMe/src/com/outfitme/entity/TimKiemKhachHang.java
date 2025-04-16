@@ -16,11 +16,11 @@ public class TimKiemKhachHang {
     private Date ngayLap;
     private String maNV;
     private String maKH;
-    private String tenKH;     // Thêm tên khách hàng
+    private String tenKH;     
     private String maSP;
-    private String tenSP;     // Tên sản phẩm
+    private String tenSP;    
     private String size;
-    private double tongTien;  // Thêm tổng tiền
+    private double tongTien;  
 
     public TimKiemKhachHang() {
     }

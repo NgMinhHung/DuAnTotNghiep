@@ -26,12 +26,7 @@ public class ThongKeDAO {
         String[] cols = {"MaSanPham", "TenSanPham", "SoLuongTonKho", "SLDaBan"};
         return this.getListOfArray(sql, cols, maSP, year);
     }
-
-//    public List<Object[]> getDHNV(String maNV){
-//        String sql = "{CALL sp_HDNV1 (?)}";
-//        String[] cols = {"MaNhanVien", "TenNhanVien", "TongSohoaDon"};
-//        return this.getListOfArray(sql, cols, maNV);
-//    }
+    
     public List<Object[]> getDHNV(String maNV, int nam) {
         String sql = "{CALL sp_HDNV2(?, ?)}";
         String[] cols = {"MaNhanVien", "TenNhanVien", "TongSohoaDon"};
@@ -111,14 +106,14 @@ public class ThongKeDAO {
     }
 
     public List<Object[]> getDoanhThuTheoNam(int nam) {
-        String sql = "SELECT COUNT(*) AS TongGiaoDich, "
+        String sql = "SELECT SUM(SoLuong) AS TongSanPham, "
                 + "SUM(TongTien) AS TongDoanhThu, "
                 + "MIN(TongTien) AS ThapNhat, "
                 + "MAX(TongTien) AS CaoNhat, "
                 + "AVG(TongTien) AS TrungBinh "
                 + "FROM LichSuMuaHang "
                 + "WHERE YEAR(ThoiGian) = ?";
-        String[] cols = {"TongGiaoDich", "TongDoanhThu", "ThapNhat", "CaoNhat", "TrungBinh"};
+        String[] cols = {"TongSanPham", "TongDoanhThu", "ThapNhat", "CaoNhat", "TrungBinh"};
         return this.getListOfArray(sql, cols, nam);
     }
 

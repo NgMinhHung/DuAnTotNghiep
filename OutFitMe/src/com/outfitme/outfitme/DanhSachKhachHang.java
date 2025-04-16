@@ -210,21 +210,13 @@ public class DanhSachKhachHang extends javax.swing.JDialog {
     private javax.swing.JTextField txtSDT;
     // End of variables declaration//GEN-END:variables
     SanPhamDAO sanPhamDAO = new SanPhamDAO();
-    private void init() {
-        // Đặt vị trí giữa màn hình
-        setLocationRelativeTo(null);
 
-        // Khởi tạo tableModel
+    private void init() {
+        setLocationRelativeTo(null);
         tableModel = (DefaultTableModel) tblSanPham.getModel();
         tableModel.setRowCount(0);
-
-        // Đặt font hỗ trợ tiếng Việt
         tblSanPham.setFont(new java.awt.Font("Arial", 0, 14));
-
-        // Fill dữ liệu vào ComboBox
         fillComboBoxKhachHang();
-
-        // Fill dữ liệu ban đầu (nếu có khách hàng được chọn)
         if (cboDanhSachKhachHang.getItemCount() > 0) {
             cboDanhSachKhachHang.setSelectedIndex(0);
             updateKhachHangInfo();
@@ -255,11 +247,11 @@ public class DanhSachKhachHang extends javax.swing.JDialog {
                 int diem = kh.getDiem();
                 String capBac;
                 if (diem >= 1500) {
-                    capBac = "Kim Cương";
+                    capBac = "Diamond";
                 } else if (diem >= 1000) {
-                    capBac = "Vàng";
+                    capBac = "Gold";
                 } else if (diem >= 500) {
-                    capBac = "Bạc";
+                    capBac = "Silver";
                 } else {
                     capBac = "Member";
                 }
@@ -285,8 +277,7 @@ public class DanhSachKhachHang extends javax.swing.JDialog {
 
         for (LichSuMuaHang ls : lichSuList) {
             if (ls.getMaKhachHang().equals(maKH)) {
-                var sanPham = sanPhamDAO.selectById(ls.getMaSanPham());
-                String size = (sanPham != null) ? sanPham.getSize() : "N/A";
+                String size = ls.getSize() != null ? ls.getSize() : "N/A";
 
                 tableModel.addRow(new Object[]{
                     ls.getSanPham(),
@@ -297,5 +288,4 @@ public class DanhSachKhachHang extends javax.swing.JDialog {
             }
         }
     }
-
 }

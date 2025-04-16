@@ -462,7 +462,7 @@ KhachHangDAO dao = new KhachHangDAO();
             return;
         }
 
-        // ✅ Kiểm tra lịch sử trước khi mở form
+        // Kiểm tra lịch sử trước khi mở form
         TimKiemKhachHangDAO dao = new TimKiemKhachHangDAO();
         List<TimKiemKhachHang> list = dao.selectByKeyword(soDienThoai);
 
@@ -471,9 +471,9 @@ KhachHangDAO dao = new KhachHangDAO();
             return;
         }
 
-        // ✅ Có lịch sử -> mới mở form
+        //Có lịch sử -> mới mở form
         TimKiemKhachHangJDialog dialog = new TimKiemKhachHangJDialog(parent1, true, soDienThoai);
-        this.setAlwaysOnTop(false); // Trước khi gọi dialog mới
+        this.setAlwaysOnTop(false);
         dialog.setVisible(true);
     }
 
@@ -549,28 +549,28 @@ KhachHangDAO dao = new KhachHangDAO();
             clearForm();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Cập nhật khách hàng thất bại! Lỗi: " + e.getMessage());
-            e.printStackTrace(); // In lỗi ra console để debug nếu cần
+            e.printStackTrace();
         }
     }
 
    private void delete() {
-    String sdt = txtSDT.getText().trim(); // Lấy số điện thoại để xóa
+    String sdt = txtSDT.getText().trim();
     if (sdt.isEmpty()) {
         MsgBox.alert(this, "⚠ Vui lòng nhập Số Điện Thoại để xóa!");
         return;
     }
 
     try {
-        dao.delete(sdt);  // Xóa khách hàng theo số điện thoại
+        dao.delete(sdt);
         this.loadTable();
         this.clearForm();
-        MsgBox.alert(this, "✅ Xóa thành công!");
+        MsgBox.alert(this, "Xóa thành công!");
     } catch (Exception e) {
         // Kiểm tra xem lỗi có phải do ràng buộc khóa ngoại không
         if (e.getMessage().contains("REFERENCE constraint") && e.getMessage().contains("FK_LichSuMuaHang_KhachHang")) {
-            MsgBox.alert(this, "❌ Không thể xóa khách hàng vì đã tồn tại lịch sử mua hàng liên quan!");
+            MsgBox.alert(this, "Không thể xóa khách hàng vì đã tồn tại lịch sử mua hàng liên quan!");
         } else {
-            MsgBox.alert(this, "❌ Xóa thất bại!\n" + e.getMessage());
+            MsgBox.alert(this, " Xóa thất bại!\n" + e.getMessage());
         }
         e.printStackTrace();
     }
@@ -583,7 +583,7 @@ KhachHangDAO dao = new KhachHangDAO();
         kh.setTenKH(txtTenKH.getText());
         kh.setSoDienThoai(txtSDT.getText());
         kh.setDiaChi(txtDiaChi.getText());
-        kh.setGioiTinh(rdoNam.isSelected()); // Nếu rdoNam được chọn => true (Nam), nếu không => false (Nữ)
+        kh.setGioiTinh(rdoNam.isSelected());
         kh.setHinhAnh(lblHinh.getToolTipText());
         return kh;
     }
@@ -646,7 +646,6 @@ KhachHangDAO dao = new KhachHangDAO();
             // Lưu hình ảnh vào thư mục cố định hoặc lưu tên file vào database
             String fileName = file.getName();
             XImage.save(file); // Lưu ảnh vào thư mục cố định (Cần xác định thư mục)
-
             // Điều chỉnh kích thước hình ảnh cho phù hợp với JLabel
             ImageIcon icon = XImage.read(fileName);
             Image img = icon.getImage();
