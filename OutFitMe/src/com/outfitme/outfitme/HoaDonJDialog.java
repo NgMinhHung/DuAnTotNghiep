@@ -16,6 +16,9 @@ import com.outfitme.utils.MsgBox;
 import com.outfitme.utils.XJdbc;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.ItemEvent;
 import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -263,6 +267,11 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         jLabel4.setText("Size");
 
         cboSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "S", "M", "L", "XL" }));
+        cboSize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboSizeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -415,6 +424,10 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         chiTietDialog.setLocationRelativeTo(this);
         chiTietDialog.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cboSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSizeActionPerformed
+
+    }//GEN-LAST:event_cboSizeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -716,7 +729,6 @@ public class HoaDonJDialog extends javax.swing.JDialog {
             }
         });
     }
-
 // Lấy số hóa đơn mới nhất từ cơ sở dữ liệu
     private void setNewSoHD() {
         List<HoaDon> list = hddao.selectAll();

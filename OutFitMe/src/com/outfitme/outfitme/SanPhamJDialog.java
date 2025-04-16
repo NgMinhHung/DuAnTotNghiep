@@ -536,22 +536,22 @@ public class SanPhamJDialog extends javax.swing.JDialog {
             }
         });
 
-        cboLoai.addItemListener(e -> {
-            if (e.getStateChange() == ItemEvent.SELECTED) {
-                String loai = e.getItem().toString().trim();
-                cboSize.removeAllItems();
-                if (loai.equalsIgnoreCase("Giày")) {
-                    for (int i = 35; i <= 45; i++) {
-                        cboSize.addItem(String.valueOf(i));
-                    }
-                } else {
-                    cboSize.addItem("S");
-                    cboSize.addItem("M");
-                    cboSize.addItem("L");
-                    cboSize.addItem("XL");
-                }
-            }
-        });
+//        cboLoai.addItemListener(e -> {
+//            if (e.getStateChange() == ItemEvent.SELECTED) {
+//                String loai = e.getItem().toString().trim();
+//                cboSize.removeAllItems();
+//                if (loai.equalsIgnoreCase("Giày")) {
+//                    for (int i = 35; i <= 45; i++) {
+//                        cboSize.addItem(String.valueOf(i));
+//                    }
+//                } else {
+//                    cboSize.addItem("S");
+//                    cboSize.addItem("M");
+//                    cboSize.addItem("L");
+//                    cboSize.addItem("XL");
+//                }
+//            }
+//        });
     }
 
     private void loadLoaiSanPham() {
