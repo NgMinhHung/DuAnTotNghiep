@@ -99,7 +99,6 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         cboSize = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
-        btnInHoaDon = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("OutFitMe - Hóa Đơn");
@@ -335,13 +334,6 @@ public class HoaDonJDialog extends javax.swing.JDialog {
             }
         });
 
-        btnInHoaDon.setText("In Hóa Đơn");
-        btnInHoaDon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInHoaDonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -370,8 +362,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnChiTietHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addComponent(btnInHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -388,9 +379,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                             .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addGap(71, 71, 71)
-                        .addComponent(btnAdd)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnInHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAdd)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -452,11 +441,6 @@ public class HoaDonJDialog extends javax.swing.JDialog {
 
     }//GEN-LAST:event_cboSizeActionPerformed
 
-    private void btnInHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHoaDonActionPerformed
-        // TODO add your handling code here:
-        btnInHoaDon.addActionListener(e -> exportToPDF(txtSoHoaDon.getText()));
-    }//GEN-LAST:event_btnInHoaDonActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -502,7 +486,6 @@ public class HoaDonJDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnChiTietHoaDon;
-    private javax.swing.JButton btnInHoaDon;
     private javax.swing.JButton btnMoi;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSetDate;
@@ -946,110 +929,6 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         txtSoLuong.setText("");
         txtTenSanPham.setText("");
         txtSearch.setText("");
-    }
-    public void exportToPDF(String soHoaDon) {
-        Document document = new Document();
-        try {
-            // Tạo đối tượng PDFWriter để lưu file
-            String filePath = "HoaDon_" + soHoaDon + ".pdf"; // Đường dẫn lưu file PDF
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
-
-            // Mở tài liệu để ghi
-            document.open();
-
-            // Cung cấp đường dẫn đến file font TTF trên hệ thống của bạn
-            String fontPath = "C:/Windows/Fonts/times.ttf"; // Hoặc đường dẫn đến file font bạn muốn sử dụng
-
-            // Tạo font từ file TTF
-            BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-            Font font = new Font(baseFont, 12); // Sử dụng font từ file TTF
-
-            // Tạo font đậm cho tiêu đề
-            Font fontBold = new Font(baseFont, 12, Font.BOLD);
-
-            // Lấy tên nhân viên và khách hàng từ DAO
-            String maNV = cboMaNV.getSelectedItem().toString(); // Lấy mã nhân viên
-            String maKH = cboMaKH.getSelectedItem().toString(); // Lấy mã khách hàng
-
-            // Giả sử bạn có phương thức trong DAO để lấy tên
-            String tenNhanVien = NhanVienDAO.getTenNhanVienById(maNV); // Lấy tên nhân viên từ mã
-            String tenKhachHang = KhachHangDAO.getTenKhachHangById(maKH); // Lấy tên khách hàng từ mã
-
-            // Thêm tiêu đề
-            document.add(new Paragraph("HÓA ĐƠN", fontBold));
-            document.add(new Paragraph("Số Hóa Đơn: " + soHoaDon, font));
-            document.add(new Paragraph("Ngày Lập: " + txtNgayLapHD.getText(), font));
-            document.add(new Paragraph("--------------------------------------------------", font));
-
-            // Thêm bảng với thông tin chi tiết hóa đơn
-            PdfPTable table = new PdfPTable(6); // 6 cột: Mã SP, Tên SP, Số lượng, Đơn giá, Tổng tiền, Tổng cộng
-            table.addCell(new Phrase("Mã Sản Phẩm", fontBold));
-            table.addCell(new Phrase("Tên Sản Phẩm", fontBold));
-            table.addCell(new Phrase("Số Lượng", fontBold));
-            table.addCell(new Phrase("Đơn Giá", fontBold));
-            table.addCell(new Phrase("Tổng Tiền", fontBold));
-            table.addCell(new Phrase("Tổng Cộng", fontBold));  // Cột tổng cộng cho tất cả sản phẩm
-
-            double tongToanBo = 0; // Biến tính tổng tiền của tất cả sản phẩm
-
-            // Lặp qua các dòng trong bảng tblHoaDon để thêm vào PDF
-            DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
-            for (int i = 0; i < model.getRowCount(); i++) {
-                String maSP = model.getValueAt(i, 1).toString();
-                String tenSP = model.getValueAt(i, 2).toString();
-                int soLuong = Integer.parseInt(model.getValueAt(i, 3).toString());
-                // Lấy đơn giá sản phẩm từ cơ sở dữ liệu nếu cần
-                double donGia = spdao.selectById(maSP).getGiaBan();
-                double tongTien = donGia * soLuong;
-
-                // Cộng dồn vào tổng tiền
-                tongToanBo += tongTien;
-
-                table.addCell(new Phrase(maSP, font));
-                table.addCell(new Phrase(tenSP, font));
-                table.addCell(new Phrase(String.valueOf(soLuong), font));
-                table.addCell(new Phrase(String.valueOf(donGia), font));
-                table.addCell(new Phrase(String.valueOf(tongTien), font));
-                table.addCell(new Phrase("", font)); // Cột này sẽ để trống cho từng sản phẩm
-            }
-
-            // Thêm một dòng mới để hiển thị tổng cộng
-            table.addCell(new Phrase("", font)); // Cột Mã SP
-            table.addCell(new Phrase("", font)); // Cột Tên SP
-            table.addCell(new Phrase("", font)); // Cột Số Lượng
-            table.addCell(new Phrase("", font)); // Cột Đơn Giá
-            table.addCell(new Phrase("Tổng Cộng", fontBold)); // Cột "Tổng Cộng"
-            table.addCell(new Phrase(String.valueOf(tongToanBo), font)); // Hiển thị tổng tiền tất cả sản phẩm
-
-            // Thêm bảng vào tài liệu PDF
-            document.add(table);
-
-            // Thêm thông tin nhân viên và khách hàng
-            document.add(new Paragraph("--------------------------------------------------", font));
-            document.add(new Paragraph("Nhân Viên: " + tenNhanVien, font));  // Sử dụng tên nhân viên
-            document.add(new Paragraph("Khách Hàng: " + tenKhachHang, font));  // Sử dụng tên khách hàng
-
-            // Đóng tài liệu
-            document.close();
-
-            // Kiểm tra xem file PDF đã được tạo thành công hay chưa
-            File file = new File(filePath);
-            if (file.exists()) {
-                // Mở file PDF sau khi tạo thành công
-                if (Desktop.isDesktopSupported()) {
-                    Desktop.getDesktop().open(file);
-                } else {
-                    System.out.println("Không thể mở file PDF tự động.");
-                }
-                MsgBox.alert(this, "Hóa đơn đã được in ra PDF thành công!");
-            } else {
-                MsgBox.alert(this, "Lỗi khi xuất hóa đơn ra PDF!");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            MsgBox.alert(this, "Lỗi khi xuất hóa đơn ra PDF: " + e.getMessage());
-        }
     }
 
 }
