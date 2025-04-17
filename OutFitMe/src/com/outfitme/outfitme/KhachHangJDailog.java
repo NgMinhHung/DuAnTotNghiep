@@ -76,6 +76,8 @@ public class KhachHangJDailog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
 
+        btnThem.setBackground(new java.awt.Color(0, 153, 153));
+        btnThem.setForeground(new java.awt.Color(255, 255, 255));
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/them.png"))); // NOI18N
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
@@ -84,6 +86,8 @@ public class KhachHangJDailog extends javax.swing.JDialog {
             }
         });
 
+        btnSua.setBackground(new java.awt.Color(204, 0, 204));
+        btnSua.setForeground(new java.awt.Color(255, 255, 255));
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/updated.png"))); // NOI18N
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
@@ -92,6 +96,8 @@ public class KhachHangJDailog extends javax.swing.JDialog {
             }
         });
 
+        btnXoa.setBackground(new java.awt.Color(0, 51, 153));
+        btnXoa.setForeground(new java.awt.Color(255, 255, 255));
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Delete.png"))); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
@@ -100,6 +106,8 @@ public class KhachHangJDailog extends javax.swing.JDialog {
             }
         });
 
+        btnMoi.setBackground(new java.awt.Color(204, 204, 0));
+        btnMoi.setForeground(new java.awt.Color(255, 255, 255));
         btnMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/refesh.png"))); // NOI18N
         btnMoi.setText("Mới");
         btnMoi.addActionListener(new java.awt.event.ActionListener() {
@@ -157,6 +165,8 @@ public class KhachHangJDailog extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(tblKhachHang);
 
+        btnTimKiem.setBackground(new java.awt.Color(102, 102, 255));
+        btnTimKiem.setForeground(new java.awt.Color(255, 255, 255));
         btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Search.png"))); // NOI18N
         btnTimKiem.setText("Tim Kiếm");
         btnTimKiem.setMaximumSize(new java.awt.Dimension(108, 30));

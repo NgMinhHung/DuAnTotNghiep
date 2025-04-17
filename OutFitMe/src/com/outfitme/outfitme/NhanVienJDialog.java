@@ -80,7 +80,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         rdoChuSop = new javax.swing.JRadioButton();
         rdoNhanVien = new javax.swing.JRadioButton();
         jPanel5 = new javax.swing.JPanel();
-        lblHinhAnh = new javax.swing.JLabel();
+        lblHinhanh = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -160,6 +160,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
+        btnThem.setBackground(new java.awt.Color(51, 255, 204));
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Add.png"))); // NOI18N
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
@@ -168,6 +169,8 @@ public class NhanVienJDialog extends javax.swing.JDialog {
             }
         });
 
+        btnXoa.setBackground(new java.awt.Color(255, 102, 102));
+        btnXoa.setForeground(new java.awt.Color(255, 255, 255));
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Delete.png"))); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
@@ -176,6 +179,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
             }
         });
 
+        btnSua.setBackground(new java.awt.Color(102, 255, 255));
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Refresh.png"))); // NOI18N
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
@@ -184,6 +188,8 @@ public class NhanVienJDialog extends javax.swing.JDialog {
             }
         });
 
+        btnMoi.setBackground(new java.awt.Color(51, 51, 255));
+        btnMoi.setForeground(new java.awt.Color(255, 255, 255));
         btnMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/refesh.png"))); // NOI18N
         btnMoi.setText("Mới");
         btnMoi.addActionListener(new java.awt.event.ActionListener() {
@@ -279,7 +285,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
                     .addComponent(btnPreV)
                     .addComponent(btnNext)
                     .addComponent(btnLast))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         jLabel11.setText("Chức vụ:");
@@ -290,12 +296,14 @@ public class NhanVienJDialog extends javax.swing.JDialog {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblHinhAnh.setBackground(new java.awt.Color(255, 255, 255));
-        lblHinhAnh.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblHinhAnh.setForeground(new java.awt.Color(51, 0, 51));
-        lblHinhAnh.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblHinhanh.setBackground(new java.awt.Color(255, 255, 255));
+        lblHinhanh.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblHinhanh.setForeground(new java.awt.Color(51, 0, 51));
+        lblHinhanh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHinhanh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblHinhanh.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblHinhAnhMouseClicked(evt);
+                lblHinhanhMouseClicked(evt);
             }
         });
 
@@ -303,11 +311,11 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblHinhAnh, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+            .addComponent(lblHinhanh, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(lblHinhanh, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -459,7 +467,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -478,7 +486,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(fileChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+                .addComponent(fileChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -503,8 +511,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addComponent(tabs))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -515,7 +522,9 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -569,10 +578,10 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
-    private void lblHinhAnhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHinhAnhMouseClicked
+    private void lblHinhanhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHinhanhMouseClicked
         // TODO add your handling code here:
         this.chonAnh();
-    }//GEN-LAST:event_lblHinhAnhMouseClicked
+    }//GEN-LAST:event_lblHinhanhMouseClicked
 
     /**
      * @param args the command line arguments
@@ -651,7 +660,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel lblHinhAnh;
+    private javax.swing.JLabel lblHinhanh;
     private javax.swing.JRadioButton rdoChuSop;
     private javax.swing.JRadioButton rdoNam;
     private javax.swing.JRadioButton rdoNhanVien;
@@ -718,14 +727,21 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         } else {
             rdoNhanVien.setSelected(true);
         }
-        // Thêm hiển thị hình ảnh
+        // Kiểm tra nếu có ảnh
         if (nv.getHinhAnh() != null && !nv.getHinhAnh().isEmpty()) {
+            // Đọc ảnh từ cơ sở dữ liệu (ví dụ hình ảnh lưu dưới dạng đường dẫn)
             ImageIcon icon = XImage.read(nv.getHinhAnh());
-            lblHinhAnh.setIcon(icon);
-            lblHinhAnh.setToolTipText(nv.getHinhAnh());
+            Image img = icon.getImage();
+
+            // Điều chỉnh kích thước hình ảnh sao cho phù hợp với JLabel
+            Image scaledImage = img.getScaledInstance(167, 225, Image.SCALE_SMOOTH);
+
+            // Đặt icon cho JLabel mà không làm thay đổi kích thước của JLabel
+            lblHinhanh.setIcon(new ImageIcon(scaledImage));
+            lblHinhanh.setToolTipText(nv.getHinhAnh());
         } else {
-            lblHinhAnh.setIcon(null);
-            lblHinhAnh.setToolTipText("");
+            lblHinhanh.setIcon(null);
+            lblHinhanh.setToolTipText("");
         }
     }
 
@@ -741,7 +757,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         nv.setMatKhau(txtMatKhau.getText());
         nv.setChucVu(rdoChuSop.isSelected());
         // Thêm lấy dữ liệu hình ảnh
-        nv.setHinhAnh(lblHinhAnh.getToolTipText() != null ? lblHinhAnh.getToolTipText() : "");
+        nv.setHinhAnh(lblHinhanh.getToolTipText());
         return nv;
     }
 
@@ -755,7 +771,7 @@ public class NhanVienJDialog extends javax.swing.JDialog {
                 || txtMatKhau.getText().trim().isEmpty()
                 || (!rdoNam.isSelected() && !rdoNu.isSelected())
                 || (!rdoChuSop.isSelected() && !rdoNhanVien.isSelected())
-                || (lblHinhAnh.getToolTipText() == null || lblHinhAnh.getToolTipText().trim().isEmpty())) {
+                || (lblHinhanh.getToolTipText() == null || lblHinhanh.getToolTipText().trim().isEmpty())) {
 
             MsgBox.alert(this, "Vui lòng nhập đầy đủ thông tin, bao gồm hình ảnh!");
             return false;
@@ -803,8 +819,8 @@ public class NhanVienJDialog extends javax.swing.JDialog {
         txtDiaChi.setText("");
         txtTaiKhoan.setText("");
         txtMatKhau.setText("");
-        lblHinhAnh.setIcon(null); // Xóa hình ảnh
-        lblHinhAnh.setToolTipText(""); // Xóa tên file hình ảnh
+        lblHinhanh.setIcon(null); // Xóa hình ảnh
+        lblHinhanh.setToolTipText(""); // Xóa tên file hình ảnh
 
         // Bỏ chọn tất cả nút radio
         rdoNam.setSelected(false);
@@ -884,18 +900,21 @@ public class NhanVienJDialog extends javax.swing.JDialog {
     }
 
     void chonAnh() {
+        JFileChooser fileChooser = new JFileChooser();
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
-            // Lưu hình ảnh vào thư mục cố định hoặc lưu tên file vào database
             String fileName = file.getName();
-            XImage.save(file); // Lưu ảnh vào thư mục cố định (Cần xác định thư mục)
+            XImage.save(file);
 
-            // Điều chỉnh kích thước hình ảnh cho phù hợp với JLabel
+            // Đọc ảnh từ file và điều chỉnh kích thước
             ImageIcon icon = XImage.read(fileName);
             Image img = icon.getImage();
-            Image scaledImage = img.getScaledInstance(192, 227, Image.SCALE_SMOOTH);
-            lblHinhAnh.setIcon(new ImageIcon(scaledImage));
-            lblHinhAnh.setToolTipText(fileName);
+
+            Image scaledImage = img.getScaledInstance(167, 225, Image.SCALE_SMOOTH);
+
+            // Đặt icon cho JLabel mà không làm thay đổi kích thước của JLabel
+            lblHinhanh.setIcon(new ImageIcon(scaledImage));
+            lblHinhanh.setToolTipText(fileName); // Lưu tên file vào tooltip của label
         }
     }
 }

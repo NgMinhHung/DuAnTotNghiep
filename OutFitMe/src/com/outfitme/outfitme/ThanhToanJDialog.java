@@ -142,6 +142,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         });
         tblChiTietHoaDon.setViewportView(tblThanhToan);
 
+        btnSoHD.setBackground(new java.awt.Color(255, 51, 255));
+        btnSoHD.setForeground(new java.awt.Color(255, 255, 255));
         btnSoHD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/research.png"))); // NOI18N
         btnSoHD.setText("Tìm theo HĐ");
         btnSoHD.addActionListener(new java.awt.event.ActionListener() {
@@ -305,6 +307,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                     .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
+        btnKiemTraDiem.setBackground(new java.awt.Color(51, 255, 255));
         btnKiemTraDiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/icon_check.png"))); // NOI18N
         btnKiemTraDiem.setText("Kiểm tra điểm");
         btnKiemTraDiem.addActionListener(new java.awt.event.ActionListener() {

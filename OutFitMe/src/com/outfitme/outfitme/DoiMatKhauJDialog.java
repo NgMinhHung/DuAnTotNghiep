@@ -48,6 +48,8 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        btnDoiMatKhau1.setBackground(new java.awt.Color(51, 204, 0));
+        btnDoiMatKhau1.setForeground(new java.awt.Color(255, 255, 255));
         btnDoiMatKhau1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/dongy.png"))); // NOI18N
         btnDoiMatKhau1.setText("Đồng ý");
         btnDoiMatKhau1.addActionListener(new java.awt.event.ActionListener() {
@@ -56,6 +58,8 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
             }
         });
 
+        btnHuy1.setBackground(new java.awt.Color(255, 0, 0));
+        btnHuy1.setForeground(new java.awt.Color(255, 255, 255));
         btnHuy1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/cancel.png"))); // NOI18N
         btnHuy1.setText("Hủy bỏ");
         btnHuy1.addActionListener(new java.awt.event.ActionListener() {
@@ -103,9 +107,9 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnDoiMatKhau1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnHuy1)))
+                        .addComponent(btnDoiMatKhau1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnHuy1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

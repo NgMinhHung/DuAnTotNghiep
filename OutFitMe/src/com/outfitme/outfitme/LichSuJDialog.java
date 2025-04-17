@@ -107,6 +107,7 @@ public class LichSuJDialog extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Tiền");
 
+        btnClose.setBackground(new java.awt.Color(255, 51, 0));
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Exit.png"))); // NOI18N
         btnClose.setText("Đóng");
         btnClose.addActionListener(new java.awt.event.ActionListener() {
@@ -115,6 +116,8 @@ public class LichSuJDialog extends javax.swing.JDialog {
             }
         });
 
+        btnDelete.setBackground(new java.awt.Color(255, 102, 102));
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Delete.png"))); // NOI18N
         btnDelete.setText("Xóa");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -138,6 +141,7 @@ public class LichSuJDialog extends javax.swing.JDialog {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel7.setText("Mã giao dịch");
 
+        btnSapXep.setBackground(new java.awt.Color(0, 255, 51));
         btnSapXep.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/sapxep.png"))); // NOI18N
         btnSapXep.setText("Sắp xếp");
         btnSapXep.addActionListener(new java.awt.event.ActionListener() {
@@ -146,6 +150,7 @@ public class LichSuJDialog extends javax.swing.JDialog {
             }
         });
 
+        btnSearch.setBackground(new java.awt.Color(255, 221, 69));
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Search.png"))); // NOI18N
         btnSearch.setText("Tìm");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -165,13 +170,19 @@ public class LichSuJDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSapXep)
-                        .addGap(110, 110, 110)
-                        .addComponent(btnSearch)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnSapXep)
+                                .addGap(98, 98, 98)
+                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnDelete)
+                        .addGap(1, 1, 1)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -183,10 +194,6 @@ public class LichSuJDialog extends javax.swing.JDialog {
                             .addComponent(txtTime, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addContainerGap())
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnDelete)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnClose))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(19, 19, 19))
@@ -203,6 +210,9 @@ public class LichSuJDialog extends javax.swing.JDialog {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(txtMaGD, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnClose)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(

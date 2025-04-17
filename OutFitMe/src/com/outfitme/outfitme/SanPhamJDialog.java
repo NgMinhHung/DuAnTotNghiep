@@ -133,6 +133,8 @@ public class SanPhamJDialog extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(tblSP);
 
+        Search.setBackground(new java.awt.Color(153, 153, 153));
+        Search.setForeground(new java.awt.Color(255, 255, 255));
         Search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Search.png"))); // NOI18N
         Search.setText("Search");
         Search.addActionListener(new java.awt.event.ActionListener() {
@@ -143,6 +145,7 @@ public class SanPhamJDialog extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        btnNew.setBackground(new java.awt.Color(51, 255, 204));
         btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/refesh.png"))); // NOI18N
         btnNew.setText("New");
         btnNew.addActionListener(new java.awt.event.ActionListener() {
@@ -151,6 +154,8 @@ public class SanPhamJDialog extends javax.swing.JDialog {
             }
         });
 
+        btnSave.setBackground(new java.awt.Color(255, 0, 102));
+        btnSave.setForeground(new java.awt.Color(255, 255, 255));
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/them.png"))); // NOI18N
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -159,6 +164,8 @@ public class SanPhamJDialog extends javax.swing.JDialog {
             }
         });
 
+        btnDelete.setBackground(new java.awt.Color(255, 51, 51));
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Delete.png"))); // NOI18N
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -167,6 +174,8 @@ public class SanPhamJDialog extends javax.swing.JDialog {
             }
         });
 
+        btnUpdate.setBackground(new java.awt.Color(51, 51, 255));
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/updated.png"))); // NOI18N
         btnUpdate.setText("Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -381,7 +390,7 @@ public class SanPhamJDialog extends javax.swing.JDialog {
                             .addComponent(jLabel9)
                             .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Search))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
