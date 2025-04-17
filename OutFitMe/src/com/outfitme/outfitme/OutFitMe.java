@@ -501,11 +501,31 @@ public class OutFitMe extends javax.swing.JFrame {
     private javax.swing.JMenu mnuQuanli;
     private javax.swing.JMenu mnuTroGiup;
     // End of variables declaration//GEN-END:variables
- void init() {
+void init() {
         setIconImage(XImage.getAppIcon());
         new ChaoJDialog(this, true).setVisible(true);
         new DangNhapJDialog(this, true).setVisible(true);
+
+        // Cập nhật giao diện sau khi đăng nhập
+        if (Auth.isLogin()) {
+            updateUIVisibility();
+        }
+
         this.startDongHo();
+    }
+
+    private void updateUIVisibility() {
+        if (Auth.isManager()) {
+            // Chủ shop: hiện nút và menu
+            btnNhanVien.setVisible(true);
+            btnThongKe.setVisible(true);
+            mniNhanVien.setVisible(true);
+        } else {
+            // Nhân viên: ẩn nút và menu
+            btnNhanVien.setVisible(false);
+            btnThongKe.setVisible(false);
+            mniNhanVien.setVisible(false);
+        }
     }
 
     void startDongHo() {
@@ -526,6 +546,10 @@ public class OutFitMe extends javax.swing.JFrame {
     void dangXuat() {
         Auth.clear();
         new DangNhapJDialog(this, true).setVisible(true);
+        // Cập nhật giao diện sau khi đăng nhập lại
+        if (Auth.isLogin()) {
+            updateUIVisibility();
+        }
     }
 
     void ketThuc() {
@@ -568,7 +592,11 @@ public class OutFitMe extends javax.swing.JFrame {
 
     void OpenNhanVien() {
         if (Auth.isLogin()) {
-            new NhanVienJDialog(this, true).setVisible(true);
+            if (Auth.isManager()) {
+                new NhanVienJDialog(this, true).setVisible(true);
+            } else {
+                MsgBox.alert(this, "Chỉ chủ shop mới được truy cập chức năng này!");
+            }
         } else {
             MsgBox.alert(this, "Vui lòng đăng nhập!");
         }
@@ -576,7 +604,11 @@ public class OutFitMe extends javax.swing.JFrame {
 
     void OpenThongKe() {
         if (Auth.isLogin()) {
-            new ThongKeJDialog(this, true).setVisible(true);
+            if (Auth.isManager()) {
+                new ThongKeJDialog(this, true).setVisible(true);
+            } else {
+                MsgBox.alert(this, "Chỉ chủ shop mới được truy cập chức năng này!");
+            }
         } else {
             MsgBox.alert(this, "Vui lòng đăng nhập!");
         }
@@ -620,6 +652,5 @@ public class OutFitMe extends javax.swing.JFrame {
         } else {
             MsgBox.alert(this, "Vui lòng đăng nhập!");
         }
-
     }
 }
