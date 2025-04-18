@@ -224,7 +224,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
-        btnSearch.setBackground(new java.awt.Color(0, 204, 255));
+        btnSearch.setBackground(new java.awt.Color(102, 255, 102));
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/icon_find.png"))); // NOI18N
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -235,7 +235,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
 
         jLabel2.setText("Tìm kiếm Số hóa đơn");
 
-        btnThem.setBackground(new java.awt.Color(0, 204, 0));
+        btnThem.setBackground(new java.awt.Color(0, 153, 255));
         btnThem.setForeground(new java.awt.Color(255, 255, 255));
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/them.png"))); // NOI18N
         btnThem.setText("Thêm");
@@ -245,7 +245,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
             }
         });
 
-        btnThanhToan.setBackground(new java.awt.Color(255, 153, 0));
+        btnThanhToan.setBackground(new java.awt.Color(0, 153, 255));
         btnThanhToan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/chitiethoadon.png"))); // NOI18N
         btnThanhToan.setText("Thanh Toán");
         btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
@@ -254,7 +254,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
             }
         });
 
-        btnMoi.setBackground(new java.awt.Color(0, 153, 153));
+        btnMoi.setBackground(new java.awt.Color(0, 153, 255));
         btnMoi.setForeground(new java.awt.Color(255, 255, 255));
         btnMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/refesh.png"))); // NOI18N
         btnMoi.setText("Mới");
@@ -333,8 +333,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
-        btnChiTietHoaDon.setBackground(new java.awt.Color(255, 0, 0));
-        btnChiTietHoaDon.setForeground(new java.awt.Color(255, 255, 255));
+        btnChiTietHoaDon.setBackground(new java.awt.Color(0, 153, 255));
         btnChiTietHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/document-signed.png"))); // NOI18N
         btnChiTietHoaDon.setText("Chi Tiết Hóa đơn");
         btnChiTietHoaDon.addActionListener(new java.awt.event.ActionListener() {
