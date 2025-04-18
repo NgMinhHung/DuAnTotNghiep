@@ -86,8 +86,7 @@ public class KhachHangJDailog extends javax.swing.JDialog {
             }
         });
 
-        btnSua.setBackground(new java.awt.Color(204, 0, 204));
-        btnSua.setForeground(new java.awt.Color(255, 255, 255));
+        btnSua.setBackground(new java.awt.Color(0, 255, 51));
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/updated.png"))); // NOI18N
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
@@ -96,7 +95,7 @@ public class KhachHangJDailog extends javax.swing.JDialog {
             }
         });
 
-        btnXoa.setBackground(new java.awt.Color(0, 51, 153));
+        btnXoa.setBackground(new java.awt.Color(255, 51, 51));
         btnXoa.setForeground(new java.awt.Color(255, 255, 255));
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/Delete.png"))); // NOI18N
         btnXoa.setText("Xóa");
@@ -106,8 +105,7 @@ public class KhachHangJDailog extends javax.swing.JDialog {
             }
         });
 
-        btnMoi.setBackground(new java.awt.Color(204, 204, 0));
-        btnMoi.setForeground(new java.awt.Color(255, 255, 255));
+        btnMoi.setBackground(new java.awt.Color(0, 255, 204));
         btnMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/refesh.png"))); // NOI18N
         btnMoi.setText("Mới");
         btnMoi.addActionListener(new java.awt.event.ActionListener() {

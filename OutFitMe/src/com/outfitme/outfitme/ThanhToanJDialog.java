@@ -142,7 +142,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         });
         tblChiTietHoaDon.setViewportView(tblThanhToan);
 
-        btnSoHD.setBackground(new java.awt.Color(255, 51, 255));
+        btnSoHD.setBackground(new java.awt.Color(102, 153, 255));
         btnSoHD.setForeground(new java.awt.Color(255, 255, 255));
         btnSoHD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/research.png"))); // NOI18N
         btnSoHD.setText("Tìm theo HĐ");
@@ -181,6 +181,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Thanh Toán", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
+        btnXoa.setBackground(new java.awt.Color(255, 153, 153));
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/icon_xoa.png"))); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
@@ -189,6 +190,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
             }
         });
 
+        btnThanhToan.setBackground(new java.awt.Color(102, 255, 102));
         btnThanhToan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/icon_thanhtoan.png"))); // NOI18N
         btnThanhToan.setText("Thanh Toán");
         btnThanhToan.addActionListener(new java.awt.event.ActionListener() {

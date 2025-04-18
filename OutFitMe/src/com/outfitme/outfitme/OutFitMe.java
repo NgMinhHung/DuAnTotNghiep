@@ -114,7 +114,7 @@ public class OutFitMe extends javax.swing.JFrame {
             }
         });
 
-        btnNhanVien.setBackground(new java.awt.Color(255, 0, 255));
+        btnNhanVien.setBackground(new java.awt.Color(255, 102, 102));
         btnNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/outfitme/icon/users-alt (1).png"))); // NOI18N
         btnNhanVien.setText("Nhân viên");
         btnNhanVien.addActionListener(new java.awt.event.ActionListener() {
